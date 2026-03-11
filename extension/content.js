@@ -9,7 +9,49 @@
   if (window.__bulkWASenderLoaded) return;
   window.__bulkWASenderLoaded = true;
 
+  // ── Wake Lock to prevent browser/tab sleep ─────────────────
+  let wakeLock = null;
+
+  async function acquireWakeLock() {
+    try {
+      if ("wakeLock" in navigator) {
+        wakeLock = await navigator.wakeLock.request("screen");
+        wakeLock.addEventListener("release", () => { wakeLock = null; });
+        console.log("[BulkWA] Wake lock acquired — browser will stay awake");
+      }
+    } catch (e) {
+      console.warn("[BulkWA] Wake lock failed:", e.message);
+    }
+  }
+
+  function releaseWakeLock() {
+    if (wakeLock) {
+      wakeLock.release();
+      wakeLock = null;
+      console.log("[BulkWA] Wake lock released");
+    }
+  }
+
+  // Re-acquire wake lock if tab becomes visible again (Chrome releases it on tab hide)
+  document.addEventListener("visibilitychange", async () => {
+    if (document.visibilityState === "visible" && wakeLock === null && window.__bulkWAKeepAwake) {
+      await acquireWakeLock();
+    }
+  });
+
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "keepAwake") {
+      if (request.enable) {
+        window.__bulkWAKeepAwake = true;
+        acquireWakeLock();
+      } else {
+        window.__bulkWAKeepAwake = false;
+        releaseWakeLock();
+      }
+      sendResponse({ ok: true });
+      return false;
+    }
+
     if (request.action === "performSend") {
       performSend(request)
         .then((result) => sendResponse(result))

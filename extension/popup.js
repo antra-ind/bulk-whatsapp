@@ -261,6 +261,35 @@ function personaliseMessage(message, contactData) {
 }
 
 // ── Bulk Preview ───────────────────────────────────────────────
+// ── Live warnings for delay and contact count ──────────────────
+function updateDelayWarning() {
+  const minVal = parseInt($("#bulk-delay-min").value) || 5;
+  const warning = $("#delay-warning");
+  if (minVal < 8) {
+    warning.classList.remove("hidden");
+  } else {
+    warning.classList.add("hidden");
+  }
+}
+
+function updateContactWarning() {
+  const contacts = parseContacts();
+  const warning = $("#contact-warning");
+  if (contacts.length > 250) {
+    warning.classList.remove("hidden");
+  } else {
+    warning.classList.add("hidden");
+  }
+}
+
+$("#bulk-delay-min").addEventListener("input", updateDelayWarning);
+$("#bulk-delay-max").addEventListener("input", updateDelayWarning);
+$("#bulk-contacts").addEventListener("input", updateContactWarning);
+$("#csv-upload").addEventListener("change", () => setTimeout(updateContactWarning, 500));
+
+// Initial check
+updateDelayWarning();
+
 $("#btn-preview-bulk").addEventListener("click", () => {
   const contacts = parseContacts();
   const message = $("#bulk-message").value.trim();
@@ -295,10 +324,27 @@ $("#btn-send-bulk").addEventListener("click", async () => {
 
   const contacts = parseContacts();
   const message = $("#bulk-message").value.trim();
-  const delay = Math.max(5, parseInt($("#bulk-delay").value) || 8) * 1000;
+  const delayMin = Math.max(3, parseInt($("#bulk-delay-min").value) || 5) * 1000;
+  const delayMax = Math.max(delayMin + 2000, parseInt($("#bulk-delay-max").value) || 12) * 1000;
 
   if (contacts.length === 0) return alert("Add at least one contact");
   if (!message && !bulkFileData) return alert("Enter a message or attach a file");
+
+  // Warn if delay is too low
+  if (delayMin < 8000) {
+    const proceedDelay = confirm(
+      "⚠️ Warning: Delay below 8 seconds increases the risk of your account being flagged by WhatsApp.\n\nDo you want to continue anyway?"
+    );
+    if (!proceedDelay) return;
+  }
+
+  // Warn if too many contacts
+  if (contacts.length > 250) {
+    const proceedCount = confirm(
+      `⚠️ Warning: You are about to send to ${contacts.length} contacts.\n\nSending more than 250 messages per day can get your WhatsApp account temporarily or permanently blocked.\n\nDo you want to continue anyway?`
+    );
+    if (!proceedCount) return;
+  }
 
   const waTab = await checkWhatsAppTab();
   if (!waTab) {
@@ -309,12 +355,15 @@ $("#btn-send-bulk").addEventListener("click", async () => {
 
   const attachInfo = bulkFileData ? ` + 📎 ${bulkFileData.name}` : "";
   const ok = confirm(
-    `Send to ${contacts.length} contact(s)?${attachInfo}\nDelay: ${delay / 1000}s between messages`
+    `Send to ${contacts.length} contact(s)?${attachInfo}\nDelay: ${delayMin / 1000}–${delayMax / 1000}s (random) between messages`
   );
   if (!ok) return;
 
   isSending = true;
   stopRequested = false;
+
+  // Ask content script to keep the browser awake
+  sendKeepAwake(waTab.id, true);
 
   $("#btn-send-bulk").classList.add("hidden");
   $("#btn-stop-bulk").classList.remove("hidden");
@@ -355,12 +404,18 @@ $("#btn-send-bulk").addEventListener("click", async () => {
     updateProgress(i + 1, contacts.length, sent, failed);
 
     if (i < contacts.length - 1 && !stopRequested) {
-      appendLog(log, `⏳ Waiting ${delay / 1000}s...`, "skip");
-      await sleep(delay);
+      const randomDelay = delayMin + Math.random() * (delayMax - delayMin);
+      const delaySec = Math.round(randomDelay / 1000);
+      appendLog(log, `⏳ Waiting ${delaySec}s...`, "skip");
+      await sleep(randomDelay);
     }
   }
 
   isSending = false;
+
+  // Release wake lock
+  sendKeepAwake(waTab.id, false);
+
   $("#btn-send-bulk").classList.remove("hidden");
   $("#btn-stop-bulk").classList.add("hidden");
 
@@ -545,6 +600,10 @@ function escapeHtml(str) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function sendKeepAwake(tabId, enable) {
+  chrome.runtime.sendMessage({ action: "keepAwake", tabId, enable });
 }
 
 // ── Error toast ──────────────────────────────────────────────────

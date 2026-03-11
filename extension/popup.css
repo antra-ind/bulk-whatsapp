@@ -311,6 +311,33 @@ input[type="checkbox"] {
   flex: 1;
 }
 
+/* Warning & Info Boxes */
+.warning-box {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.info-box {
+  background: #fff8e1;
+  color: #7a6200;
+  border: 1px solid #ffe082;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.info-box strong {
+  color: #e65100;
+}
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;

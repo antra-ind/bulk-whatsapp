@@ -13,6 +13,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .catch((err) => sendResponse({ success: false, error: err.message }));
     return true; // async
   }
+
+  if (request.action === "keepAwake") {
+    const { tabId, enable } = request;
+    chrome.tabs.sendMessage(tabId, { action: "keepAwake", enable }).catch(() => {});
+    sendResponse({ ok: true });
+    return false;
+  }
 });
 
 async function forwardToContent({ phone, message, attachment }) {

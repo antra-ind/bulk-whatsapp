@@ -83,7 +83,24 @@
 
       <div class="form-group">
         <label>Delay between messages (seconds)</label>
-        <input type="number" id="bulk-delay" value="8" min="5" max="60" />
+        <div class="delay-range">
+          <input type="number" id="bulk-delay-min" value="5" min="3" max="60" />
+          <span class="delay-sep">to</span>
+          <input type="number" id="bulk-delay-max" value="12" min="5" max="120" />
+          <span class="delay-unit">sec</span>
+        </div>
+        <small class="help-text">Random delay between each message to avoid detection</small>
+        <div id="delay-warning" class="warning-box hidden">
+          ⚠️ Delay below 8 seconds increases the risk of your account being flagged by WhatsApp.
+        </div>
+      </div>
+
+      <div id="contact-warning" class="warning-box hidden">
+        ⚠️ You have more than 250 contacts. Sending too many messages per day can get your account temporarily or permanently blocked by WhatsApp. Consider splitting into batches.
+      </div>
+
+      <div class="info-box">
+        ⚠️ <strong>Limit:</strong> Do not send more than 250 messages per day. Exceeding this may result in your WhatsApp account being blocked.
       </div>
 
       <div id="bulk-preview" class="preview hidden">
@@ -140,11 +157,6 @@
     <!-- Community Footer -->
     <div class="community-footer">
       <p>Made with ❤️ by <strong>Antra Open Source Community</strong></p>
-      <p class="donate-line">
-        🎓 <a href="https://www.vvki.org/free-education.php?utm_source=bulk-whatsapp&utm_medium=extension" target="_blank" rel="noopener">
-          Donate for Art of Living Free Education
-        </a>
-      </p>
     </div>
 
     <!-- Error Toast -->
