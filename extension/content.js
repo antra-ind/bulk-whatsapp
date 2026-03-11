@@ -207,30 +207,48 @@
     await clickSendButton();
   }
 
-  // ── Send file via clipboard paste or attachment button ───────
+  // ── Send file via drag-drop / paste / attach button ──────────
   async function sendFileViaAttachButton(attachment) {
     const response = await fetch(attachment.dataUrl);
     const blob = await response.blob();
     const file = new File([blob], attachment.name, { type: attachment.type });
+    const dataUrl = await fileToDataUrl(file);
 
-    const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
+    // Method 1: Drag and drop (most reliable for React apps in main world)
+    await callInject(
+      "__bulkWA_attachFile",
+      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "drop" },
+      "__bulkWA_attachResult"
+    );
+    await sleep(2000);
 
-    if (isMedia) {
-      await pasteFileToChat(file);
+    if (await checkForMediaEditor(3000)) return;
 
-      // Check if media editor appeared — if not, fall back to attach button
-      const editorAppeared = await checkForMediaEditor(3000);
-      if (!editorAppeared) {
-        const sent = await tryAttachButtonMethod(file);
-        if (!sent) {
-          throw new Error("Could not attach image — both paste and attach button failed");
-        }
-      }
-    } else {
-      const sent = await tryAttachButtonMethod(file);
-      if (!sent) {
-        await pasteFileToChat(file);
-      }
+    // Method 2: Clipboard paste in main world
+    const composeBox =
+      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+      document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
+      document.querySelector('footer div[contenteditable="true"]');
+    if (composeBox) composeBox.focus();
+    await sleep(500);
+
+    await callInject(
+      "__bulkWA_attachFile",
+      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "paste" },
+      "__bulkWA_attachResult"
+    );
+    await sleep(2000);
+
+    if (await checkForMediaEditor(3000)) return;
+
+    // Method 3: Attach button + file input in main world
+    const sent = await tryAttachButtonMethod(file);
+    if (!sent) {
+      throw new Error("Could not attach file — all methods failed (drop, paste, attach button)");
+    }
+
+    if (!(await checkForMediaEditor(3000))) {
+      throw new Error("File input accepted but media editor did not appear");
     }
   }
 
@@ -250,30 +268,6 @@
         resolve({ success: false, error: "timeout" });
       }, timeoutMs);
     });
-  }
-
-  async function pasteFileToChat(file) {
-    // Focus the compose box first
-    const composeBox =
-      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
-      document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-      document.querySelector('footer div[contenteditable="true"]');
-
-    if (composeBox) {
-      composeBox.focus();
-      await sleep(500);
-    }
-
-    // Convert file to data URL so we can pass it across worlds via CustomEvent
-    const dataUrl = await fileToDataUrl(file);
-
-    const result = await callInject(
-      "__bulkWA_attachFile",
-      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "paste" },
-      "__bulkWA_attachResult"
-    );
-
-    await sleep(2000);
   }
 
   function fileToDataUrl(file) {
@@ -314,8 +308,19 @@
 
     if (menuItem) {
       menuItem.click();
-      await sleep(800);
+      await sleep(1200);
     }
+
+    // Wait for file input to appear in the DOM
+    let fileInputReady = false;
+    for (let i = 0; i < 10; i++) {
+      if (document.querySelectorAll('input[type="file"]').length > 0) {
+        fileInputReady = true;
+        break;
+      }
+      await sleep(300);
+    }
+    if (!fileInputReady) return false;
 
     // Delegate file-input setting to inject.js (main world) for React compatibility
     const dataUrl = await fileToDataUrl(file);
@@ -503,7 +508,7 @@
 
       // Last resort: press Enter via inject.js
       if (attempts >= 10) {
-        const enterResult = await callInject(
+        await callInject(
           "__bulkWA_pressEnter",
           {},
           "__bulkWA_pressEnterResult",

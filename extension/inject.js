@@ -21,7 +21,9 @@
 
       let success = false;
 
-      if (method === "paste") {
+      if (method === "drop") {
+        success = doDrop(file);
+      } else if (method === "paste") {
         success = doPaste(file);
       } else if (method === "input") {
         success = doFileInput(file);
@@ -33,7 +35,6 @@
         })
       );
     } catch (err) {
-      // error silenced for production
       document.dispatchEvent(
         new CustomEvent("__bulkWA_attachResult", {
           detail: { success: false, error: err.message },
@@ -80,6 +81,30 @@
     }
   });
 
+  // ── Drop file onto the chat area (most reliable for React) ───
+  function doDrop(file) {
+    // Find the chat conversation area to drop onto
+    const dropTarget =
+      document.querySelector('[data-testid="conversation-panel-body"]') ||
+      document.querySelector("#main") ||
+      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+      document.querySelector("#app");
+
+    if (!dropTarget) return false;
+
+    const dt = new DataTransfer();
+    dt.items.add(file);
+
+    // Simulate the full drag-and-drop sequence that React listens for
+    const commonOpts = { bubbles: true, cancelable: true, dataTransfer: dt };
+
+    dropTarget.dispatchEvent(new DragEvent("dragenter", commonOpts));
+    dropTarget.dispatchEvent(new DragEvent("dragover", commonOpts));
+    dropTarget.dispatchEvent(new DragEvent("drop", commonOpts));
+
+    return true;
+  }
+
   // ── Paste file into the focused compose box ──────────────────
   function doPaste(file) {
     const composeBox =
@@ -106,7 +131,7 @@
     });
 
     const target = composeBox || document.querySelector("#app") || document.body;
-    const dispatched = target.dispatchEvent(pasteEvent);
+    target.dispatchEvent(pasteEvent);
     return true;
   }
 

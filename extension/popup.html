@@ -36,12 +36,12 @@
         <textarea id="single-message" rows="4" placeholder="Type your message here..."></textarea>
       </div>
 
-      <!-- Single Attachment (disabled) -->
-      <div class="form-group disabled-feature">
-        <label>Attach Image / Video / File <small>(coming soon)</small></label>
-        <div class="file-drop-zone disabled" id="single-drop-zone" style="opacity:0.5;pointer-events:none">
-          <input type="file" id="single-file" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx" disabled />
-          <p>📎 Attachment support coming soon</p>
+      <!-- Single Attachment -->
+      <div class="form-group">
+        <label>Attach Image / Video / File <small>(optional)</small></label>
+        <div class="file-drop-zone" id="single-drop-zone">
+          <input type="file" id="single-file" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx" />
+          <p>📎 Click or drag file here</p>
         </div>
         <div id="single-file-preview" class="file-preview hidden"></div>
       </div>
@@ -72,12 +72,12 @@
         <textarea id="bulk-message" rows="4" placeholder="Hello {{name}} from {{company}}, this is a reminder..."></textarea>
       </div>
 
-      <!-- Bulk Attachment (disabled) -->
-      <div class="form-group disabled-feature">
-        <label>Attach Image / Video / File <small>(coming soon)</small></label>
-        <div class="file-drop-zone disabled" id="bulk-drop-zone" style="opacity:0.5;pointer-events:none">
-          <input type="file" id="bulk-file" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx" disabled />
-          <p>📎 Attachment support coming soon</p>
+      <!-- Bulk Attachment -->
+      <div class="form-group">
+        <label>Attach Image / Video / File <small>(same file sent to all)</small></label>
+        <div class="file-drop-zone" id="bulk-drop-zone">
+          <input type="file" id="bulk-file" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx" />
+          <p>📎 Click or drag file here</p>
         </div>
         <div id="bulk-file-preview" class="file-preview hidden"></div>
       </div>
