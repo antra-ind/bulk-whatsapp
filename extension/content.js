@@ -209,18 +209,56 @@
     await clickSendButton();
   }
 
-  // ── Send file via the attachment button + hidden input ───────
+  // ── Send file via clipboard paste or attachment button ───────
   async function sendFileViaAttachButton(attachment) {
     const response = await fetch(attachment.dataUrl);
     const blob = await response.blob();
     const file = new File([blob], attachment.name, { type: attachment.type });
 
-    // Try Method 1: Attachment button → hidden file input
-    const sent = await tryAttachButtonMethod(file);
-    if (sent) return;
+    const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
 
-    // Try Method 2: Clipboard paste
-    await tryClipboardPaste(file);
+    if (isMedia) {
+      // For images/videos: clipboard paste works reliably
+      console.log("[BulkWA] Using clipboard paste for media:", file.type);
+      await pasteFileToChat(file);
+    } else {
+      // For documents: use attachment button + file input
+      console.log("[BulkWA] Using attach button for document:", file.type);
+      const sent = await tryAttachButtonMethod(file);
+      if (!sent) {
+        // Fallback to clipboard paste even for docs
+        console.log("[BulkWA] Attach button failed, trying clipboard paste");
+        await pasteFileToChat(file);
+      }
+    }
+  }
+
+  async function pasteFileToChat(file) {
+    // Focus the compose box first so WhatsApp receives the paste
+    const composeBox =
+      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+      document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
+      document.querySelector('footer div[contenteditable="true"]');
+
+    if (composeBox) {
+      composeBox.focus();
+      await sleep(300);
+    }
+
+    const dt = new DataTransfer();
+    dt.items.add(file);
+
+    const pasteEvent = new ClipboardEvent("paste", {
+      bubbles: true,
+      cancelable: true,
+      clipboardData: dt,
+    });
+
+    // Dispatch on the focused element or compose box
+    const target = composeBox || document.querySelector("#main") || document.querySelector("#app");
+    target.dispatchEvent(pasteEvent);
+    console.log("[BulkWA] Clipboard paste dispatched for:", file.name);
+    await sleep(2000);
   }
 
   async function tryAttachButtonMethod(file) {
@@ -285,29 +323,6 @@
     await sleep(1500);
     return true;
   }
-
-  async function tryClipboardPaste(file) {
-    const target =
-      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
-      document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-      document.querySelector("#main") ||
-      document.querySelector("#app");
-
-    if (!target) {
-      throw new Error("Could not find chat area for file paste");
-    }
-
-    const dt = new DataTransfer();
-    dt.items.add(file);
-
-    const pasteEvent = new ClipboardEvent("paste", {
-      bubbles: true,
-      cancelable: true,
-      clipboardData: dt,
-    });
-
-    target.dispatchEvent(pasteEvent);
-    await sleep(1500);
   }
 
   // ── Wait for attachment preview ──────────────────────────────
