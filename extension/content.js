@@ -1,9 +1,13 @@
 // Content script injected into WhatsApp Web
-// Handles ONLY DOM operations — no navigation.
-// Navigation is done by background.js before this script is called.
+// Handles ALL send logic via WhatsApp Web's own UI — NO page reloads.
+// Opens chats using an internal link click, types messages, attaches files.
 
 (function () {
   "use strict";
+
+  // Prevent duplicate listeners if script is injected multiple times
+  if (window.__bulkWASenderLoaded) return;
+  window.__bulkWASenderLoaded = true;
 
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "performSend") {
@@ -14,20 +18,23 @@
     }
   });
 
-  async function performSend({ hasAttachment, attachment, caption }) {
-    // Wait for the chat compose box to appear (page was just navigated here)
+  async function performSend({ phone, message, attachment }) {
+    // Step 1: Open the chat for this phone number WITHOUT reloading the page.
+    // We create a temporary <a> link with the /send?phone= URL and click it.
+    // WhatsApp Web intercepts this internally (SPA routing) — no reload.
     try {
-      await waitForChatReady();
+      await openChatForPhone(phone);
     } catch (err) {
       throw new Error(
         `CHAT_NOT_READY: ${err.message}. ` +
         "Make sure WhatsApp Web is logged in and the phone number exists on WhatsApp."
       );
     }
+
     await sleep(1500);
 
-    if (hasAttachment) {
-      // Open the attachment menu and send file via the hidden file input
+    if (attachment) {
+      // Step 2a: Attach file
       try {
         await sendFileViaAttachButton(attachment);
       } catch (err) {
@@ -37,17 +44,17 @@
         );
       }
 
-      // Wait for the attachment preview / media editor screen
+      // Wait for preview
       await waitForAttachmentPreview();
       await sleep(800);
 
-      // Type caption if provided
-      if (caption) {
-        await typeCaption(caption);
+      // Type caption
+      if (message) {
+        await typeCaption(message);
         await sleep(500);
       }
 
-      // Click send on the attachment preview
+      // Send
       try {
         await clickSendButton();
       } catch (err) {
@@ -58,13 +65,12 @@
       }
       await sleep(2000);
     } else {
-      // Text was pre-filled by the URL (?text=...), just click send
-      await sleep(500);
+      // Step 2b: Type text message and send
       try {
-        await clickSendButton();
+        await typeAndSendMessage(message);
       } catch (err) {
         throw new Error(
-          "SEND_BUTTON_NOT_FOUND: Could not find the send button. " +
+          `SEND_FAILED: ${err.message}. ` +
           "Make sure the chat loaded. Try refreshing WhatsApp Web."
         );
       }
@@ -74,16 +80,32 @@
     return { success: true };
   }
 
+  // ── Open chat via internal link click (no page reload) ───────
+  async function openChatForPhone(phone) {
+    const url = `https://web.whatsapp.com/send/?phone=${phone}&type=phone_number&app_absent=0`;
+
+    // Create a hidden link and click it — WhatsApp Web handles it as SPA route
+    const a = document.createElement("a");
+    a.href = url;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Wait for the chat compose box to appear
+    await waitForChatReady();
+  }
+
   // ── Wait for chat to be ready ────────────────────────────────
   function waitForChatReady() {
     return new Promise((resolve, reject) => {
       let attempts = 0;
-      const maxAttempts = 60; // 30 seconds
+      const maxAttempts = 40; // 20 seconds
 
       const check = setInterval(() => {
         attempts++;
 
-        // Check for various error popups
+        // Check for error popups (invalid number, not on WhatsApp)
         const okBtn = document.querySelector('[data-testid="popup-controls-ok"]');
         const popupContents = document.querySelector('[data-testid="popup-contents"]');
         if (okBtn) {
@@ -102,9 +124,9 @@
 
         // Look for the compose box (chat is ready)
         const composeBox =
+          document.querySelector('[data-testid="conversation-compose-box-input"]') ||
           document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-          document.querySelector('footer div[contenteditable="true"]') ||
-          document.querySelector('[data-testid="conversation-compose-box-input"]');
+          document.querySelector('footer div[contenteditable="true"]');
 
         if (composeBox) {
           clearInterval(check);
@@ -120,9 +142,33 @@
     });
   }
 
+  // ── Type message into compose box and press Enter ────────────
+  async function typeAndSendMessage(text) {
+    const composeBox =
+      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+      document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
+      document.querySelector('footer div[contenteditable="true"]');
+
+    if (!composeBox) {
+      throw new Error("Could not find message input box");
+    }
+
+    // Focus and clear any existing content
+    composeBox.focus();
+    await sleep(200);
+
+    // Type the message using execCommand (works with WhatsApp's React input)
+    document.execCommand("selectAll", false, null);
+    document.execCommand("insertText", false, text);
+    composeBox.dispatchEvent(new Event("input", { bubbles: true }));
+    await sleep(300);
+
+    // Click the send button or press Enter
+    await clickSendButton();
+  }
+
   // ── Send file via the attachment button + hidden input ───────
   async function sendFileViaAttachButton(attachment) {
-    // Convert dataUrl back to a File
     const response = await fetch(attachment.dataUrl);
     const blob = await response.blob();
     const file = new File([blob], attachment.name, { type: attachment.type });
@@ -136,12 +182,11 @@
   }
 
   async function tryAttachButtonMethod(file) {
-    // Click the "+" / paperclip attachment button
     const attachBtn =
       document.querySelector('[data-testid="attach-menu-plus"]') ||
       document.querySelector('span[data-icon="plus"]')?.closest("button") ||
-      document.querySelector('span[data-icon="attach-menu-plus"]')?.closest("div[role='button']") ||
-      document.querySelector('span[data-icon="plus"]')?.closest("div[role='button']") ||
+      document.querySelector('span[data-icon="attach-menu-plus"]')?.closest('div[role="button"]') ||
+      document.querySelector('span[data-icon="plus"]')?.closest('div[role="button"]') ||
       document.querySelector('[title="Attach"]') ||
       document.querySelector('[aria-label="Attach"]');
 
@@ -150,12 +195,9 @@
     attachBtn.click();
     await sleep(800);
 
-    // Find the appropriate file input
-    // WhatsApp Web creates hidden <input type="file"> elements for each attachment type
     const fileInputs = document.querySelectorAll('input[type="file"]');
     if (fileInputs.length === 0) return false;
 
-    // Choose the right input based on file type
     let targetInput = null;
     const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
 
@@ -171,27 +213,22 @@
       }
     }
 
-    // Fallback: use the last file input (usually the document/generic one)
     if (!targetInput) {
       targetInput = fileInputs[fileInputs.length - 1];
     }
 
-    // Set the file on the input using DataTransfer
     const dt = new DataTransfer();
     dt.items.add(file);
     targetInput.files = dt.files;
-
-    // Trigger change event
     targetInput.dispatchEvent(new Event("change", { bubbles: true }));
     await sleep(1000);
     return true;
   }
 
   async function tryClipboardPaste(file) {
-    // Fallback: paste via ClipboardEvent
     const target =
+      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
       document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-      document.querySelector("footer div[contenteditable='true']") ||
       document.querySelector("#main") ||
       document.querySelector("#app");
 
@@ -216,12 +253,11 @@
   function waitForAttachmentPreview() {
     return new Promise((resolve) => {
       let attempts = 0;
-      const maxAttempts = 20; // 10 seconds
+      const maxAttempts = 20;
 
       const check = setInterval(() => {
         attempts++;
 
-        // Check for media editor / preview panel
         const preview =
           document.querySelector('[data-testid="media-editor"]') ||
           document.querySelector('[data-testid="media-canvas"]') ||
@@ -229,7 +265,6 @@
           document.querySelector('[data-testid="media-editor-container"]') ||
           document.querySelector(".draw-container");
 
-        // Also check if a send button appeared in the preview
         const sendInPreview =
           document.querySelector('[data-testid="send"]') ||
           document.querySelector('span[data-icon="send"]');
@@ -242,7 +277,7 @@
 
         if (attempts >= maxAttempts) {
           clearInterval(check);
-          resolve(); // Don't reject — might still work
+          resolve();
         }
       }, 500);
     });
@@ -252,7 +287,6 @@
   async function typeCaption(text) {
     await sleep(500);
 
-    // Find caption input — it's a contenteditable div in the media editor
     const captionInput =
       document.querySelector('[data-testid="media-caption-input-container"] div[contenteditable="true"]') ||
       document.querySelector('[data-testid="media-caption-text-input"]') ||
@@ -268,7 +302,6 @@
   }
 
   function findCaptionContentEditable() {
-    // Find the contenteditable that's NOT the main compose box
     const allEditable = document.querySelectorAll('div[contenteditable="true"]');
     const mainCompose = document.querySelector('div[contenteditable="true"][data-tab="10"]');
 
@@ -277,7 +310,6 @@
         return el;
       }
     }
-    // Fallback: last contenteditable that isn't the main compose
     for (let i = allEditable.length - 1; i >= 0; i--) {
       if (allEditable[i] !== mainCompose) return allEditable[i];
     }
@@ -293,7 +325,6 @@
       const tryClick = setInterval(() => {
         attempts++;
 
-        // Try multiple selectors for the send button
         const sendBtn =
           document.querySelector('[data-testid="send"]') ||
           document.querySelector('span[data-icon="send"]')?.closest("button") ||
@@ -308,9 +339,10 @@
           return;
         }
 
-        // Fallback after several attempts: press Enter on compose box
+        // Fallback: press Enter
         if (attempts >= 5) {
           const composeBox =
+            document.querySelector('[data-testid="conversation-compose-box-input"]') ||
             document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
             document.querySelector('footer div[contenteditable="true"]');
           if (composeBox) {
