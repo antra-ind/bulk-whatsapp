@@ -49,14 +49,23 @@ async function forwardToContent({ phone, message, attachment }) {
     );
   }
 
-  // Ensure content script is injected (Edge sometimes needs this)
+  // Ensure content scripts are injected (needed after extension update or on Edge)
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ["inject.js"],
+      world: "MAIN",
+    });
+  } catch (e) {
+    // inject.js already loaded or MAIN world not supported — ok
+  }
   try {
     await chrome.scripting.executeScript({
       target: { tabId },
       files: ["content.js"],
     });
   } catch (e) {
-    // Already injected via manifest — that's fine
+    // content.js already loaded — ok
   }
 
   // Build payload for content script

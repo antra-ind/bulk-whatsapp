@@ -6,8 +6,9 @@
 (function () {
   "use strict";
 
-  if (window.__bulkWAInjectLoaded) return;
-  window.__bulkWAInjectLoaded = true;
+  const INJECT_VERSION = "1.1.1";
+  if (window.__bulkWAInjectVersion === INJECT_VERSION) return;
+  window.__bulkWAInjectVersion = INJECT_VERSION;
 
   // ── Listen for file-attach requests from the content script ──
   document.addEventListener("__bulkWA_attachFile", async (e) => {

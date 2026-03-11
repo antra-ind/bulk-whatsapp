@@ -5,9 +5,12 @@
 (function () {
   "use strict";
 
-  // Prevent duplicate listeners if script is injected multiple times
-  if (window.__bulkWASenderLoaded) return;
-  window.__bulkWASenderLoaded = true;
+  // Version must match manifest — allows re-injection after extension update
+  const SCRIPT_VERSION = "1.1.1";
+
+  // If same version already running, skip. If older version, let it re-register.
+  if (window.__bulkWASenderVersion === SCRIPT_VERSION) return;
+  window.__bulkWASenderVersion = SCRIPT_VERSION;
 
   // ── Wake Lock to prevent browser/tab sleep ─────────────────
   let wakeLock = null;
