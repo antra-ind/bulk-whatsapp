@@ -136,6 +136,17 @@
       <span id="wa-status" class="status-dot disconnected"></span>
       <span id="wa-status-text">Open WhatsApp Web first</span>
     </footer>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="error-toast hidden">
+      <div class="error-toast-header">
+        <span class="error-toast-icon">⚠️</span>
+        <span id="error-toast-title" class="error-toast-title">Error</span>
+        <button id="error-toast-close" class="error-toast-close">✕</button>
+      </div>
+      <div id="error-toast-msg" class="error-toast-msg"></div>
+      <div id="error-toast-hint" class="error-toast-hint"></div>
+    </div>
   </div>
 
   <script src="popup.js"></script>

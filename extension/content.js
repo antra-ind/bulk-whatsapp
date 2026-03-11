@@ -16,12 +16,26 @@
 
   async function performSend({ hasAttachment, attachment, caption }) {
     // Wait for the chat compose box to appear (page was just navigated here)
-    await waitForChatReady();
+    try {
+      await waitForChatReady();
+    } catch (err) {
+      throw new Error(
+        `CHAT_NOT_READY: ${err.message}. ` +
+        "Make sure WhatsApp Web is logged in and the phone number exists on WhatsApp."
+      );
+    }
     await sleep(1500);
 
     if (hasAttachment) {
       // Open the attachment menu and send file via the hidden file input
-      await sendFileViaAttachButton(attachment);
+      try {
+        await sendFileViaAttachButton(attachment);
+      } catch (err) {
+        throw new Error(
+          `ATTACHMENT_FAILED: Could not attach file "${attachment.name}". ` +
+          `${err.message}. Try a smaller file or different format.`
+        );
+      }
 
       // Wait for the attachment preview / media editor screen
       await waitForAttachmentPreview();
@@ -34,12 +48,26 @@
       }
 
       // Click send on the attachment preview
-      await clickSendButton();
+      try {
+        await clickSendButton();
+      } catch (err) {
+        throw new Error(
+          "SEND_BUTTON_NOT_FOUND: Could not find the send button after attaching file. " +
+          "WhatsApp Web UI may have changed. Try refreshing the page."
+        );
+      }
       await sleep(2000);
     } else {
       // Text was pre-filled by the URL (?text=...), just click send
       await sleep(500);
-      await clickSendButton();
+      try {
+        await clickSendButton();
+      } catch (err) {
+        throw new Error(
+          "SEND_BUTTON_NOT_FOUND: Could not find the send button. " +
+          "Make sure the chat loaded. Try refreshing WhatsApp Web."
+        );
+      }
       await sleep(1500);
     }
 
@@ -55,12 +83,20 @@
       const check = setInterval(() => {
         attempts++;
 
-        // Check for error popups (invalid number)
+        // Check for various error popups
         const okBtn = document.querySelector('[data-testid="popup-controls-ok"]');
+        const popupContents = document.querySelector('[data-testid="popup-contents"]');
         if (okBtn) {
+          const errorText = popupContents ? popupContents.textContent : "";
           clearInterval(check);
           okBtn.click();
-          reject(new Error("Invalid phone number or not on WhatsApp"));
+          if (errorText.toLowerCase().includes("invalid")) {
+            reject(new Error("Invalid phone number format"));
+          } else if (errorText.toLowerCase().includes("not")) {
+            reject(new Error("This number is not registered on WhatsApp"));
+          } else {
+            reject(new Error(`WhatsApp error: ${errorText || "Unknown popup error"}`));
+          }
           return;
         }
 

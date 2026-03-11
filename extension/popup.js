@@ -174,8 +174,8 @@ $("#btn-send-single").addEventListener("click", async () => {
     $("#single-file").value = "";
   } catch (err) {
     await addHistory(phone, "", message, "failed", singleFileData ? singleFileData.name : null);
-    updateStatus("connected", `Failed: ${err.message}`);
-    alert(`Failed to send: ${err.message}`);
+    updateStatus("error", "Send failed");
+    showErrorToast(err.message);
   }
 });
 
@@ -348,6 +348,7 @@ $("#btn-send-bulk").addEventListener("click", async () => {
     } catch (err) {
       failed++;
       appendLog(log, `✗ Failed: ${contact.phone} — ${err.message}`, "error");
+      showErrorToast(err.message);
       await addHistory(contact.phone, contact.name || "", personalised, "failed", bulkFileData ? bulkFileData.name : null);
     }
 
@@ -540,6 +541,65 @@ function escapeHtml(str) {
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+// ── Error toast ──────────────────────────────────────────────────
+const ERROR_HINTS = {
+  NO_WHATSAPP_TAB: "Open web.whatsapp.com in a tab, scan QR, wait for chats to load, then try again.",
+  NOT_LOGGED_IN: "Open WhatsApp on your phone → Settings → Linked Devices → scan the QR code.",
+  INVALID_PHONE: "Use full number with country code, no spaces or dashes. Example: 919876543210",
+  NAVIGATION_FAILED: "The WhatsApp Web tab may have been closed. Reopen it and try again.",
+  PAGE_LOAD_TIMEOUT: "Your internet may be slow or WhatsApp Web is down. Refresh and retry.",
+  CONTENT_SCRIPT_FAILED: "Refresh WhatsApp Web (Ctrl+R / Cmd+R), wait for it to load, then resend.",
+  CHAT_NOT_READY: "The chat didn't open. The number may not be on WhatsApp, or WhatsApp Web is still loading.",
+  ATTACHMENT_FAILED: "Try a smaller file (under 16MB), or a different format (JPG, PNG, MP4, PDF).",
+  SEND_BUTTON_NOT_FOUND: "WhatsApp Web UI may have updated. Refresh the page and try again.",
+  SEND_FAILED: "Something went wrong during send. Check if WhatsApp Web is still open and logged in.",
+};
+
+function showErrorToast(errMessage) {
+  const toast = $("#error-toast");
+  const titleEl = $("#error-toast-title");
+  const msgEl = $("#error-toast-msg");
+  const hintEl = $("#error-toast-hint");
+
+  // Parse error code from message like "CODE: details"
+  const codeMatch = errMessage.match(/^([A-Z_]+):\s*(.*)/);
+  let title = "Send Failed";
+  let msg = errMessage;
+  let hint = "";
+
+  if (codeMatch) {
+    const code = codeMatch[1];
+    msg = codeMatch[2];
+    title = code.replace(/_/g, " ");
+    hint = ERROR_HINTS[code] || "";
+  } else {
+    // Try to match partial
+    for (const [code, h] of Object.entries(ERROR_HINTS)) {
+      if (errMessage.toLowerCase().includes(code.toLowerCase().replace(/_/g, " "))) {
+        hint = h;
+        break;
+      }
+    }
+    if (!hint) {
+      hint = "Make sure WhatsApp Web is open, logged in, and your internet is working.";
+    }
+  }
+
+  titleEl.textContent = title;
+  msgEl.textContent = msg;
+  hintEl.textContent = hint ? "💡 " + hint : "";
+
+  toast.classList.remove("hidden");
+
+  // Auto-hide after 10 seconds
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => toast.classList.add("hidden"), 10000);
+}
+
+$("#error-toast-close").addEventListener("click", () => {
+  $("#error-toast").classList.add("hidden");
+});
 
 // ── Init ───────────────────────────────────────────────────────
 renderTemplates();

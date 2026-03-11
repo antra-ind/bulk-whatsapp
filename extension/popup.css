@@ -581,3 +581,77 @@ input[type="checkbox"] {
   background: #ccc;
   border-radius: 2px;
 }
+
+/* Error Toast */
+.error-toast {
+  position: fixed;
+  bottom: 40px;
+  left: 12px;
+  right: 12px;
+  background: #fff;
+  border-left: 4px solid #e74c3c;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  padding: 10px 12px;
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.error-toast-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.error-toast-icon {
+  font-size: 14px;
+}
+
+.error-toast-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #c0392b;
+  flex: 1;
+}
+
+.error-toast-close {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px;
+}
+
+.error-toast-close:hover {
+  color: #333;
+}
+
+.error-toast-msg {
+  font-size: 11px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.error-toast-hint {
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.error-toast-hint:empty {
+  display: none;
+}
+
+.status-dot.error {
+  background: #e74c3c;
+  animation: pulse 1s infinite;
+}
