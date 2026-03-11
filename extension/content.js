@@ -9,6 +9,77 @@
   if (window.__bulkWASenderLoaded) return;
   window.__bulkWASenderLoaded = true;
 
+  // ── DEBUG: Log DOM events when manually sending images ─────
+  // Run  window.__bulkWADebug()  in the browser console to start logging.
+  // It monitors: file inputs, paste events, send button clicks, media editor changes.
+  window.__bulkWADebug = function () {
+    console.log("[BulkWA DEBUG] Starting event monitor...");
+
+    // Log all file input changes
+    document.addEventListener("change", (e) => {
+      if (e.target.tagName === "INPUT" && e.target.type === "file") {
+        console.log("[BulkWA DEBUG] FILE INPUT changed:", {
+          accept: e.target.getAttribute("accept"),
+          files: e.target.files.length,
+          fileName: e.target.files[0]?.name,
+          fileType: e.target.files[0]?.type,
+          parentTestId: e.target.closest("[data-testid]")?.getAttribute("data-testid"),
+          inputHTML: e.target.outerHTML.slice(0, 200),
+        });
+      }
+    }, true);
+
+    // Log all paste events
+    document.addEventListener("paste", (e) => {
+      console.log("[BulkWA DEBUG] PASTE event:", {
+        target: e.target.tagName,
+        targetTestId: e.target.closest("[data-testid]")?.getAttribute("data-testid"),
+        hasClipboardData: !!e.clipboardData,
+        types: e.clipboardData?.types,
+        fileCount: e.clipboardData?.files?.length,
+      });
+    }, true);
+
+    // Log all click events on buttons / send-like elements
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-testid], [data-icon], button, [role='button']");
+      if (el) {
+        console.log("[BulkWA DEBUG] CLICK:", {
+          testId: el.getAttribute("data-testid"),
+          icon: el.getAttribute("data-icon") || el.querySelector("[data-icon]")?.getAttribute("data-icon"),
+          role: el.getAttribute("role"),
+          tag: el.tagName,
+          ariaLabel: el.getAttribute("aria-label"),
+          classes: el.className?.toString().slice(0, 100),
+        });
+      }
+    }, true);
+
+    // Watch for media editor appearing
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (node.nodeType === 1) {
+            const editor = node.querySelector?.("[data-testid='media-editor']") ||
+              (node.getAttribute?.("data-testid") === "media-editor" ? node : null);
+            if (editor) {
+              console.log("[BulkWA DEBUG] MEDIA EDITOR appeared:", {
+                html: editor.outerHTML.slice(0, 300),
+                editables: editor.querySelectorAll("div[contenteditable='true']").length,
+                sendBtns: editor.querySelectorAll("[data-testid='send']").length,
+                sendIcons: editor.querySelectorAll("span[data-icon='send']").length,
+              });
+            }
+          }
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    console.log("[BulkWA DEBUG] Monitoring active. Now manually attach & send an image.");
+    console.log("[BulkWA DEBUG] Then share the logs with me.");
+  };
+
   // ── Wake Lock to prevent browser/tab sleep ─────────────────
   let wakeLock = null;
 
