@@ -33,7 +33,7 @@
         })
       );
     } catch (err) {
-      console.error("[BulkWA inject] Error:", err);
+      // error silenced for production
       document.dispatchEvent(
         new CustomEvent("__bulkWA_attachResult", {
           detail: { success: false, error: err.message },
@@ -107,7 +107,6 @@
 
     const target = composeBox || document.querySelector("#app") || document.body;
     const dispatched = target.dispatchEvent(pasteEvent);
-    console.log("[BulkWA inject] Paste dispatched on", target.tagName, "result:", dispatched);
     return true;
   }
 
@@ -115,7 +114,6 @@
   function doFileInput(file) {
     const fileInputs = document.querySelectorAll('input[type="file"]');
     if (fileInputs.length === 0) {
-      console.log("[BulkWA inject] No file inputs found");
       return false;
     }
 
@@ -157,12 +155,6 @@
     targetInput.dispatchEvent(new Event("input", { bubbles: true }));
     targetInput.dispatchEvent(new Event("change", { bubbles: true }));
 
-    console.log(
-      "[BulkWA inject] File set via native setter, accept:",
-      targetInput.getAttribute("accept"),
-      "files:",
-      targetInput.files.length
-    );
     return true;
   }
 
@@ -183,7 +175,6 @@
 
       if (btn) {
         btn.click();
-        console.log("[BulkWA inject] Clicked send in media editor");
         return true;
       }
     }
@@ -198,13 +189,10 @@
 
     if (sendBtn) {
       sendBtn.click();
-      console.log("[BulkWA inject] Clicked send button (global)");
       return true;
     }
 
-    console.log("[BulkWA inject] No send button found");
     return false;
   }
 
-  console.log("[BulkWA inject] Main-world helper loaded");
 })();

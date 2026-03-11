@@ -9,77 +9,6 @@
   if (window.__bulkWASenderLoaded) return;
   window.__bulkWASenderLoaded = true;
 
-  // ── DEBUG: Log DOM events when manually sending images ─────
-  // Run  window.__bulkWADebug()  in the browser console to start logging.
-  // It monitors: file inputs, paste events, send button clicks, media editor changes.
-  window.__bulkWADebug = function () {
-    console.log("[BulkWA DEBUG] Starting event monitor...");
-
-    // Log all file input changes
-    document.addEventListener("change", (e) => {
-      if (e.target.tagName === "INPUT" && e.target.type === "file") {
-        console.log("[BulkWA DEBUG] FILE INPUT changed:", {
-          accept: e.target.getAttribute("accept"),
-          files: e.target.files.length,
-          fileName: e.target.files[0]?.name,
-          fileType: e.target.files[0]?.type,
-          parentTestId: e.target.closest("[data-testid]")?.getAttribute("data-testid"),
-          inputHTML: e.target.outerHTML.slice(0, 200),
-        });
-      }
-    }, true);
-
-    // Log all paste events
-    document.addEventListener("paste", (e) => {
-      console.log("[BulkWA DEBUG] PASTE event:", {
-        target: e.target.tagName,
-        targetTestId: e.target.closest("[data-testid]")?.getAttribute("data-testid"),
-        hasClipboardData: !!e.clipboardData,
-        types: e.clipboardData?.types,
-        fileCount: e.clipboardData?.files?.length,
-      });
-    }, true);
-
-    // Log all click events on buttons / send-like elements
-    document.addEventListener("click", (e) => {
-      const el = e.target.closest("[data-testid], [data-icon], button, [role='button']");
-      if (el) {
-        console.log("[BulkWA DEBUG] CLICK:", {
-          testId: el.getAttribute("data-testid"),
-          icon: el.getAttribute("data-icon") || el.querySelector("[data-icon]")?.getAttribute("data-icon"),
-          role: el.getAttribute("role"),
-          tag: el.tagName,
-          ariaLabel: el.getAttribute("aria-label"),
-          classes: el.className?.toString().slice(0, 100),
-        });
-      }
-    }, true);
-
-    // Watch for media editor appearing
-    const observer = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        for (const node of m.addedNodes) {
-          if (node.nodeType === 1) {
-            const editor = node.querySelector?.("[data-testid='media-editor']") ||
-              (node.getAttribute?.("data-testid") === "media-editor" ? node : null);
-            if (editor) {
-              console.log("[BulkWA DEBUG] MEDIA EDITOR appeared:", {
-                html: editor.outerHTML.slice(0, 300),
-                editables: editor.querySelectorAll("div[contenteditable='true']").length,
-                sendBtns: editor.querySelectorAll("[data-testid='send']").length,
-                sendIcons: editor.querySelectorAll("span[data-icon='send']").length,
-              });
-            }
-          }
-        }
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    console.log("[BulkWA DEBUG] Monitoring active. Now manually attach & send an image.");
-    console.log("[BulkWA DEBUG] Then share the logs with me.");
-  };
-
   // ── Wake Lock to prevent browser/tab sleep ─────────────────
   let wakeLock = null;
 
@@ -88,7 +17,6 @@
       if ("wakeLock" in navigator) {
         wakeLock = await navigator.wakeLock.request("screen");
         wakeLock.addEventListener("release", () => { wakeLock = null; });
-        console.log("[BulkWA] Wake lock acquired — browser will stay awake");
       }
     } catch (e) {
       console.warn("[BulkWA] Wake lock failed:", e.message);
@@ -99,7 +27,6 @@
     if (wakeLock) {
       wakeLock.release();
       wakeLock = null;
-      console.log("[BulkWA] Wake lock released");
     }
   }
 
@@ -289,26 +216,19 @@
     const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
 
     if (isMedia) {
-      // For images/videos: clipboard paste is most reliable
-      console.log("[BulkWA] Trying clipboard paste for media:", file.type);
       await pasteFileToChat(file);
 
       // Check if media editor appeared — if not, fall back to attach button
       const editorAppeared = await checkForMediaEditor(3000);
       if (!editorAppeared) {
-        console.log("[BulkWA] Paste didn't trigger media editor, trying attach button");
         const sent = await tryAttachButtonMethod(file);
         if (!sent) {
           throw new Error("Could not attach image — both paste and attach button failed");
         }
       }
     } else {
-      // For documents: use attachment button + file input
-      console.log("[BulkWA] Using attach button for document:", file.type);
       const sent = await tryAttachButtonMethod(file);
       if (!sent) {
-        // Fallback to clipboard paste even for docs
-        console.log("[BulkWA] Attach button failed, trying clipboard paste");
         await pasteFileToChat(file);
       }
     }
@@ -353,7 +273,6 @@
       "__bulkWA_attachResult"
     );
 
-    console.log("[BulkWA] Paste via inject.js result:", result);
     await sleep(2000);
   }
 
@@ -406,7 +325,6 @@
       "__bulkWA_attachResult"
     );
 
-    console.log("[BulkWA] File input via inject.js result:", result);
     await sleep(1500);
     return result.success;
   }
@@ -424,13 +342,11 @@
           document.querySelector('[data-testid="media-editor-container"]');
         if (editor) {
           clearInterval(check);
-          console.log("[BulkWA] Media editor detected");
           resolve(true);
           return;
         }
         if (elapsed >= timeoutMs) {
           clearInterval(check);
-          console.log("[BulkWA] Media editor NOT detected after", timeoutMs, "ms");
           resolve(false);
         }
       }, interval);
@@ -569,7 +485,6 @@
       );
 
       if (result.success) {
-        console.log("[BulkWA] Send clicked via inject.js");
         return;
       }
 
@@ -583,7 +498,6 @@
 
       if (sendBtn) {
         sendBtn.click();
-        console.log("[BulkWA] Clicked send button (content script fallback)");
         return;
       }
 
@@ -595,7 +509,6 @@
           "__bulkWA_pressEnterResult",
           2000
         );
-        console.log("[BulkWA] Enter key fallback via inject.js:", enterResult);
         return;
       }
 

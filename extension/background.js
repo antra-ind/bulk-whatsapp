@@ -1,9 +1,7 @@
 // Background service worker — forwards send requests to content script.
 // NO page navigation — content script handles everything via WhatsApp Web UI.
 
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("Bulk WhatsApp Sender extension installed");
-});
+chrome.runtime.onInstalled.addListener(() => {});
 
 // ── Message handler from popup ─────────────────────────────────
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
