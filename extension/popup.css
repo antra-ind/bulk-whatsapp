@@ -37,6 +37,13 @@ header h1 {
   margin-top: 2px;
 }
 
+.subtitle-warn {
+  font-size: 9px;
+  color: #e65100;
+  margin-top: 3px;
+  opacity: 0.9;
+}
+
 /* Tabs */
 .tabs {
   display: flex;

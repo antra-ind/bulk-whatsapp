@@ -53,8 +53,17 @@ Hello {{name}} from {{company}} ({{city}}), reminder about tomorrow's meeting.
 
 Save frequently used messages in the **Templates** tab for quick reuse.
 
+## ⚠️ Warning — Account Safety
+
+> **Do not send more than 250 messages per day.** Exceeding this limit may result in your WhatsApp account being **temporarily or permanently blocked** by WhatsApp. This tool is meant for personal/legitimate use only — misuse is your responsibility.
+
+- WhatsApp actively monitors bulk messaging patterns
+- Accounts flagged for spam may be banned without warning
+- Use random delays (8+ seconds recommended) between messages
+- Split large contact lists into batches across multiple days
+
 ## Important
 
 - **Use responsibly** — WhatsApp may restrict accounts that send spam.
-- Keep delay between messages ≥ 3 seconds to avoid rate-limiting.
+- Keep delay between messages ≥ 8 seconds to avoid rate-limiting.
 - This tool is for **personal/legitimate use only**.
