@@ -185,26 +185,15 @@
 
   // ── Click the send button ────────────────────────────────────
   function doClickSend() {
-    // Priority 1: Send button inside media editor
-    const mediaEditor =
-      document.querySelector('[data-testid="media-editor"]') ||
-      document.querySelector('[data-testid="media-editor-container"]');
-
-    if (mediaEditor) {
-      const btn =
-        mediaEditor.querySelector('[data-testid="send"]') ||
-        mediaEditor.querySelector('span[data-icon="send"]')?.closest("button") ||
-        mediaEditor.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
-        mediaEditor.querySelector('button[aria-label="Send"]') ||
-        mediaEditor.querySelector('span[data-icon="send"]')?.parentElement;
-
-      if (btn) {
-        btn.click();
-        return true;
-      }
+    // Priority 1: WhatsApp's current send icon (wds-ic-send-filled)
+    const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
+    if (wdsSend) {
+      const btn = wdsSend.closest("button") || wdsSend.closest('div[role="button"]') || wdsSend;
+      btn.click();
+      return true;
     }
 
-    // Priority 2: Any visible send button
+    // Priority 2: Legacy send selectors
     const sendBtn =
       document.querySelector('[data-testid="send"]') ||
       document.querySelector('span[data-icon="send"]')?.closest("button") ||

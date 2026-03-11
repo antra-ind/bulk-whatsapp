@@ -207,24 +207,27 @@
     await clickSendButton();
   }
 
-  // ── Send file via drag-drop / paste / attach button ──────────
+  // ── Send file via attach button (primary) or fallbacks ──────
   async function sendFileViaAttachButton(attachment) {
     const response = await fetch(attachment.dataUrl);
     const blob = await response.blob();
     const file = new File([blob], attachment.name, { type: attachment.type });
-    const dataUrl = await fileToDataUrl(file);
 
-    // Method 1: Drag and drop (most reliable for React apps in main world)
+    // Method 1 (Primary): Attach button → file input (matches actual WhatsApp Web flow)
+    const attached = await tryAttachButtonMethod(file);
+    if (attached && await waitForSendButton(5000)) return;
+
+    // Method 2 (Fallback): Drag and drop
+    const dataUrl = await fileToDataUrl(file);
     await callInject(
       "__bulkWA_attachFile",
       { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "drop" },
       "__bulkWA_attachResult"
     );
     await sleep(2000);
+    if (await waitForSendButton(3000)) return;
 
-    if (await checkForMediaEditor(3000)) return;
-
-    // Method 2: Clipboard paste in main world
+    // Method 3 (Fallback): Clipboard paste
     const composeBox =
       document.querySelector('[data-testid="conversation-compose-box-input"]') ||
       document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
@@ -238,18 +241,9 @@
       "__bulkWA_attachResult"
     );
     await sleep(2000);
+    if (await waitForSendButton(3000)) return;
 
-    if (await checkForMediaEditor(3000)) return;
-
-    // Method 3: Attach button + file input in main world
-    const sent = await tryAttachButtonMethod(file);
-    if (!sent) {
-      throw new Error("Could not attach file — all methods failed (drop, paste, attach button)");
-    }
-
-    if (!(await checkForMediaEditor(3000))) {
-      throw new Error("File input accepted but media editor did not appear");
-    }
+    throw new Error("Could not attach file — all methods failed (attach button, drop, paste)");
   }
 
   // ── Bridge: send command to inject.js (main world) and wait for result ──
@@ -279,41 +273,22 @@
   }
 
   async function tryAttachButtonMethod(file) {
+    // Find the attach button — WhatsApp Web uses data-icon="plus-rounded" on a BUTTON
     const attachBtn =
+      document.querySelector('button[aria-label="Attach"]') ||
+      document.querySelector('span[data-icon="plus-rounded"]')?.closest("button") ||
       document.querySelector('[data-testid="attach-menu-plus"]') ||
       document.querySelector('span[data-icon="plus"]')?.closest("button") ||
-      document.querySelector('span[data-icon="attach-menu-plus"]')?.closest('div[role="button"]') ||
-      document.querySelector('span[data-icon="plus"]')?.closest('div[role="button"]') ||
-      document.querySelector('[title="Attach"]') ||
-      document.querySelector('[aria-label="Attach"]');
+      document.querySelector('[title="Attach"]');
 
     if (!attachBtn) return false;
 
     attachBtn.click();
-    await sleep(1000);
+    await sleep(1500);
 
-    // WhatsApp may show a sub-menu. Click the right option.
-    const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
-
-    const menuItem = isMedia
-      ? (document.querySelector('[data-testid="attach-image"]') ||
-         document.querySelector('[data-testid="attach-photo+video"]') ||
-         document.querySelector('span[data-icon="attach-image"]')?.closest('button') ||
-         document.querySelector('span[data-icon="attach-image"]')?.closest('div[role="button"]') ||
-         document.querySelector('li[data-testid="mi-attach-media"]'))
-      : (document.querySelector('[data-testid="attach-document"]') ||
-         document.querySelector('span[data-icon="attach-document"]')?.closest('button') ||
-         document.querySelector('span[data-icon="attach-document"]')?.closest('div[role="button"]') ||
-         document.querySelector('li[data-testid="mi-attach-document"]'));
-
-    if (menuItem) {
-      menuItem.click();
-      await sleep(1200);
-    }
-
-    // Wait for file input to appear in the DOM
+    // Wait for file input to appear (WhatsApp opens file picker directly, no submenu)
     let fileInputReady = false;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 15; i++) {
       if (document.querySelectorAll('input[type="file"]').length > 0) {
         fileInputReady = true;
         break;
@@ -334,18 +309,19 @@
     return result.success;
   }
 
-  // ── Quick check if media editor appeared ─────────────────────
-  function checkForMediaEditor(timeoutMs) {
+  // ── Wait for the send button to appear (attachment preview is ready) ──
+  function waitForSendButton(timeoutMs) {
     return new Promise((resolve) => {
       let elapsed = 0;
       const interval = 300;
       const check = setInterval(() => {
         elapsed += interval;
-        const editor =
-          document.querySelector('[data-testid="media-editor"]') ||
-          document.querySelector('[data-testid="media-canvas"]') ||
-          document.querySelector('[data-testid="media-editor-container"]');
-        if (editor) {
+        // WhatsApp Web's send button uses data-icon="wds-ic-send-filled"
+        const sendBtn =
+          document.querySelector('span[data-icon="wds-ic-send-filled"]') ||
+          document.querySelector('[data-testid="send"]') ||
+          document.querySelector('span[data-icon="send"]');
+        if (sendBtn) {
           clearInterval(check);
           resolve(true);
           return;
@@ -358,7 +334,7 @@
     });
   }
 
-  // ── Wait for attachment preview ──────────────────────────────
+  // ── Wait for attachment preview (send button appears) ───────
   function waitForAttachmentPreview() {
     return new Promise((resolve) => {
       let attempts = 0;
@@ -367,18 +343,13 @@
       const check = setInterval(() => {
         attempts++;
 
-        const preview =
-          document.querySelector('[data-testid="media-editor"]') ||
-          document.querySelector('[data-testid="media-canvas"]') ||
-          document.querySelector('[data-testid="image-preview"]') ||
-          document.querySelector('[data-testid="media-editor-container"]') ||
-          document.querySelector(".draw-container");
-
-        const sendInPreview =
+        // The send button appearing means the preview is ready
+        const sendBtn =
+          document.querySelector('span[data-icon="wds-ic-send-filled"]') ||
           document.querySelector('[data-testid="send"]') ||
           document.querySelector('span[data-icon="send"]');
 
-        if (preview || (sendInPreview && attempts > 3)) {
+        if (sendBtn) {
           clearInterval(check);
           resolve();
           return;
@@ -421,27 +392,31 @@
       const check = setInterval(() => {
         attempts++;
 
-        // IMPORTANT: We must find the contenteditable INSIDE the media editor,
-        // NOT the main chat compose box and NOT the search bar.
-        // The media editor appears as an overlay when attaching files.
+        // Find the caption input — look for a contenteditable that is NOT the main
+        // compose box and NOT the search bar.
 
-        // Method 1: Look inside the media editor container
-        const mediaEditor = document.querySelector('[data-testid="media-editor"]') ||
-          document.querySelector('[data-testid="media-editor-container"]');
-
-        if (mediaEditor) {
-          const editable = mediaEditor.querySelector('div[contenteditable="true"]');
-          if (editable) {
-            clearInterval(check);
-            resolve(editable);
-            return;
+        // Method 1: Look near the send button (wds-ic-send-filled)
+        const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
+        if (wdsSend) {
+          // The caption input is typically in the same container as the send button
+          const container = wdsSend.closest('div[class]')?.parentElement?.parentElement;
+          if (container) {
+            const editable = container.querySelector('div[contenteditable="true"]');
+            if (editable) {
+              clearInterval(check);
+              resolve(editable);
+              return;
+            }
           }
         }
 
-        // Method 2: Caption input container
-        const captionContainer = document.querySelector('[data-testid="media-caption-input-container"]');
-        if (captionContainer) {
-          const editable = captionContainer.querySelector('div[contenteditable="true"]');
+        // Method 2: Legacy media editor containers
+        const mediaEditor = document.querySelector('[data-testid="media-editor"]') ||
+          document.querySelector('[data-testid="media-editor-container"]') ||
+          document.querySelector('[data-testid="media-caption-input-container"]');
+
+        if (mediaEditor) {
+          const editable = mediaEditor.querySelector('div[contenteditable="true"]');
           if (editable) {
             clearInterval(check);
             resolve(editable);
@@ -481,7 +456,15 @@
   // ── Click send button (for media/attachment context) ─────────
   async function clickMediaSendButton() {
     for (let attempts = 0; attempts < 20; attempts++) {
-      // Try via inject.js (main world) first — more reliable for React
+      // Priority 1: WhatsApp's current send icon (wds-ic-send-filled)
+      const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
+      if (wdsSend) {
+        const btn = wdsSend.closest("button") || wdsSend.closest('div[role="button"]') || wdsSend;
+        btn.click();
+        return;
+      }
+
+      // Priority 2: Try via inject.js (main world) for React compatibility
       const result = await callInject(
         "__bulkWA_clickSend",
         {},
@@ -493,13 +476,11 @@
         return;
       }
 
-      // Fallback: try clicking directly from content script (shared DOM)
+      // Priority 3: Legacy send selectors from content script
       const sendBtn =
         document.querySelector('[data-testid="send"]') ||
         document.querySelector('span[data-icon="send"]')?.closest("button") ||
-        document.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
-        document.querySelector('button[aria-label="Send"]') ||
-        document.querySelector('span[data-icon="send"]')?.parentElement;
+        document.querySelector('button[aria-label="Send"]');
 
       if (sendBtn) {
         sendBtn.click();
@@ -520,7 +501,7 @@
       await sleep(500);
     }
 
-    throw new Error("Could not find send button in media editor");
+    throw new Error("Could not find send button after attaching file");
   }
 
   // ── Click send button (for regular text messages) ────────────
@@ -532,12 +513,21 @@
       const tryClick = setInterval(() => {
         attempts++;
 
+        // WhatsApp's current send icon
+        const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
+        if (wdsSend) {
+          const btn = wdsSend.closest("button") || wdsSend.closest('div[role="button"]') || wdsSend;
+          clearInterval(tryClick);
+          btn.click();
+          resolve();
+          return;
+        }
+
+        // Legacy send selectors
         const sendBtn =
           document.querySelector('[data-testid="send"]') ||
           document.querySelector('span[data-icon="send"]')?.closest("button") ||
-          document.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
-          document.querySelector('button[aria-label="Send"]') ||
-          document.querySelector('span[data-icon="send"]')?.parentElement;
+          document.querySelector('button[aria-label="Send"]');
 
         if (sendBtn) {
           clearInterval(tryClick);
