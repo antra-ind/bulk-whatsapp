@@ -314,8 +314,26 @@
     }
   }
 
+  // ── Bridge: send command to inject.js (main world) and wait for result ──
+  function callInject(eventName, detail, resultEvent, timeoutMs = 10000) {
+    return new Promise((resolve) => {
+      const handler = (e) => {
+        document.removeEventListener(resultEvent, handler);
+        resolve(e.detail);
+      };
+      document.addEventListener(resultEvent, handler);
+      document.dispatchEvent(new CustomEvent(eventName, { detail }));
+
+      // Timeout fallback
+      setTimeout(() => {
+        document.removeEventListener(resultEvent, handler);
+        resolve({ success: false, error: "timeout" });
+      }, timeoutMs);
+    });
+  }
+
   async function pasteFileToChat(file) {
-    // Focus the compose box first so WhatsApp receives the paste
+    // Focus the compose box first
     const composeBox =
       document.querySelector('[data-testid="conversation-compose-box-input"]') ||
       document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
@@ -326,25 +344,25 @@
       await sleep(500);
     }
 
-    const dt = new DataTransfer();
-    dt.items.add(file);
+    // Convert file to data URL so we can pass it across worlds via CustomEvent
+    const dataUrl = await fileToDataUrl(file);
 
-    // IMPORTANT: Chrome's ClipboardEvent constructor ignores the clipboardData option.
-    // We must use Object.defineProperty to force-set it.
-    const pasteEvent = new ClipboardEvent("paste", {
-      bubbles: true,
-      cancelable: true,
-    });
-    Object.defineProperty(pasteEvent, "clipboardData", {
-      value: dt,
-      writable: false,
-    });
+    const result = await callInject(
+      "__bulkWA_attachFile",
+      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "paste" },
+      "__bulkWA_attachResult"
+    );
 
-    // Dispatch on the focused compose box
-    const target = composeBox || document.querySelector("#main") || document.querySelector("#app");
-    target.dispatchEvent(pasteEvent);
-    console.log("[BulkWA] Clipboard paste dispatched (with defineProperty) for:", file.name);
+    console.log("[BulkWA] Paste via inject.js result:", result);
     await sleep(2000);
+  }
+
+  function fileToDataUrl(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
   }
 
   async function tryAttachButtonMethod(file) {
@@ -380,44 +398,17 @@
       await sleep(800);
     }
 
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    if (fileInputs.length === 0) return false;
+    // Delegate file-input setting to inject.js (main world) for React compatibility
+    const dataUrl = await fileToDataUrl(file);
+    const result = await callInject(
+      "__bulkWA_attachFile",
+      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "input" },
+      "__bulkWA_attachResult"
+    );
 
-    let targetInput = null;
-
-    for (const input of fileInputs) {
-      const accept = input.getAttribute("accept") || "";
-      if (isMedia && (accept.includes("image") || accept.includes("video"))) {
-        targetInput = input;
-        break;
-      }
-      if (!isMedia && (accept.includes("*") || accept === "")) {
-        targetInput = input;
-        break;
-      }
-    }
-
-    if (!targetInput) {
-      targetInput = fileInputs[fileInputs.length - 1];
-    }
-
-    const dt = new DataTransfer();
-    dt.items.add(file);
-
-    // Use the native setter to bypass React's synthetic event handling
-    const nativeSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'files')?.set;
-    if (nativeSetter) {
-      nativeSetter.call(targetInput, dt.files);
-    } else {
-      targetInput.files = dt.files;
-    }
-
-    // Dispatch both input and change events for React compatibility
-    targetInput.dispatchEvent(new Event("input", { bubbles: true }));
-    targetInput.dispatchEvent(new Event("change", { bubbles: true }));
-    console.log("[BulkWA] File set on input (native setter), accept:", targetInput.getAttribute("accept"));
+    console.log("[BulkWA] File input via inject.js result:", result);
     await sleep(1500);
-    return true;
+    return result.success;
   }
 
   // ── Quick check if media editor appeared ─────────────────────
@@ -567,82 +558,51 @@
   }
 
   // ── Click send button (for media/attachment context) ─────────
-  function clickMediaSendButton() {
-    return new Promise((resolve, reject) => {
-      let attempts = 0;
-      const maxAttempts = 20;
+  async function clickMediaSendButton() {
+    for (let attempts = 0; attempts < 20; attempts++) {
+      // Try via inject.js (main world) first — more reliable for React
+      const result = await callInject(
+        "__bulkWA_clickSend",
+        {},
+        "__bulkWA_clickSendResult",
+        2000
+      );
 
-      const tryClick = setInterval(() => {
-        attempts++;
+      if (result.success) {
+        console.log("[BulkWA] Send clicked via inject.js");
+        return;
+      }
 
-        // Priority 1: Send button inside the media editor overlay
-        const mediaEditor = document.querySelector('[data-testid="media-editor"]') ||
-          document.querySelector('[data-testid="media-editor-container"]');
+      // Fallback: try clicking directly from content script (shared DOM)
+      const sendBtn =
+        document.querySelector('[data-testid="send"]') ||
+        document.querySelector('span[data-icon="send"]')?.closest("button") ||
+        document.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
+        document.querySelector('button[aria-label="Send"]') ||
+        document.querySelector('span[data-icon="send"]')?.parentElement;
 
-        if (mediaEditor) {
-          const mediaSend =
-            mediaEditor.querySelector('[data-testid="send"]') ||
-            mediaEditor.querySelector('span[data-icon="send"]')?.closest('button') ||
-            mediaEditor.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
-            mediaEditor.querySelector('span[data-icon="send"]')?.parentElement;
+      if (sendBtn) {
+        sendBtn.click();
+        console.log("[BulkWA] Clicked send button (content script fallback)");
+        return;
+      }
 
-          if (mediaSend) {
-            clearInterval(tryClick);
-            mediaSend.click();
-            console.log("[BulkWA] Clicked send inside media editor");
-            resolve();
-            return;
-          }
-        }
+      // Last resort: press Enter via inject.js
+      if (attempts >= 10) {
+        const enterResult = await callInject(
+          "__bulkWA_pressEnter",
+          {},
+          "__bulkWA_pressEnterResult",
+          2000
+        );
+        console.log("[BulkWA] Enter key fallback via inject.js:", enterResult);
+        return;
+      }
 
-        // Priority 2: Any send button visible on page (media editor may not have data-testid)
-        const sendBtn =
-          document.querySelector('[data-testid="send"]') ||
-          document.querySelector('span[data-icon="send"]')?.closest('button') ||
-          document.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
-          document.querySelector('button[aria-label="Send"]') ||
-          document.querySelector('span[data-icon="send"]')?.parentElement;
+      await sleep(500);
+    }
 
-        if (sendBtn) {
-          clearInterval(tryClick);
-          sendBtn.click();
-          console.log("[BulkWA] Clicked send button (global)");
-          resolve();
-          return;
-        }
-
-        // Priority 3: Press Enter on caption/compose input
-        if (attempts >= 8) {
-          // Try caption input first (inside media editor)
-          const captionBox = mediaEditor?.querySelector('div[contenteditable="true"]');
-          const targetBox = captionBox ||
-            document.querySelector('[data-testid="conversation-compose-box-input"]') ||
-            document.querySelector('div[contenteditable="true"][data-tab="10"]');
-
-          if (targetBox) {
-            clearInterval(tryClick);
-            targetBox.focus();
-            targetBox.dispatchEvent(
-              new KeyboardEvent("keydown", {
-                key: "Enter",
-                code: "Enter",
-                keyCode: 13,
-                which: 13,
-                bubbles: true,
-              })
-            );
-            console.log("[BulkWA] Pressed Enter as send fallback");
-            resolve();
-            return;
-          }
-        }
-
-        if (attempts >= maxAttempts) {
-          clearInterval(tryClick);
-          reject(new Error("Could not find send button in media editor"));
-        }
-      }, 500);
-    });
+    throw new Error("Could not find send button in media editor");
   }
 
   // ── Click send button (for regular text messages) ────────────
