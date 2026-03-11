@@ -285,35 +285,88 @@
 
   // ── Type caption in the attachment preview ───────────────────
   async function typeCaption(text) {
-    await sleep(500);
-
-    const captionInput =
-      document.querySelector('[data-testid="media-caption-input-container"] div[contenteditable="true"]') ||
-      document.querySelector('[data-testid="media-caption-text-input"]') ||
-      findCaptionContentEditable();
+    // Wait for the caption input to appear in the media editor
+    const captionInput = await waitForCaptionInput();
 
     if (captionInput) {
       captionInput.focus();
-      await sleep(200);
+      await sleep(300);
+
+      // Clear any existing content first
+      captionInput.textContent = "";
+      captionInput.dispatchEvent(new Event("input", { bubbles: true }));
+      await sleep(100);
+
+      // Type the caption text
       document.execCommand("insertText", false, text);
       captionInput.dispatchEvent(new Event("input", { bubbles: true }));
       await sleep(300);
     }
   }
 
-  function findCaptionContentEditable() {
-    const allEditable = document.querySelectorAll('div[contenteditable="true"]');
-    const mainCompose = document.querySelector('div[contenteditable="true"][data-tab="10"]');
+  function waitForCaptionInput() {
+    return new Promise((resolve) => {
+      let attempts = 0;
+      const maxAttempts = 20; // 10 seconds
 
-    for (const el of allEditable) {
-      if (el !== mainCompose && el.closest('[data-testid="media-editor"]')) {
-        return el;
-      }
-    }
-    for (let i = allEditable.length - 1; i >= 0; i--) {
-      if (allEditable[i] !== mainCompose) return allEditable[i];
-    }
-    return null;
+      const check = setInterval(() => {
+        attempts++;
+
+        // IMPORTANT: We must find the contenteditable INSIDE the media editor,
+        // NOT the main chat compose box and NOT the search bar.
+        // The media editor appears as an overlay when attaching files.
+
+        // Method 1: Look inside the media editor container
+        const mediaEditor = document.querySelector('[data-testid="media-editor"]') ||
+          document.querySelector('[data-testid="media-editor-container"]');
+
+        if (mediaEditor) {
+          const editable = mediaEditor.querySelector('div[contenteditable="true"]');
+          if (editable) {
+            clearInterval(check);
+            resolve(editable);
+            return;
+          }
+        }
+
+        // Method 2: Caption input container
+        const captionContainer = document.querySelector('[data-testid="media-caption-input-container"]');
+        if (captionContainer) {
+          const editable = captionContainer.querySelector('div[contenteditable="true"]');
+          if (editable) {
+            clearInterval(check);
+            resolve(editable);
+            return;
+          }
+        }
+
+        // Method 3: Find contenteditable that is NOT the main compose box 
+        // and NOT inside the search/side panel
+        if (attempts > 5) {
+          const allEditable = document.querySelectorAll('div[contenteditable="true"]');
+          const mainCompose = document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+            document.querySelector('div[contenteditable="true"][data-tab="10"]');
+          const searchBox = document.querySelector('[data-testid="chat-list-search"]') ||
+            document.querySelector('div[contenteditable="true"][data-tab="3"]');
+
+          for (const el of allEditable) {
+            if (el !== mainCompose && el !== searchBox &&
+                !el.closest('[data-testid="side"]') &&
+                !el.closest('header')) {
+              // Found a contenteditable that's not compose or search
+              clearInterval(check);
+              resolve(el);
+              return;
+            }
+          }
+        }
+
+        if (attempts >= maxAttempts) {
+          clearInterval(check);
+          resolve(null);
+        }
+      }, 500);
+    });
   }
 
   // ── Click send button ────────────────────────────────────────

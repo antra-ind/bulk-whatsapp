@@ -365,7 +365,7 @@ $("#btn-send-bulk").addEventListener("click", async () => {
   $("#btn-stop-bulk").classList.add("hidden");
 
   updateStatus("connected", `Done! Sent: ${sent}, Failed: ${failed}`);
-  appendLog(log, `\n── Done: ${sent} sent, ${failed} failed ──`, "success");
+  appendLog(log, `── Done: ${sent} sent, ${failed} failed ──`, "summary");
 });
 
 // ── Stop button ────────────────────────────────────────────────
@@ -522,7 +522,12 @@ function updateProgress(current, total, sent, failed) {
 function appendLog(container, text, type) {
   const div = document.createElement("div");
   div.className = `log-entry ${type || ""}`;
-  div.textContent = text;
+  const now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  if (type === "success" || type === "error") {
+    div.innerHTML = `<span style="opacity:0.5">${escapeHtml(now)}</span> ${escapeHtml(text)}`;
+  } else {
+    div.textContent = text;
+  }
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
 }
