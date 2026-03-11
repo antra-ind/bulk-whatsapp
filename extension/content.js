@@ -88,17 +88,17 @@
 
       // Wait for preview
       await waitForAttachmentPreview();
-      await sleep(800);
+      await sleep(1000);
 
       // Type caption
       if (message) {
         await typeCaption(message);
-        await sleep(500);
+        await sleep(800);
       }
 
-      // Send
+      // Send — use media-specific send
       try {
-        await clickSendButton();
+        await clickMediaSendButton();
       } catch (err) {
         throw new Error(
           "SEND_BUTTON_NOT_FOUND: Could not find the send button after attaching file. " +
@@ -235,13 +235,31 @@
     if (!attachBtn) return false;
 
     attachBtn.click();
-    await sleep(800);
+    await sleep(1000);
+
+    // WhatsApp may show a sub-menu. Click the right option.
+    const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
+
+    const menuItem = isMedia
+      ? (document.querySelector('[data-testid="attach-image"]') ||
+         document.querySelector('[data-testid="attach-photo+video"]') ||
+         document.querySelector('span[data-icon="attach-image"]')?.closest('button') ||
+         document.querySelector('span[data-icon="attach-image"]')?.closest('div[role="button"]') ||
+         document.querySelector('li[data-testid="mi-attach-media"]'))
+      : (document.querySelector('[data-testid="attach-document"]') ||
+         document.querySelector('span[data-icon="attach-document"]')?.closest('button') ||
+         document.querySelector('span[data-icon="attach-document"]')?.closest('div[role="button"]') ||
+         document.querySelector('li[data-testid="mi-attach-document"]'));
+
+    if (menuItem) {
+      menuItem.click();
+      await sleep(800);
+    }
 
     const fileInputs = document.querySelectorAll('input[type="file"]');
     if (fileInputs.length === 0) return false;
 
     let targetInput = null;
-    const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
 
     for (const input of fileInputs) {
       const accept = input.getAttribute("accept") || "";
@@ -263,7 +281,8 @@
     dt.items.add(file);
     targetInput.files = dt.files;
     targetInput.dispatchEvent(new Event("change", { bubbles: true }));
-    await sleep(1000);
+    console.log("[BulkWA] File set on input, accept:", targetInput.getAttribute("accept"));
+    await sleep(1500);
     return true;
   }
 
@@ -411,7 +430,86 @@
     });
   }
 
-  // ── Click send button ────────────────────────────────────────
+  // ── Click send button (for media/attachment context) ─────────
+  function clickMediaSendButton() {
+    return new Promise((resolve, reject) => {
+      let attempts = 0;
+      const maxAttempts = 20;
+
+      const tryClick = setInterval(() => {
+        attempts++;
+
+        // Priority 1: Send button inside the media editor overlay
+        const mediaEditor = document.querySelector('[data-testid="media-editor"]') ||
+          document.querySelector('[data-testid="media-editor-container"]');
+
+        if (mediaEditor) {
+          const mediaSend =
+            mediaEditor.querySelector('[data-testid="send"]') ||
+            mediaEditor.querySelector('span[data-icon="send"]')?.closest('button') ||
+            mediaEditor.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
+            mediaEditor.querySelector('span[data-icon="send"]')?.parentElement;
+
+          if (mediaSend) {
+            clearInterval(tryClick);
+            mediaSend.click();
+            console.log("[BulkWA] Clicked send inside media editor");
+            resolve();
+            return;
+          }
+        }
+
+        // Priority 2: Any send button visible on page (media editor may not have data-testid)
+        const sendBtn =
+          document.querySelector('[data-testid="send"]') ||
+          document.querySelector('span[data-icon="send"]')?.closest('button') ||
+          document.querySelector('span[data-icon="send"]')?.closest('div[role="button"]') ||
+          document.querySelector('button[aria-label="Send"]') ||
+          document.querySelector('span[data-icon="send"]')?.parentElement;
+
+        if (sendBtn) {
+          clearInterval(tryClick);
+          sendBtn.click();
+          console.log("[BulkWA] Clicked send button (global)");
+          resolve();
+          return;
+        }
+
+        // Priority 3: Press Enter on caption/compose input
+        if (attempts >= 8) {
+          // Try caption input first (inside media editor)
+          const captionBox = mediaEditor?.querySelector('div[contenteditable="true"]');
+          const targetBox = captionBox ||
+            document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+            document.querySelector('div[contenteditable="true"][data-tab="10"]');
+
+          if (targetBox) {
+            clearInterval(tryClick);
+            targetBox.focus();
+            targetBox.dispatchEvent(
+              new KeyboardEvent("keydown", {
+                key: "Enter",
+                code: "Enter",
+                keyCode: 13,
+                which: 13,
+                bubbles: true,
+              })
+            );
+            console.log("[BulkWA] Pressed Enter as send fallback");
+            resolve();
+            return;
+          }
+        }
+
+        if (attempts >= maxAttempts) {
+          clearInterval(tryClick);
+          reject(new Error("Could not find send button in media editor"));
+        }
+      }, 500);
+    });
+  }
+
+  // ── Click send button (for regular text messages) ────────────
   function clickSendButton() {
     return new Promise((resolve, reject) => {
       let attempts = 0;
