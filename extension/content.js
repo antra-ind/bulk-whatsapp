@@ -218,9 +218,19 @@
     const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
 
     if (isMedia) {
-      // For images/videos: clipboard paste works reliably
-      console.log("[BulkWA] Using clipboard paste for media:", file.type);
+      // For images/videos: clipboard paste is most reliable
+      console.log("[BulkWA] Trying clipboard paste for media:", file.type);
       await pasteFileToChat(file);
+
+      // Check if media editor appeared — if not, fall back to attach button
+      const editorAppeared = await checkForMediaEditor(3000);
+      if (!editorAppeared) {
+        console.log("[BulkWA] Paste didn't trigger media editor, trying attach button");
+        const sent = await tryAttachButtonMethod(file);
+        if (!sent) {
+          throw new Error("Could not attach image — both paste and attach button failed");
+        }
+      }
     } else {
       // For documents: use attachment button + file input
       console.log("[BulkWA] Using attach button for document:", file.type);
@@ -242,22 +252,27 @@
 
     if (composeBox) {
       composeBox.focus();
-      await sleep(300);
+      await sleep(500);
     }
 
     const dt = new DataTransfer();
     dt.items.add(file);
 
+    // IMPORTANT: Chrome's ClipboardEvent constructor ignores the clipboardData option.
+    // We must use Object.defineProperty to force-set it.
     const pasteEvent = new ClipboardEvent("paste", {
       bubbles: true,
       cancelable: true,
-      clipboardData: dt,
+    });
+    Object.defineProperty(pasteEvent, "clipboardData", {
+      value: dt,
+      writable: false,
     });
 
-    // Dispatch on the focused element or compose box
+    // Dispatch on the focused compose box
     const target = composeBox || document.querySelector("#main") || document.querySelector("#app");
     target.dispatchEvent(pasteEvent);
-    console.log("[BulkWA] Clipboard paste dispatched for:", file.name);
+    console.log("[BulkWA] Clipboard paste dispatched (with defineProperty) for:", file.name);
     await sleep(2000);
   }
 
@@ -317,12 +332,47 @@
 
     const dt = new DataTransfer();
     dt.items.add(file);
-    targetInput.files = dt.files;
+
+    // Use the native setter to bypass React's synthetic event handling
+    const nativeSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'files')?.set;
+    if (nativeSetter) {
+      nativeSetter.call(targetInput, dt.files);
+    } else {
+      targetInput.files = dt.files;
+    }
+
+    // Dispatch both input and change events for React compatibility
+    targetInput.dispatchEvent(new Event("input", { bubbles: true }));
     targetInput.dispatchEvent(new Event("change", { bubbles: true }));
-    console.log("[BulkWA] File set on input, accept:", targetInput.getAttribute("accept"));
+    console.log("[BulkWA] File set on input (native setter), accept:", targetInput.getAttribute("accept"));
     await sleep(1500);
     return true;
   }
+
+  // ── Quick check if media editor appeared ─────────────────────
+  function checkForMediaEditor(timeoutMs) {
+    return new Promise((resolve) => {
+      let elapsed = 0;
+      const interval = 300;
+      const check = setInterval(() => {
+        elapsed += interval;
+        const editor =
+          document.querySelector('[data-testid="media-editor"]') ||
+          document.querySelector('[data-testid="media-canvas"]') ||
+          document.querySelector('[data-testid="media-editor-container"]');
+        if (editor) {
+          clearInterval(check);
+          console.log("[BulkWA] Media editor detected");
+          resolve(true);
+          return;
+        }
+        if (elapsed >= timeoutMs) {
+          clearInterval(check);
+          console.log("[BulkWA] Media editor NOT detected after", timeoutMs, "ms");
+          resolve(false);
+        }
+      }, interval);
+    });
   }
 
   // ── Wait for attachment preview ──────────────────────────────
