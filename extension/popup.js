@@ -164,7 +164,7 @@ $("#btn-send-single").addEventListener("click", async () => {
   updateStatus("sending", "Sending...");
 
   try {
-    await sendMessageViaContentScript(waTab.id, phone, message, singleFileData);
+    await sendMessageViaBackground(phone, message, singleFileData);
     await addHistory(phone, "", message, "sent", singleFileData ? singleFileData.name : null);
     updateStatus("connected", "Message sent!");
     $("#single-phone").value = "";
@@ -295,7 +295,7 @@ $("#btn-send-bulk").addEventListener("click", async () => {
 
   const contacts = parseContacts();
   const message = $("#bulk-message").value.trim();
-  const delay = Math.max(3, parseInt($("#bulk-delay").value) || 5) * 1000;
+  const delay = Math.max(5, parseInt($("#bulk-delay").value) || 8) * 1000;
 
   if (contacts.length === 0) return alert("Add at least one contact");
   if (!message && !bulkFileData) return alert("Enter a message or attach a file");
@@ -341,7 +341,7 @@ $("#btn-send-bulk").addEventListener("click", async () => {
     updateStatus("sending", `Sending ${i + 1}/${contacts.length}...`);
 
     try {
-      await sendMessageViaContentScript(waTab.id, contact.phone, personalised, bulkFileData);
+      await sendMessageViaBackground(contact.phone, personalised, bulkFileData);
       sent++;
       appendLog(log, `✓ Sent to ${contact.name || contact.phone}`, "success");
       await addHistory(contact.phone, contact.name || "", personalised, "sent", bulkFileData ? bulkFileData.name : null);
@@ -374,8 +374,8 @@ $("#btn-stop-bulk").addEventListener("click", () => {
   $("#btn-stop-bulk").textContent = "Stopping...";
 });
 
-// ── Send message via content script ────────────────────────────
-function sendMessageViaContentScript(tabId, phone, message, fileData) {
+// ── Send message via background script ──────────────────────────
+function sendMessageViaBackground(phone, message, fileData) {
   return new Promise((resolve, reject) => {
     const payload = { action: "sendMessage", phone, message };
     if (fileData) {
@@ -385,7 +385,7 @@ function sendMessageViaContentScript(tabId, phone, message, fileData) {
         dataUrl: fileData.dataUrl,
       };
     }
-    chrome.tabs.sendMessage(tabId, payload, (response) => {
+    chrome.runtime.sendMessage(payload, (response) => {
       if (chrome.runtime.lastError) {
         return reject(new Error(chrome.runtime.lastError.message));
       }
