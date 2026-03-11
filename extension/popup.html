@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bulk WhatsApp Sender</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📱 Bulk WhatsApp</h1>
+      <p class="subtitle">Send messages, images &amp; videos — no contact saving</p>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="single">Single</button>
+      <button class="tab" data-tab="bulk">Bulk</button>
+      <button class="tab" data-tab="templates">Templates</button>
+      <button class="tab" data-tab="history">History</button>
+    </nav>
+
+    <!-- ═══════ Single Message Tab ═══════ -->
+    <section id="tab-single" class="tab-content active">
+      <div class="form-group">
+        <label>Phone Number (with country code)</label>
+        <div class="input-row">
+          <span class="prefix">+</span>
+          <input type="text" id="single-phone" placeholder="919876543210" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="single-message" rows="4" placeholder="Type your message here..."></textarea>
+      </div>
+
+      <!-- Single Attachment -->
+      <div class="form-group">
+        <label>Attach Image / Video / File <small>(optional)</small></label>
+        <div class="file-drop-zone" id="single-drop-zone">
+          <input type="file" id="single-file" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx" />
+          <p>📎 Click or drag file here</p>
+        </div>
+        <div id="single-file-preview" class="file-preview hidden"></div>
+      </div>
+
+      <button id="btn-send-single" class="btn btn-primary">Send Message</button>
+    </section>
+
+    <!-- ═══════ Bulk Message Tab ═══════ -->
+    <section id="tab-bulk" class="tab-content">
+      <div class="form-group">
+        <label>Contacts <small>(one per line — columns matching headers below)</small></label>
+        <textarea id="bulk-contacts" rows="4" placeholder="919876543210,John,Acme Corp&#10;918765432109,Priya,TechCo&#10;917654321098,Alex,"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Or import CSV file</label>
+        <input type="file" id="csv-upload" accept=".csv,.txt" />
+        <div id="csv-columns-info" class="columns-info hidden"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Column Headers <small>(comma-separated, first must be "phone")</small></label>
+        <input type="text" id="bulk-headers" placeholder="phone,name,company,city" value="phone,name" />
+        <small class="help-text">Variables you can use: <strong id="variable-hints">{{name}}</strong></small>
+      </div>
+
+      <div class="form-group">
+        <label>Message <small>(use {{variable}} for personalization)</small></label>
+        <textarea id="bulk-message" rows="4" placeholder="Hello {{name}} from {{company}}, this is a reminder..."></textarea>
+      </div>
+
+      <!-- Bulk Attachment -->
+      <div class="form-group">
+        <label>Attach Image / Video / File <small>(same file sent to all)</small></label>
+        <div class="file-drop-zone" id="bulk-drop-zone">
+          <input type="file" id="bulk-file" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx" />
+          <p>📎 Click or drag file here</p>
+        </div>
+        <div id="bulk-file-preview" class="file-preview hidden"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Delay between messages (seconds)</label>
+        <input type="number" id="bulk-delay" value="5" min="3" max="60" />
+      </div>
+
+      <div id="bulk-preview" class="preview hidden">
+        <h3>Preview <small id="preview-count"></small></h3>
+        <div id="preview-list"></div>
+      </div>
+
+      <div class="btn-row">
+        <button id="btn-preview-bulk" class="btn btn-secondary">Preview</button>
+        <button id="btn-send-bulk" class="btn btn-primary">Send All</button>
+        <button id="btn-stop-bulk" class="btn btn-danger hidden">Stop</button>
+      </div>
+
+      <div id="bulk-progress" class="progress-section hidden">
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <p id="progress-text">0 / 0 sent</p>
+        <div id="progress-log" class="log"></div>
+      </div>
+    </section>
+
+    <!-- ═══════ Templates Tab ═══════ -->
+    <section id="tab-templates" class="tab-content">
+      <div class="form-group">
+        <label>Template Name</label>
+        <input type="text" id="template-name" placeholder="e.g. Meeting Reminder" />
+      </div>
+      <div class="form-group">
+        <label>Template Message <small>(supports {{variables}})</small></label>
+        <textarea id="template-message" rows="4" placeholder="Hi {{name}} from {{company}}, reminder about..."></textarea>
+      </div>
+      <button id="btn-save-template" class="btn btn-secondary">Save Template</button>
+
+      <div id="template-list" class="template-list">
+        <p class="empty-msg">No templates saved yet</p>
+      </div>
+    </section>
+
+    <!-- ═══════ History Tab ═══════ -->
+    <section id="tab-history" class="tab-content">
+      <div id="history-list" class="history-list">
+        <p class="empty-msg">No messages sent yet</p>
+      </div>
+      <button id="btn-clear-history" class="btn btn-danger btn-sm">Clear History</button>
+    </section>
+
+    <!-- Status Bar -->
+    <footer id="status-bar" class="status-bar">
+      <span id="wa-status" class="status-dot disconnected"></span>
+      <span id="wa-status-text">Open WhatsApp Web first</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
