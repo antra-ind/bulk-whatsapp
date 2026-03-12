@@ -1,0 +1,1951 @@
+{
+  "baseline": {
+    "count": 2,
+    "elements": [
+      {
+        "tag": "DIV",
+        "id": null,
+        "classes": "x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v",
+        "contentEditable": "true",
+        "dataTab": "3",
+        "role": "textbox",
+        "ariaLabel": "Search input textbox",
+        "ariaPlaceholder": "Search or start a new chat",
+        "placeholder": "Search or start a new chat",
+        "spellcheck": "true",
+        "tabIndex": 3,
+        "textContent": "",
+        "visible": true,
+        "rect": {
+          "x": 131,
+          "y": 72.9765625,
+          "width": 358.1953125,
+          "height": 22.046875
+        },
+        "zIndex": "auto",
+        "position": "static",
+        "display": "block",
+        "opacity": "1",
+        "overflow": "hidden auto",
+        "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Search input textbox\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"3\" aria-placeholder=\"Search or start a new chat\" data-tab=\"3\" data-lexical-editor=\"true\" style=\"min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><br></p></div>",
+        "ancestors": [
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xh8yej3 lexical-rich-text-input",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 131,
+              "y": 72.9765625,
+              "width": 358.1953125,
+              "height": 22.046875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x9f619 x78zum5 x6s0dn4 x4wrhlh x1l0ey4t x14ug900 xjdcl3y x1ekkm8c x1143rjc xum4auv xj21bgg x1vqgdyp xg8w3ci x19qpdui x1p4gyq8 xyri2b",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 85,
+              "y": 64,
+              "width": 404.1953125,
+              "height": 40
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 x9f619 x98rzlu x6ikm8r x10wlt62",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 85,
+              "y": 64,
+              "width": 404.1953125,
+              "height": 40
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 x11uqc5h x9f619 x78zum5 x1okw0bk xl2dz39 xexx8yu x18d9i69 x1280gxy x73uwhe x1qhh985 x1sy0etr x1phvje8 xcldk2z x7a106z x4tpdpg",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 65,
+              "y": 64,
+              "width": 444.1953125,
+              "height": 44
+            },
+            "zIndex": "100"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "_ak9t",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 65,
+              "y": 64,
+              "width": 444.1953125,
+              "height": 48
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": "side",
+            "class": "_ak9p",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 65,
+              "y": 64,
+              "width": 444.1953125,
+              "height": 850
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "_aigw _as6h x9f619 x1n2onr6 x5yr21d x17dzmu4 x1i1dayz x2ipvbc xjdofhw x78zum5 xdt5ytf x12xzxwr x1plvlek xryxfnj x570efc x18dvir5 xxljpkc xwfak60 x18pi",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 64,
+              "y": 0,
+              "width": 445.1953125,
+              "height": 914
+            },
+            "zIndex": "200"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "two _aigs _as6h x1n2onr6 x13vifvy x1o0tod x78zum5 xh8yej3 x5yr21d x6ikm8r x10wlt62 x1h3rtpe x1w3jsh0 xf8xn22 x1bczwif x17un8ov x1e7945m x11o6v7j x1g0a",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1113,
+              "height": 914
+            },
+            "zIndex": "auto"
+          }
+        ]
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf",
+        "contentEditable": "true",
+        "dataTab": "10",
+        "role": "textbox",
+        "ariaLabel": "Type to Rakhesh Permuddannaya",
+        "ariaPlaceholder": "Type a message",
+        "placeholder": "Type a message",
+        "spellcheck": "true",
+        "tabIndex": 10,
+        "textContent": "",
+        "visible": true,
+        "rect": {
+          "x": 613.1953125,
+          "y": 864.9765625,
+          "width": 435.8046875,
+          "height": 22.046875
+        },
+        "zIndex": "auto",
+        "position": "static",
+        "display": "block",
+        "opacity": "1",
+        "overflow": "hidden auto",
+        "outerHTML": "<div aria-activedescendant=\"\" aria-autocomplete=\"list\" aria-label=\"Type to Rakhesh Permuddannaya\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"10\" aria-placeholder=\"Type a message\" data-tab=\"10\" style=\"max-height: 11.76em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\" data-lexical-editor=\"true\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><b",
+        "ancestors": [
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xh8yej3 xjdcl3y lexical-rich-text-input",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 613.1953125,
+              "y": 864.9765625,
+              "width": 435.8046875,
+              "height": 22.046875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x9f619 x12lumcd x1qrby5j xeuugli x6prxxf x1fcty0u x1fc57z9 xk7ee7b x1716072 x1ygal6x x89wmna x1rbbhm9 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1l",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 521.1953125,
+              "y": 850,
+              "width": 578.8046875,
+              "height": 52
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "_ak1r",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x78zum5 xuk3077",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "SPAN",
+            "id": null,
+            "class": null,
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 x98rzlu xh8yej3 xeuugli x1gg8mnh",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xhtitgo x9f619 x78zum5 x1q0g3np xuk3077 xjbqb8w x1wiwyrm xquzyny xvc5jky x11t971q xnpuxes copyable-area",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "2"
+          },
+          {
+            "tag": "FOOTER",
+            "id": null,
+            "class": "_ak1i x1wiwyrm",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "2"
+          }
+        ]
+      }
+    ]
+  },
+  "baselineCaptionRelated": [
+    {
+      "tag": "HTML",
+      "text": ":root,.__fb-light-mode:root,.__fb-light-mode{--splashscreen-primary-title:#0A0A0A;--splashscreen-pro",
+      "ariaLabel": null,
+      "placeholder": "",
+      "outerHTML": "<html id=\"whatsapp-web\" class=\"serviceworker adownload cssanimations csstransitions webp exiforientation webp-alpha webp-animation webp-lossless wf-loading\" lang=\"en\" dir=\"ltr\" style=\"--splashscreen-startup-background: #F7F5F3; --splashscreen-startup-background-rgb: 247, 245, 243; --splashscreen-sta"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"xFqg8A",
+      "ariaLabel": null,
+      "placeholder": "",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"72883\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"xFqg8AH\":{\"type\":\"js\",\"src\":\"https:\\/\\/static.whatsapp.net\\/rsrc.php\\/v4\\/yX\\/r\\/CU_89xHNTer.js\",\"c\":1,\"p\":\":312\",\"m\":"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"ScheduledServerJS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:169\",[],{\"__rc\":[null,null",
+      "ariaLabel": null,
+      "placeholder": "",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"77262\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"ScheduledServerJS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:169\",[],{\"__rc\":[null,null]},-1],[\"cr:254\",[\"WAWebSendNonMessageDataRequest\"],{\"__rc\":[\"WAWebSendNonMessageDataRequest\",null]},-1],[\"cr:37"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"Ta7viS",
+      "ariaLabel": null,
+      "placeholder": "",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"122417\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"Ta7viSr\":{\"type\":\"js\",\"src\":\"https:\\/\\/static.whatsapp.net\\/rsrc.php\\/v4ifYA4\\/yV\\/l\\/en_GB-j\\/_vwF16PR38PaQRhaiYyIaQ"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"ScheduledServerJSWithCSS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:104\",[],{\"__rc\":[nu",
+      "ariaLabel": null,
+      "placeholder": "",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"102087\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"ScheduledServerJSWithCSS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:104\",[],{\"__rc\":[null,null]},-1],[\"cr:177\",[\"useWAWebSubscribedNewsletters\"],{\"__rc\":[\"useWAWebSubscribedNewsletters\",null]},-1],["
+    }
+  ],
+  "preview": {
+    "editableCount": 3,
+    "editables": [
+      {
+        "tag": "DIV",
+        "id": null,
+        "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t",
+        "contentEditable": "true",
+        "dataTab": "undefined",
+        "role": "textbox",
+        "ariaLabel": "Type a message",
+        "ariaPlaceholder": "Type a message",
+        "placeholder": "Type a message",
+        "spellcheck": "true",
+        "tabIndex": -1,
+        "textContent": "",
+        "visible": true,
+        "rect": {
+          "x": 607.1953125,
+          "y": 766.5,
+          "width": 346.3125,
+          "height": 24.9921875
+        },
+        "zIndex": "auto",
+        "position": "static",
+        "display": "block",
+        "opacity": "1",
+        "overflow": "hidden auto",
+        "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Type a message\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" aria-placeholder=\"Type a message\" data-lexical-editor=\"true\" data-tab=\"undefined\" style=\"max-height: 7.35em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><br></p></div>",
+        "ancestors": [
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xh8yej3 x1k70j0n x14z9mp xzueoph x1lziwak xisnujt x14ug900 x1vvkbs x126k92a x1hx0egp lexical-rich-text-input",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 607.1953125,
+              "y": 766.5,
+              "width": 346.3125,
+              "height": 24.9921875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 x1q0g3np x1cy8zhl x9f619 xh8yej3 x1ba4aug x1tiyuxx xvtqlq",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 591.1953125,
+              "y": 756.5,
+              "width": 407.8046875,
+              "height": 44.9921875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 xh8yej3 xic84rp xdj266r x15d6yb6 xat24cr ",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 591.1953125,
+              "y": 756.5,
+              "width": 441.8046875,
+              "height": 44.9921875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x1cy8zhl xh8yej3",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 511.1953125,
+              "y": 756.5,
+              "width": 601.8046875,
+              "height": 44.9921875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 x1n2onr6 xo8q3i6 x1y1aw1k xwib8y2 x1c1uob",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 511.1953125,
+              "y": 743,
+              "width": 601.8046875,
+              "height": 72
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x78zum5 x1iyjqo2 xs83m0k x1r8uery xdt5ytf x1qughib x6ikm8r x10wlt62",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 511.1953125,
+              "y": 64,
+              "width": 601.8046875,
+              "height": 751
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 xdt5ytf x1qjc9v5 x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr2",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 510.1953125,
+              "y": 64,
+              "width": 602.8046875,
+              "height": 850
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xupqr0c x78zum5 x1r8uery x1iyjqo2 xdt5ytf x1hc1fzr x6ikm8r x10wlt62 x1anedsm",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 510.1953125,
+              "y": 64,
+              "width": 602.8046875,
+              "height": 850
+            },
+            "zIndex": "100"
+          }
+        ]
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "classes": "x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v",
+        "contentEditable": "true",
+        "dataTab": "3",
+        "role": "textbox",
+        "ariaLabel": "Search input textbox",
+        "ariaPlaceholder": "Search or start a new chat",
+        "placeholder": "Search or start a new chat",
+        "spellcheck": "true",
+        "tabIndex": 3,
+        "textContent": "",
+        "visible": true,
+        "rect": {
+          "x": 131,
+          "y": 72.9765625,
+          "width": 358.1953125,
+          "height": 22.046875
+        },
+        "zIndex": "auto",
+        "position": "static",
+        "display": "block",
+        "opacity": "1",
+        "overflow": "hidden auto",
+        "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Search input textbox\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"3\" aria-placeholder=\"Search or start a new chat\" data-tab=\"3\" data-lexical-editor=\"true\" style=\"min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><br></p></div>",
+        "ancestors": [
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xh8yej3 lexical-rich-text-input",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 131,
+              "y": 72.9765625,
+              "width": 358.1953125,
+              "height": 22.046875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x9f619 x78zum5 x6s0dn4 x4wrhlh x1l0ey4t x14ug900 xjdcl3y x1ekkm8c x1143rjc xum4auv xj21bgg x1vqgdyp xg8w3ci x19qpdui x1p4gyq8 xyri2b",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 85,
+              "y": 64,
+              "width": 404.1953125,
+              "height": 40
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 x9f619 x98rzlu x6ikm8r x10wlt62",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 85,
+              "y": 64,
+              "width": 404.1953125,
+              "height": 40
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 x11uqc5h x9f619 x78zum5 x1okw0bk xl2dz39 xexx8yu x18d9i69 x1280gxy x73uwhe x1qhh985 x1sy0etr x1phvje8 xcldk2z x7a106z x4tpdpg",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 65,
+              "y": 64,
+              "width": 444.1953125,
+              "height": 44
+            },
+            "zIndex": "100"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "_ak9t",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 65,
+              "y": 64,
+              "width": 444.1953125,
+              "height": 48
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": "side",
+            "class": "_ak9p",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 65,
+              "y": 64,
+              "width": 444.1953125,
+              "height": 850
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "_aigw _as6h x9f619 x1n2onr6 x5yr21d x17dzmu4 x1i1dayz x2ipvbc xjdofhw x78zum5 xdt5ytf x12xzxwr x1plvlek xryxfnj x570efc x18dvir5 xxljpkc xwfak60 x18pi",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 64,
+              "y": 0,
+              "width": 445.1953125,
+              "height": 914
+            },
+            "zIndex": "200"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "two _aigs _as6h x1n2onr6 x13vifvy x1o0tod x78zum5 xh8yej3 x5yr21d x6ikm8r x10wlt62 x1h3rtpe x1w3jsh0 xf8xn22 x1bczwif x17un8ov x1e7945m x11o6v7j x1g0a",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1113,
+              "height": 914
+            },
+            "zIndex": "auto"
+          }
+        ]
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf",
+        "contentEditable": "true",
+        "dataTab": "10",
+        "role": "textbox",
+        "ariaLabel": "Type to Rakhesh Permuddannaya",
+        "ariaPlaceholder": "Type a message",
+        "placeholder": "Type a message",
+        "spellcheck": "true",
+        "tabIndex": 10,
+        "textContent": "",
+        "visible": true,
+        "rect": {
+          "x": 613.1953125,
+          "y": 864.9765625,
+          "width": 435.8046875,
+          "height": 22.046875
+        },
+        "zIndex": "auto",
+        "position": "static",
+        "display": "block",
+        "opacity": "1",
+        "overflow": "hidden auto",
+        "outerHTML": "<div aria-activedescendant=\"\" aria-autocomplete=\"list\" aria-label=\"Type to Rakhesh Permuddannaya\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"10\" aria-placeholder=\"Type a message\" data-tab=\"10\" style=\"max-height: 11.76em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\" data-lexical-editor=\"true\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><b",
+        "ancestors": [
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xh8yej3 xjdcl3y lexical-rich-text-input",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 613.1953125,
+              "y": 864.9765625,
+              "width": 435.8046875,
+              "height": 22.046875
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x9f619 x12lumcd x1qrby5j xeuugli x6prxxf x1fcty0u x1fc57z9 xk7ee7b x1716072 x1ygal6x x89wmna x1rbbhm9 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1l",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 521.1953125,
+              "y": 850,
+              "width": 578.8046875,
+              "height": 52
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "_ak1r",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x78zum5 xuk3077",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "SPAN",
+            "id": null,
+            "class": null,
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 x98rzlu xh8yej3 xeuugli x1gg8mnh",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "auto"
+          },
+          {
+            "tag": "DIV",
+            "id": null,
+            "class": "x1n2onr6 xhtitgo x9f619 x78zum5 x1q0g3np xuk3077 xjbqb8w x1wiwyrm xquzyny xvc5jky x11t971q xnpuxes copyable-area",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "2"
+          },
+          {
+            "tag": "FOOTER",
+            "id": null,
+            "class": "_ak1i x1wiwyrm",
+            "role": null,
+            "ariaLabel": null,
+            "rect": {
+              "x": 509.1953125,
+              "y": 850,
+              "width": 602.8046875,
+              "height": 64
+            },
+            "zIndex": "2"
+          }
+        ]
+      }
+    ]
+  },
+  "previewTextboxes": [
+    {
+      "tag": "DIV",
+      "id": null,
+      "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t",
+      "contentEditable": "true",
+      "dataTab": "undefined",
+      "role": "textbox",
+      "ariaLabel": "Type a message",
+      "ariaPlaceholder": "Type a message",
+      "placeholder": "Type a message",
+      "spellcheck": "true",
+      "tabIndex": -1,
+      "textContent": "",
+      "visible": true,
+      "rect": {
+        "x": 607.1953125,
+        "y": 766.5,
+        "width": 346.3125,
+        "height": 24.9921875
+      },
+      "zIndex": "auto",
+      "position": "static",
+      "display": "block",
+      "opacity": "1",
+      "overflow": "hidden auto",
+      "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Type a message\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" aria-placeholder=\"Type a message\" data-lexical-editor=\"true\" data-tab=\"undefined\" style=\"max-height: 7.35em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><br></p></div>",
+      "ancestors": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xh8yej3 x1k70j0n x14z9mp xzueoph x1lziwak xisnujt x14ug900 x1vvkbs x126k92a x1hx0egp lexical-rich-text-input",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 607.1953125,
+            "y": 766.5,
+            "width": 346.3125,
+            "height": 24.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 x1q0g3np x1cy8zhl x9f619 xh8yej3 x1ba4aug x1tiyuxx xvtqlq",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 591.1953125,
+            "y": 756.5,
+            "width": 407.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 xh8yej3 xic84rp xdj266r x15d6yb6 xat24cr ",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 591.1953125,
+            "y": 756.5,
+            "width": 441.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x1cy8zhl xh8yej3",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 756.5,
+            "width": 601.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 x1n2onr6 xo8q3i6 x1y1aw1k xwib8y2 x1c1uob",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 743,
+            "width": 601.8046875,
+            "height": 72
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x78zum5 x1iyjqo2 xs83m0k x1r8uery xdt5ytf x1qughib x6ikm8r x10wlt62",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 64,
+            "width": 601.8046875,
+            "height": 751
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 xdt5ytf x1qjc9v5 x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr2",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 510.1953125,
+            "y": 64,
+            "width": 602.8046875,
+            "height": 850
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xupqr0c x78zum5 x1r8uery x1iyjqo2 xdt5ytf x1hc1fzr x6ikm8r x10wlt62 x1anedsm",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 510.1953125,
+            "y": 64,
+            "width": 602.8046875,
+            "height": 850
+          },
+          "zIndex": "100"
+        }
+      ]
+    },
+    {
+      "tag": "DIV",
+      "id": null,
+      "classes": "x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v",
+      "contentEditable": "true",
+      "dataTab": "3",
+      "role": "textbox",
+      "ariaLabel": "Search input textbox",
+      "ariaPlaceholder": "Search or start a new chat",
+      "placeholder": "Search or start a new chat",
+      "spellcheck": "true",
+      "tabIndex": 3,
+      "textContent": "",
+      "visible": true,
+      "rect": {
+        "x": 131,
+        "y": 72.9765625,
+        "width": 358.1953125,
+        "height": 22.046875
+      },
+      "zIndex": "auto",
+      "position": "static",
+      "display": "block",
+      "opacity": "1",
+      "overflow": "hidden auto",
+      "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Search input textbox\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"3\" aria-placeholder=\"Search or start a new chat\" data-tab=\"3\" data-lexical-editor=\"true\" style=\"min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><br></p></div>",
+      "ancestors": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xh8yej3 lexical-rich-text-input",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 131,
+            "y": 72.9765625,
+            "width": 358.1953125,
+            "height": 22.046875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x9f619 x78zum5 x6s0dn4 x4wrhlh x1l0ey4t x14ug900 xjdcl3y x1ekkm8c x1143rjc xum4auv xj21bgg x1vqgdyp xg8w3ci x19qpdui x1p4gyq8 xyri2b",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 85,
+            "y": 64,
+            "width": 404.1953125,
+            "height": 40
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 x9f619 x98rzlu x6ikm8r x10wlt62",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 85,
+            "y": 64,
+            "width": 404.1953125,
+            "height": 40
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 x11uqc5h x9f619 x78zum5 x1okw0bk xl2dz39 xexx8yu x18d9i69 x1280gxy x73uwhe x1qhh985 x1sy0etr x1phvje8 xcldk2z x7a106z x4tpdpg",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 65,
+            "y": 64,
+            "width": 444.1953125,
+            "height": 44
+          },
+          "zIndex": "100"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "_ak9t",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 65,
+            "y": 64,
+            "width": 444.1953125,
+            "height": 48
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": "side",
+          "class": "_ak9p",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 65,
+            "y": 64,
+            "width": 444.1953125,
+            "height": 850
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "_aigw _as6h x9f619 x1n2onr6 x5yr21d x17dzmu4 x1i1dayz x2ipvbc xjdofhw x78zum5 xdt5ytf x12xzxwr x1plvlek xryxfnj x570efc x18dvir5 xxljpkc xwfak60 x18pi",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 64,
+            "y": 0,
+            "width": 445.1953125,
+            "height": 914
+          },
+          "zIndex": "200"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "two _aigs _as6h x1n2onr6 x13vifvy x1o0tod x78zum5 xh8yej3 x5yr21d x6ikm8r x10wlt62 x1h3rtpe x1w3jsh0 xf8xn22 x1bczwif x17un8ov x1e7945m x11o6v7j x1g0a",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1113,
+            "height": 914
+          },
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "tag": "DIV",
+      "id": null,
+      "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf",
+      "contentEditable": "true",
+      "dataTab": "10",
+      "role": "textbox",
+      "ariaLabel": "Type to Rakhesh Permuddannaya",
+      "ariaPlaceholder": "Type a message",
+      "placeholder": "Type a message",
+      "spellcheck": "true",
+      "tabIndex": 10,
+      "textContent": "",
+      "visible": true,
+      "rect": {
+        "x": 613.1953125,
+        "y": 864.9765625,
+        "width": 435.8046875,
+        "height": 22.046875
+      },
+      "zIndex": "auto",
+      "position": "static",
+      "display": "block",
+      "opacity": "1",
+      "overflow": "hidden auto",
+      "outerHTML": "<div aria-activedescendant=\"\" aria-autocomplete=\"list\" aria-label=\"Type to Rakhesh Permuddannaya\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"10\" aria-placeholder=\"Type a message\" data-tab=\"10\" style=\"max-height: 11.76em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\" data-lexical-editor=\"true\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><b",
+      "ancestors": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xh8yej3 xjdcl3y lexical-rich-text-input",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 613.1953125,
+            "y": 864.9765625,
+            "width": 435.8046875,
+            "height": 22.046875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x9f619 x12lumcd x1qrby5j xeuugli x6prxxf x1fcty0u x1fc57z9 xk7ee7b x1716072 x1ygal6x x89wmna x1rbbhm9 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1l",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 521.1953125,
+            "y": 850,
+            "width": 578.8046875,
+            "height": 52
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "_ak1r",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x78zum5 xuk3077",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "SPAN",
+          "id": null,
+          "class": null,
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 x98rzlu xh8yej3 xeuugli x1gg8mnh",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xhtitgo x9f619 x78zum5 x1q0g3np xuk3077 xjbqb8w x1wiwyrm xquzyny xvc5jky x11t971q xnpuxes copyable-area",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "2"
+        },
+        {
+          "tag": "FOOTER",
+          "id": null,
+          "class": "_ak1i x1wiwyrm",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "2"
+        }
+      ]
+    }
+  ],
+  "previewInputs": [],
+  "previewCaptionRelated": [
+    {
+      "tag": "HTML",
+      "text": ":root,.__fb-light-mode:root,.__fb-light-mode{--splashscreen-primary-title:#0A0A0A;--splashscreen-pro",
+      "ariaLabel": null,
+      "placeholder": "",
+      "contentEditable": "inherit",
+      "outerHTML": "<html id=\"whatsapp-web\" class=\"serviceworker adownload cssanimations csstransitions webp exiforientation webp-alpha webp-animation webp-lossless wf-loading\" lang=\"en\" dir=\"ltr\" style=\"--splashscreen-startup-background: #F7F5F3; --splashscreen-startup-background-rgb: 247, 245, 243; --splashscreen-startup-icon: rgba(0, 0, 0, 0.1); --splashscreen-primary-title: #0A0A0A; --splashscreen-secondary-light"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"xFqg8A",
+      "ariaLabel": null,
+      "placeholder": "",
+      "contentEditable": "inherit",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"72883\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"xFqg8AH\":{\"type\":\"js\",\"src\":\"https:\\/\\/static.whatsapp.net\\/rsrc.php\\/v4\\/yX\\/r\\/CU_89xHNTer.js\",\"c\":1,\"p\":\":312\",\"m\":\"1034989030_main\"},\"bmzWhHq\":{\"type\":\"js\",\"src\":\"https:\\/\\/static.whatsapp.net\\/rsrc.php\\/v4\\/yf\\/r\\"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"ScheduledServerJS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:169\",[],{\"__rc\":[null,null",
+      "ariaLabel": null,
+      "placeholder": "",
+      "contentEditable": "inherit",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"77262\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"ScheduledServerJS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:169\",[],{\"__rc\":[null,null]},-1],[\"cr:254\",[\"WAWebSendNonMessageDataRequest\"],{\"__rc\":[\"WAWebSendNonMessageDataRequest\",null]},-1],[\"cr:375\",[\"WAWebFtsLightClient\"],{\"__rc\":[\"WAWebFtsLightClient\",null]},-1],[\"cr:1064\",[],{\"__rc\":[null,nul"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"Ta7viS",
+      "ariaLabel": null,
+      "placeholder": "",
+      "contentEditable": "inherit",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"122417\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"Bootloader\",\"handlePayload\",null,[{\"consistency\":{\"rev\":1034989030},\"rsrcMap\":{\"Ta7viSr\":{\"type\":\"js\",\"src\":\"https:\\/\\/static.whatsapp.net\\/rsrc.php\\/v4ifYA4\\/yV\\/l\\/en_GB-j\\/_vwF16PR38PaQRhaiYyIaQMy1yN5WmzSzOO-vTMl-INa9dcT6PhD0kp5Yhk2_QRmj18_zUJvetc2w7nKxv87PDHho9niGiSqpWb5tURb0HaVnEdBXtebRN9DGK"
+    },
+    {
+      "tag": "SCRIPT",
+      "text": "{\"require\":[[\"ScheduledServerJSWithCSS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:104\",[],{\"__rc\":[nu",
+      "ariaLabel": null,
+      "placeholder": "",
+      "contentEditable": "inherit",
+      "outerHTML": "<script type=\"application/json\" data-content-len=\"102087\" data-sjs=\"\" data-processed=\"1\">{\"require\":[[\"ScheduledServerJSWithCSS\",\"handle\",null,[{\"__bbox\":{\"define\":[[\"cr:104\",[],{\"__rc\":[null,null]},-1],[\"cr:177\",[\"useWAWebSubscribedNewsletters\"],{\"__rc\":[\"useWAWebSubscribedNewsletters\",null]},-1],[\"cr:474\",[],{\"__rc\":[null,null]},-1],[\"cr:545\",[],{\"__rc\":[null,null]},-1],[\"cr:593\",[],{\"__rc\":[nul"
+    }
+  ],
+  "sendButtonRect": {
+    "x": 1037,
+    "y": 835,
+    "width": 60,
+    "height": 60,
+    "top": 835,
+    "right": 1097,
+    "bottom": 895,
+    "left": 1037
+  },
+  "editablesNearSendButton": [
+    {
+      "tag": "DIV",
+      "id": null,
+      "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t",
+      "contentEditable": "true",
+      "dataTab": "undefined",
+      "role": "textbox",
+      "ariaLabel": "Type a message",
+      "ariaPlaceholder": "Type a message",
+      "placeholder": "Type a message",
+      "spellcheck": "true",
+      "tabIndex": -1,
+      "textContent": "",
+      "visible": true,
+      "rect": {
+        "x": 607.1953125,
+        "y": 766.5,
+        "width": 346.3125,
+        "height": 24.9921875
+      },
+      "zIndex": "auto",
+      "position": "static",
+      "display": "block",
+      "opacity": "1",
+      "overflow": "hidden auto",
+      "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Type a message\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" aria-placeholder=\"Type a message\" data-lexical-editor=\"true\" data-tab=\"undefined\" style=\"max-height: 7.35em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><br></p></div>",
+      "ancestors": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xh8yej3 x1k70j0n x14z9mp xzueoph x1lziwak xisnujt x14ug900 x1vvkbs x126k92a x1hx0egp lexical-rich-text-input",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 607.1953125,
+            "y": 766.5,
+            "width": 346.3125,
+            "height": 24.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 x1q0g3np x1cy8zhl x9f619 xh8yej3 x1ba4aug x1tiyuxx xvtqlq",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 591.1953125,
+            "y": 756.5,
+            "width": 407.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 xh8yej3 xic84rp xdj266r x15d6yb6 xat24cr ",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 591.1953125,
+            "y": 756.5,
+            "width": 441.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x1cy8zhl xh8yej3",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 756.5,
+            "width": 601.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 x1n2onr6 xo8q3i6 x1y1aw1k xwib8y2 x1c1uob",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 743,
+            "width": 601.8046875,
+            "height": 72
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x78zum5 x1iyjqo2 xs83m0k x1r8uery xdt5ytf x1qughib x6ikm8r x10wlt62",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 64,
+            "width": 601.8046875,
+            "height": 751
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 xdt5ytf x1qjc9v5 x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr2",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 510.1953125,
+            "y": 64,
+            "width": 602.8046875,
+            "height": 850
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xupqr0c x78zum5 x1r8uery x1iyjqo2 xdt5ytf x1hc1fzr x6ikm8r x10wlt62 x1anedsm",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 510.1953125,
+            "y": 64,
+            "width": 602.8046875,
+            "height": 850
+          },
+          "zIndex": "100"
+        }
+      ]
+    },
+    {
+      "tag": "DIV",
+      "id": null,
+      "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf",
+      "contentEditable": "true",
+      "dataTab": "10",
+      "role": "textbox",
+      "ariaLabel": "Type to Rakhesh Permuddannaya",
+      "ariaPlaceholder": "Type a message",
+      "placeholder": "Type a message",
+      "spellcheck": "true",
+      "tabIndex": 10,
+      "textContent": "",
+      "visible": true,
+      "rect": {
+        "x": 613.1953125,
+        "y": 864.9765625,
+        "width": 435.8046875,
+        "height": 22.046875
+      },
+      "zIndex": "auto",
+      "position": "static",
+      "display": "block",
+      "opacity": "1",
+      "overflow": "hidden auto",
+      "outerHTML": "<div aria-activedescendant=\"\" aria-autocomplete=\"list\" aria-label=\"Type to Rakhesh Permuddannaya\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"10\" aria-placeholder=\"Type a message\" data-tab=\"10\" style=\"max-height: 11.76em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\" data-lexical-editor=\"true\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><b",
+      "ancestors": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xh8yej3 xjdcl3y lexical-rich-text-input",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 613.1953125,
+            "y": 864.9765625,
+            "width": 435.8046875,
+            "height": 22.046875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x9f619 x12lumcd x1qrby5j xeuugli x6prxxf x1fcty0u x1fc57z9 xk7ee7b x1716072 x1ygal6x x89wmna x1rbbhm9 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1l",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 521.1953125,
+            "y": 850,
+            "width": 578.8046875,
+            "height": 52
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "_ak1r",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x78zum5 xuk3077",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "SPAN",
+          "id": null,
+          "class": null,
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 x98rzlu xh8yej3 xeuugli x1gg8mnh",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xhtitgo x9f619 x78zum5 x1q0g3np xuk3077 xjbqb8w x1wiwyrm xquzyny xvc5jky x11t971q xnpuxes copyable-area",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "2"
+        },
+        {
+          "tag": "FOOTER",
+          "id": null,
+          "class": "_ak1i x1wiwyrm",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 509.1953125,
+            "y": 850,
+            "width": 602.8046875,
+            "height": 64
+          },
+          "zIndex": "2"
+        }
+      ]
+    }
+  ],
+  "newEditablesInPreview": [
+    {
+      "tag": "DIV",
+      "id": null,
+      "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t",
+      "contentEditable": "true",
+      "dataTab": "undefined",
+      "role": "textbox",
+      "ariaLabel": "Type a message",
+      "ariaPlaceholder": "Type a message",
+      "placeholder": "Type a message",
+      "spellcheck": "true",
+      "tabIndex": -1,
+      "textContent": "",
+      "visible": true,
+      "rect": {
+        "x": 607.1953125,
+        "y": 766.5,
+        "width": 346.3125,
+        "height": 24.9921875
+      },
+      "zIndex": "auto",
+      "position": "static",
+      "display": "block",
+      "opacity": "1",
+      "overflow": "hidden auto",
+      "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Type a message\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x1lkfr7t\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" aria-placeholder=\"Type a message\" data-lexical-editor=\"true\" data-tab=\"undefined\" style=\"max-height: 7.35em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><br></p></div>",
+      "ancestors": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xh8yej3 x1k70j0n x14z9mp xzueoph x1lziwak xisnujt x14ug900 x1vvkbs x126k92a x1hx0egp lexical-rich-text-input",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 607.1953125,
+            "y": 766.5,
+            "width": 346.3125,
+            "height": 24.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 x1q0g3np x1cy8zhl x9f619 xh8yej3 x1ba4aug x1tiyuxx xvtqlq",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 591.1953125,
+            "y": 756.5,
+            "width": 407.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 xh8yej3 xic84rp xdj266r x15d6yb6 xat24cr ",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 591.1953125,
+            "y": 756.5,
+            "width": 441.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x1cy8zhl xh8yej3",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 756.5,
+            "width": 601.8046875,
+            "height": 44.9921875
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 x1n2onr6 xo8q3i6 x1y1aw1k xwib8y2 x1c1uob",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 743,
+            "width": 601.8046875,
+            "height": 72
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x78zum5 x1iyjqo2 xs83m0k x1r8uery xdt5ytf x1qughib x6ikm8r x10wlt62",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 511.1953125,
+            "y": 64,
+            "width": 601.8046875,
+            "height": 751
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j x1nhvcw1 xdt5ytf x1qjc9v5 x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr2",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 510.1953125,
+            "y": 64,
+            "width": 602.8046875,
+            "height": 850
+          },
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "x1n2onr6 xupqr0c x78zum5 x1r8uery x1iyjqo2 xdt5ytf x1hc1fzr x6ikm8r x10wlt62 x1anedsm",
+          "role": null,
+          "ariaLabel": null,
+          "rect": {
+            "x": 510.1953125,
+            "y": 64,
+            "width": 602.8046875,
+            "height": 850
+          },
+          "zIndex": "100"
+        }
+      ]
+    }
+  ],
+  "tab10InPreview": {
+    "tag": "DIV",
+    "id": null,
+    "classes": "x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf",
+    "contentEditable": "true",
+    "dataTab": "10",
+    "role": "textbox",
+    "ariaLabel": "Type to Rakhesh Permuddannaya",
+    "ariaPlaceholder": "Type a message",
+    "placeholder": "Type a message",
+    "spellcheck": "true",
+    "tabIndex": 10,
+    "textContent": "",
+    "visible": true,
+    "rect": {
+      "x": 613.1953125,
+      "y": 864.9765625,
+      "width": 435.8046875,
+      "height": 22.046875
+    },
+    "zIndex": "auto",
+    "position": "static",
+    "display": "block",
+    "opacity": "1",
+    "overflow": "hidden auto",
+    "outerHTML": "<div aria-activedescendant=\"\" aria-autocomplete=\"list\" aria-label=\"Type to Rakhesh Permuddannaya\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x1k6rcq7 x6prxxf\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"10\" aria-placeholder=\"Type a message\" data-tab=\"10\" style=\"max-height: 11.76em; min-height: 1.47em; user-select: text; white-space: pre-wrap; word-break: break-word;\" data-lexical-editor=\"true\"><p class=\"_aupe copyable-text x15bjb6t x1n2onr6\" dir=\"auto\"><b",
+    "ancestors": [
+      {
+        "tag": "DIV",
+        "id": null,
+        "class": "x1n2onr6 xh8yej3 xjdcl3y lexical-rich-text-input",
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 613.1953125,
+          "y": 864.9765625,
+          "width": 435.8046875,
+          "height": 22.046875
+        },
+        "zIndex": "auto"
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "class": "x9f619 x12lumcd x1qrby5j xeuugli x6prxxf x1fcty0u x1fc57z9 xk7ee7b x1716072 x1ygal6x x89wmna x1rbbhm9 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1l",
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 521.1953125,
+          "y": 850,
+          "width": 578.8046875,
+          "height": 52
+        },
+        "zIndex": "auto"
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "class": "_ak1r",
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 509.1953125,
+          "y": 850,
+          "width": 602.8046875,
+          "height": 64
+        },
+        "zIndex": "auto"
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "class": "x78zum5 xuk3077",
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 509.1953125,
+          "y": 850,
+          "width": 602.8046875,
+          "height": 64
+        },
+        "zIndex": "auto"
+      },
+      {
+        "tag": "SPAN",
+        "id": null,
+        "class": null,
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 509.1953125,
+          "y": 850,
+          "width": 602.8046875,
+          "height": 64
+        },
+        "zIndex": "auto"
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "class": "x1n2onr6 x98rzlu xh8yej3 xeuugli x1gg8mnh",
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 509.1953125,
+          "y": 850,
+          "width": 602.8046875,
+          "height": 64
+        },
+        "zIndex": "auto"
+      },
+      {
+        "tag": "DIV",
+        "id": null,
+        "class": "x1n2onr6 xhtitgo x9f619 x78zum5 x1q0g3np xuk3077 xjbqb8w x1wiwyrm xquzyny xvc5jky x11t971q xnpuxes copyable-area",
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 509.1953125,
+          "y": 850,
+          "width": 602.8046875,
+          "height": 64
+        },
+        "zIndex": "2"
+      },
+      {
+        "tag": "FOOTER",
+        "id": null,
+        "class": "_ak1i x1wiwyrm",
+        "role": null,
+        "ariaLabel": null,
+        "rect": {
+          "x": 509.1953125,
+          "y": 850,
+          "width": 602.8046875,
+          "height": 64
+        },
+        "zIndex": "2"
+      }
+    ]
+  },
+  "elementAtTab10Center": {
+    "tag": "BUTTON",
+    "class": "html-button xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x1so62im x1syfmzz x1ja2u2z x1ypdohk x1s928wv x1j6awrg x4eaejv x1wsn0xg x1r0yslu x2q1x1w xapdjt xr6f91l x5rv0tg x1akc3lz xikp0eg x1xl5mkn x1mfml39 ",
+    "contentEditable": "inherit",
+    "ariaLabel": "Add file",
+    "ariaPlaceholder": null,
+    "role": null,
+    "outerHTML": "<button aria-label=\"Add file\" aria-disabled=\"false\" tabindex=\"0\" type=\"button\" class=\"html-button xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x1so62im x1syfmzz x1ja2u2z x1ypdohk x1s928wv x1j6awrg x4eaejv x1wsn0xg x1r0yslu x2q1x1w xapdjt xr6f91l x5rv0tg x1akc3lz xikp0eg x1xl5mkn x1mfml39 x1l5mzlr xgmdoj8 x1f1wgk5 x1x3ic1u xjbqb8w xuwfzo9 xy0j11r xg268so x1b4bgnk x1wb366y xtnn1bt x9v5kkp xmw7ebm xrdum7p x2lah0s x9f619 x100vrsf x78zum5 x6s0dn4 xl56j7k x9hgts1 xdd8jsf x178xt8z x1lun4ml xso031l xpilrb4",
+    "isSameAsTab10": false
+  },
+  "footerInPreview": {
+    "outerHTML": "<footer tabindex=\"-1\" class=\"_ak1i x1wiwyrm\"><div class=\"x1n2onr6 xhtitgo x9f619 x78zum5 x1q0g3np xuk3077 xjbqb8w x1wiwyrm xquzyny xvc5jky x11t971q xnpuxes copyable-area\"><div class=\"x1n2onr6 x98rzlu xh8yej3 xeuugli x1gg8mnh\"><span class=\"\"><div class=\"x78zum5 xuk3077\"><div class=\"_ak1r\"><div tabindex=\"-1\" class=\"x9f619 x12lumcd x1qrby5j xeuugli x6prxxf x1fcty0u x1fc57z9 xk7ee7b x1716072 x1ygal6x x89wmna x1rbbhm9 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x1a2a7pz x13w7htt x78zum5 x123j3cw x1gabggj xs9asl8 xaso8d8 x1diwwjn xbmvrgn xod5an3 x1wiwyrm xt7dq6l x17m9png x91sizk x1vva9xg x1jfkl46 x6s0dn4 xkfubxc x1p0mfcu\"><div class=\"x100vrsf x1vqgdyp x78zum5 x6s0dn4 xpvyfi4\"><div><span class=\"html-span xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x1hl2dhg x16tdsg8 x1vvkbs x4k7w5x x1h91t0o x1h9r5lt x1jfb8zj xv2umb2 x1beo9mf xaigb6o x12ejxvf x3igimt xarpa2k xedcshv x1lytzrv x1t2pt76 x7ja8zs x1qrby5j\"><button data-tab=\"10\" aria-label=\"Attach\" aria",
+    "visible": true,
+    "rect": {
+      "x": 509.1953125,
+      "y": 850,
+      "width": 602.8046875,
+      "height": 64,
+      "top": 850,
+      "right": 1112,
+      "bottom": 914,
+      "left": 509.1953125
+    }
+  },
+  "lexicalEditors": [
+    {
+      "class": "x1n2onr6 xh8yej3 x1k70j0n x14z9mp xzueoph x1lziwak xisnujt x14ug900 x1vvkbs x126k92a x1hx0egp lexical-rich-text-input",
+      "rect": {
+        "x": 607.1953125,
+        "y": 766.5,
+        "width": 346.3125,
+        "height": 24.9921875,
+        "top": 766.5,
+        "right": 953.5078125,
+        "bottom": 791.4921875,
+        "left": 607.1953125
+      },
+      "visible": true,
+      "childEditable": {
+        "dataTab": "undefined",
+        "ariaLabel": "Type a message",
+        "ariaPlaceholder": "Type a message"
+      }
+    },
+    {
+      "class": "x1n2onr6 xh8yej3 lexical-rich-text-input",
+      "rect": {
+        "x": 131,
+        "y": 72.9765625,
+        "width": 358.1953125,
+        "height": 22.046875,
+        "top": 72.9765625,
+        "right": 489.1953125,
+        "bottom": 95.0234375,
+        "left": 131
+      },
+      "visible": true,
+      "childEditable": {
+        "dataTab": "3",
+        "ariaLabel": "Search input textbox",
+        "ariaPlaceholder": "Search or start a new chat"
+      }
+    },
+    {
+      "class": "x1n2onr6 xh8yej3 xjdcl3y lexical-rich-text-input",
+      "rect": {
+        "x": 613.1953125,
+        "y": 864.9765625,
+        "width": 435.8046875,
+        "height": 22.046875,
+        "top": 864.9765625,
+        "right": 1049,
+        "bottom": 887.0234375,
+        "left": 613.1953125
+      },
+      "visible": true,
+      "childEditable": {
+        "dataTab": "10",
+        "ariaLabel": "Type to Rakhesh Permuddannaya",
+        "ariaPlaceholder": "Type a message"
+      }
+    }
+  ],
+  "xAltPosition": {
+    "x": 752.09375,
+    "y": 841,
+    "width": 24,
+    "height": 24,
+    "top": 841,
+    "right": 776.09375,
+    "bottom": 865,
+    "left": 752.09375
+  },
+  "focusTests": [
+    {
+      "testPoint": {
+        "x": 637,
+        "y": 865
+      },
+      "element": {
+        "tag": "DIV",
+        "contentEditable": "inherit",
+        "ariaLabel": null,
+        "ariaPlaceholder": null,
+        "role": null,
+        "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 x9f619 x1iyjqo2 xs83m0k xdl72j9 x1gslohp "
+      }
+    },
+    {
+      "testPoint": {
+        "x": 737,
+        "y": 865
+      },
+      "element": {
+        "tag": "DIV",
+        "contentEditable": "inherit",
+        "ariaLabel": null,
+        "ariaPlaceholder": null,
+        "role": null,
+        "class": "_ak3i"
+      }
+    },
+    {
+      "testPoint": {
+        "x": 837,
+        "y": 865
+      },
+      "element": {
+        "tag": "BUTTON",
+        "contentEditable": "inherit",
+        "ariaLabel": "Add file",
+        "ariaPlaceholder": null,
+        "role": null,
+        "class": "html-button xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x1so62im x1syfmzz x1ja2u2z x1ypdohk x1s928wv x1j6awrg x4eaejv x1wsn0xg x1r0yslu x2q1x1w xapdjt x"
+      }
+    },
+    {
+      "testPoint": {
+        "x": 937,
+        "y": 865
+      },
+      "element": {
+        "tag": "DIV",
+        "contentEditable": "inherit",
+        "ariaLabel": null,
+        "ariaPlaceholder": null,
+        "role": null,
+        "class": "x1c4vz4f xs83m0k xdl72j9 x1g77sc7 x78zum5 xozqiw3 x1oa3qoh x12fk4p8 xeuugli x2lwn1j xl56j7k x1q0g3np x6s0dn4 x9f619 x1iyjqo2 xs83m0k xdl72j9 x1gslohp "
+      }
+    }
+  ]
+}
