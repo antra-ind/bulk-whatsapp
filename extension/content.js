@@ -6,7 +6,7 @@
   "use strict";
 
   // Version must match manifest — allows re-injection after extension update
-  const SCRIPT_VERSION = "1.1.2";
+  const SCRIPT_VERSION = "1.2.0";
 
   // If same version already running, skip. If older version, let it re-register.
   if (window.__bulkWASenderVersion === SCRIPT_VERSION) return;
@@ -219,17 +219,35 @@
     await clickSendButton();
   }
 
-  // ── Send file via paste (primary) or fallbacks ───────────────
+  // ── Send file via attach menu (primary) or fallbacks ──────────
+  // Scan confirmed: ONLY the menu flow works (Attach → Photos & Videos → set file).
+  // Paste, drop, and direct file input all fail on WhatsApp Web.
   async function sendFileViaAttachButton(attachment) {
     const response = await fetch(attachment.dataUrl);
     const blob = await response.blob();
     const file = new File([blob], attachment.name, { type: attachment.type });
     const dataUrl = await fileToDataUrl(file);
 
-    // Method 1 (Primary): Clipboard paste into compose box
-    // This triggers WhatsApp's preview overlay with caption field — same as Ctrl+V
+    // Method 1 (Primary): Attach → Photos & Videos menu → intercept file dialog → set file
+    // This runs entirely in inject.js (MAIN world) for React compatibility
+    const result = await callInject(
+      "__bulkWA_attachViaMenu",
+      { fileData: dataUrl, fileName: file.name, fileType: file.type },
+      "__bulkWA_attachViaMenuResult",
+      15000
+    );
+
+    if (result.success) {
+      await sleep(2000);
+      if (await waitForPreviewOverlay(8000)) return;
+    }
+
+    // Method 2 (Fallback): Try the old attach + menu click + file input from content script
+    const attached = await tryAttachButtonMethod(file);
+    if (attached && await waitForPreviewOverlay(5000)) return;
+
+    // Method 3 (Fallback): Clipboard paste
     const composeBox =
-      document.querySelector('[data-testid="conversation-compose-box-input"]') ||
       document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
       document.querySelector('footer div[contenteditable="true"]');
     if (composeBox) composeBox.focus();
@@ -243,20 +261,7 @@
     await sleep(2000);
     if (await waitForPreviewOverlay(5000)) return;
 
-    // Method 2 (Fallback): Drag and drop
-    await callInject(
-      "__bulkWA_attachFile",
-      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "drop" },
-      "__bulkWA_attachResult"
-    );
-    await sleep(2000);
-    if (await waitForPreviewOverlay(5000)) return;
-
-    // Method 3 (Fallback): Attach button + file input
-    const attached = await tryAttachButtonMethod(file);
-    if (attached && await waitForPreviewOverlay(5000)) return;
-
-    throw new Error("Could not attach file — all methods failed (paste, drop, attach button)");
+    throw new Error("Could not attach file — all methods failed");
   }
 
   // ── Bridge: send command to inject.js (main world) and wait for result ──
@@ -286,7 +291,8 @@
   }
 
   async function tryAttachButtonMethod(file) {
-    // Find the attach button — WhatsApp Web uses data-icon="plus-rounded" on a BUTTON
+    // Fallback: this runs from content script (ISOLATED world).
+    // The primary attachViaMenu in inject.js (MAIN world) is preferred.
     const attachBtn =
       document.querySelector('button[aria-label="Attach"]') ||
       document.querySelector('span[data-icon="plus-rounded"]')?.closest("button") ||
@@ -299,26 +305,31 @@
     attachBtn.click();
     await sleep(1500);
 
-    // WhatsApp shows a menu: Photos & Videos, Document, Camera, Contact, etc.
-    // We need to click the "Photos & Videos" (image) menu item first.
+    // Find file inputs BEFORE clicking menu — add listener to block native dialog
+    const existingInputs = document.querySelectorAll('input[type="file"]');
+    for (const inp of existingInputs) {
+      inp.addEventListener("click", (e) => e.preventDefault(), { once: true, capture: true });
+    }
+
+    // Click Photos & Videos menu item
     const photoMenuItem = await findPhotoMenuItem();
     if (photoMenuItem) {
       photoMenuItem.click();
       await sleep(1000);
     }
 
-    // Wait for file input to appear
-    let fileInputReady = false;
-    for (let i = 0; i < 15; i++) {
-      if (document.querySelectorAll('input[type="file"]').length > 0) {
-        fileInputReady = true;
-        break;
-      }
-      await sleep(300);
+    // Also block any NEW file inputs that appeared
+    const newInputs = document.querySelectorAll('input[type="file"]');
+    for (const inp of newInputs) {
+      inp.addEventListener("click", (e) => e.preventDefault(), { once: true, capture: true });
     }
-    if (!fileInputReady) return false;
 
-    // Delegate file-input setting to inject.js (main world) for React compatibility
+    // Find the target file input
+    let targetInput = document.querySelector('input[type="file"][accept*="image"]') ||
+      document.querySelector('input[type="file"]');
+    if (!targetInput) return false;
+
+    // Set file via inject.js (MAIN world) for React compatibility
     const dataUrl = await fileToDataUrl(file);
     const result = await callInject(
       "__bulkWA_attachFile",
@@ -379,31 +390,36 @@
   }
 
   // ── Wait for image preview overlay to appear ──────────────────
-  // When an image is pasted/dropped, WhatsApp shows a preview with a caption field.
-  // We detect this by looking for a NEW contenteditable that wasn't there before.
+  // Scan confirmed: preview does NOT add new editables. It reuses the compose box.
+  // Detect preview by: new icons (x-alt = remove attachment), or send button
+  // with role="button" and aria-label="Send", or wds-ic-send-filled visible.
   function waitForPreviewOverlay(timeoutMs) {
     return new Promise((resolve) => {
-      // Snapshot current editables so we can detect the new caption field
-      const existingEditables = new Set(
-        document.querySelectorAll('div[contenteditable="true"]')
-      );
       let elapsed = 0;
       const interval = 300;
       const check = setInterval(() => {
         elapsed += interval;
 
-        // Look for a NEW contenteditable (the caption input)
-        const allEditable = document.querySelectorAll('div[contenteditable="true"]');
-        for (const el of allEditable) {
-          if (!existingEditables.has(el)) {
-            clearInterval(check);
-            resolve(true);
-            return;
-          }
+        // Check 1: "Remove attachment" button (x-alt icon) — unique to preview
+        const removeBtn = document.querySelector('span[data-icon="x-alt"]');
+        if (removeBtn) {
+          clearInterval(check);
+          resolve(true);
+          return;
         }
 
-        // Also check if the number of editables increased
-        if (allEditable.length > existingEditables.size) {
+        // Check 2: Send button with aria-label="Send" as div[role="button"]
+        // (only appears in preview — regular chat send is different)
+        const sendDiv = document.querySelector('div[role="button"][aria-label="Send"]');
+        if (sendDiv && sendDiv.querySelector('span[data-icon="wds-ic-send-filled"]')) {
+          clearInterval(check);
+          resolve(true);
+          return;
+        }
+
+        // Check 3: scissors icon (crop) — only in image preview
+        const scissors = document.querySelector('span[data-icon="scissors"]');
+        if (scissors) {
           clearInterval(check);
           resolve(true);
           return;
@@ -420,17 +436,20 @@
   // ── (removed — waitForAttachmentPreview is now handled by sendFileViaAttachButton) ──
 
   // ── Type caption in the attachment preview ───────────────────
+  // Scan confirmed: caption goes in the SAME compose box (data-tab="10").
+  // No separate caption input is created.
   async function typeCaption(text) {
-    // Wait for the caption input to appear in the media editor
-    const captionInput = await waitForCaptionInput();
+    const captionInput =
+      document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
+      document.querySelector('footer div[contenteditable="true"]');
 
     if (captionInput) {
       captionInput.focus();
       await sleep(300);
 
       // Clear any existing content first
-      captionInput.textContent = "";
-      captionInput.dispatchEvent(new Event("input", { bubbles: true }));
+      document.execCommand("selectAll", false, null);
+      document.execCommand("delete", false, null);
       await sleep(100);
 
       // Type the caption text
@@ -442,55 +461,26 @@
     return false;
   }
 
-  // ── Find the caption input in the preview overlay ───────────
-  function waitForCaptionInput() {
-    return new Promise((resolve) => {
-      let attempts = 0;
-      const maxAttempts = 15; // 7.5 seconds
-
-      // The preview overlay is already visible at this point.
-      // The caption input is a contenteditable that is NOT the main compose box or search.
-      const mainCompose = document.querySelector('[data-testid="conversation-compose-box-input"]') ||
-        document.querySelector('div[contenteditable="true"][data-tab="10"]');
-      const searchBox = document.querySelector('[data-testid="chat-list-search"]') ||
-        document.querySelector('div[contenteditable="true"][data-tab="3"]');
-
-      const check = setInterval(() => {
-        attempts++;
-
-        const allEditable = document.querySelectorAll('div[contenteditable="true"]');
-
-        for (const el of allEditable) {
-          if (el !== mainCompose && el !== searchBox &&
-              !el.closest('[data-testid="side"]') &&
-              !el.closest('header')) {
-            // This is the caption input
-            clearInterval(check);
-            resolve(el);
-            return;
-          }
-        }
-
-        if (attempts >= maxAttempts) {
-          clearInterval(check);
-          resolve(null);
-        }
-      }, 500);
-    });
-  }
-
   // ── Click send button (for media/attachment context) ─────────
+  // Scan confirmed: preview send = div[role="button"][aria-label="Send"] with wds-ic-send-filled
   async function clickMediaSendButton() {
     for (let attempts = 0; attempts < 20; attempts++) {
-      // Priority 1: WhatsApp's current send icon (wds-ic-send-filled)
+      // Priority 1: div[role="button"][aria-label="Send"] — the preview send button
+      const sendDiv = document.querySelector('div[role="button"][aria-label="Send"]');
+      if (sendDiv) {
+        sendDiv.click();
+        return;
+      }
+
+      // Priority 2: wds-ic-send-filled icon — click its parent
       const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
       if (wdsSend) {
-        const btn = wdsSend.closest("button") || wdsSend.closest('div[role="button"]') || wdsSend;
+        const btn = wdsSend.closest('div[role="button"]') || wdsSend.closest("button") || wdsSend;
         btn.click();
         return;
       }
 
-      // Priority 2: Try via inject.js (main world) for React compatibility
+      // Priority 3: Try via inject.js (main world) for React compatibility
       const result = await callInject(
         "__bulkWA_clickSend",
         {},

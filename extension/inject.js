@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const INJECT_VERSION = "1.1.2";
+  const INJECT_VERSION = "1.2.0";
   if (window.__bulkWAInjectVersion === INJECT_VERSION) return;
   window.__bulkWAInjectVersion = INJECT_VERSION;
 
@@ -53,6 +53,117 @@
       })
     );
   });
+
+  // ── Attach via menu: Attach → Photos & Videos → intercept file dialog → set file ──
+  // This is the ONLY method that works on WhatsApp Web (confirmed by scanner).
+  // The key trick: we intercept the file input's click to prevent the OS dialog,
+  // then set the file programmatically.
+  document.addEventListener("__bulkWA_attachViaMenu", async (e) => {
+    const { fileData, fileName, fileType } = e.detail;
+
+    try {
+      const response = await fetch(fileData);
+      const blob = await response.blob();
+      const file = new File([blob], fileName, { type: fileType });
+
+      // Step 1: Intercept ALL file input clicks to prevent native OS dialog
+      const originalClick = HTMLInputElement.prototype.click;
+      let interceptedInput = null;
+      HTMLInputElement.prototype.click = function () {
+        if (this.type === "file") {
+          interceptedInput = this;
+          // Do NOT call original — this prevents the OS file dialog
+          return;
+        }
+        return originalClick.call(this);
+      };
+
+      // Step 2: Click the Attach button
+      const attachBtn =
+        document.querySelector('button[aria-label="Attach"]') ||
+        document.querySelector('span[data-icon="plus-rounded"]')?.closest("button") ||
+        document.querySelector('span[data-icon="plus"]')?.closest("button") ||
+        document.querySelector('[title="Attach"]');
+
+      if (!attachBtn) {
+        HTMLInputElement.prototype.click = originalClick;
+        document.dispatchEvent(new CustomEvent("__bulkWA_attachViaMenuResult", {
+          detail: { success: false, error: "attach button not found" },
+        }));
+        return;
+      }
+
+      attachBtn.click();
+      await sleep(1500);
+
+      // Step 3: Find and click the "Photos & videos" menu item
+      const photoItem =
+        document.querySelector('[aria-label="Photos & videos"]') ||
+        document.querySelector('[aria-label*="photo" i]') ||
+        document.querySelector('[aria-label*="Photos" i]') ||
+        (() => {
+          const items = document.querySelectorAll('[role="menuitem"]');
+          for (const item of items) {
+            if (/photos|image|photo/i.test(item.textContent || "")) return item;
+          }
+          return null;
+        })();
+
+      if (!photoItem) {
+        HTMLInputElement.prototype.click = originalClick;
+        document.dispatchEvent(new CustomEvent("__bulkWA_attachViaMenuResult", {
+          detail: { success: false, error: "photo menu item not found" },
+        }));
+        return;
+      }
+
+      photoItem.click();
+
+      // Step 4: Wait briefly for the intercepted click to happen
+      await sleep(500);
+
+      // Step 5: Restore original click
+      HTMLInputElement.prototype.click = originalClick;
+
+      // Step 6: Set the file on the intercepted input (or find one)
+      const targetInput = interceptedInput ||
+        document.querySelector('input[type="file"][accept*="image"]') ||
+        document.querySelector('input[type="file"]');
+
+      if (!targetInput) {
+        document.dispatchEvent(new CustomEvent("__bulkWA_attachViaMenuResult", {
+          detail: { success: false, error: "no file input found" },
+        }));
+        return;
+      }
+
+      // Set file using native setter
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const nativeSetter = Object.getOwnPropertyDescriptor(
+        HTMLInputElement.prototype, "files"
+      )?.set;
+      if (nativeSetter) {
+        nativeSetter.call(targetInput, dt.files);
+      } else {
+        targetInput.files = dt.files;
+      }
+      targetInput.dispatchEvent(new Event("input", { bubbles: true }));
+      targetInput.dispatchEvent(new Event("change", { bubbles: true }));
+
+      document.dispatchEvent(new CustomEvent("__bulkWA_attachViaMenuResult", {
+        detail: { success: true, intercepted: !!interceptedInput },
+      }));
+    } catch (err) {
+      document.dispatchEvent(new CustomEvent("__bulkWA_attachViaMenuResult", {
+        detail: { success: false, error: err.message },
+      }));
+    }
+  });
+
+  function sleep(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+  }
 
   // ── Listen for Enter key press requests ──────────────────────
   document.addEventListener("__bulkWA_pressEnter", (e) => {
