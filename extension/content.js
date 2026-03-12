@@ -6,7 +6,7 @@
   "use strict";
 
   // Version must match manifest — allows re-injection after extension update
-  const SCRIPT_VERSION = "1.2.2";
+  const SCRIPT_VERSION = "1.2.3";
 
   // If same version already running, skip. If older version, let it re-register.
   if (window.__bulkWASenderVersion === SCRIPT_VERSION) return;
@@ -68,8 +68,12 @@
     try {
       await openChatForPhone(phone);
     } catch (err) {
+      const msg = err.message || "";
+      if (msg.startsWith("NOT_ON_WHATSAPP:")) {
+        throw err; // Pass through — popup.js handles skip logic
+      }
       throw new Error(
-        `CHAT_NOT_READY: ${err.message}. ` +
+        `CHAT_NOT_READY: ${msg}. ` +
         "Make sure WhatsApp Web is logged in and the phone number exists on WhatsApp."
       );
     }
@@ -164,14 +168,30 @@
           const errorText = popupContents ? popupContents.textContent : "";
           clearInterval(check);
           okBtn.click();
-          if (errorText.toLowerCase().includes("invalid")) {
-            reject(new Error("Invalid phone number format"));
-          } else if (errorText.toLowerCase().includes("not")) {
-            reject(new Error("This number is not registered on WhatsApp"));
-          } else {
-            reject(new Error(`WhatsApp error: ${errorText || "Unknown popup error"}`));
-          }
+          reject(new Error(classifyWhatsAppError(errorText)));
           return;
+        }
+
+        // Check for inline error banners / alerts visible on screen
+        // WhatsApp may show "Phone number shared via url is invalid" or similar
+        const alertEl =
+          document.querySelector('[data-testid="alert-notification"]') ||
+          document.querySelector('[role="alert"]');
+        if (alertEl) {
+          const alertText = alertEl.textContent || "";
+          if (/invalid|not on whatsapp|doesn.t have|no account/i.test(alertText)) {
+            clearInterval(check);
+            reject(new Error(`NOT_ON_WHATSAPP: ${alertText.trim()}`));
+            return;
+          }
+        }
+
+        // Check for "Continue to chat" button — shown for numbers not in contacts
+        // but still on WhatsApp. This is actually OK, click it to proceed.
+        const continueBtn = document.querySelector('a[title="Continue to chat"], [data-testid="continue-to-chat"]');
+        if (continueBtn) {
+          continueBtn.click();
+          // Don't resolve yet — wait for the compose box to appear
         }
 
         // Look for the compose box (chat is ready)
@@ -188,10 +208,19 @@
 
         if (attempts >= maxAttempts) {
           clearInterval(check);
-          reject(new Error("Timeout waiting for chat to load"));
+          reject(new Error("NOT_ON_WHATSAPP: Chat did not open — number may not be on WhatsApp"));
         }
       }, 500);
     });
+  }
+
+  // Classify WhatsApp error popup text into a clear error message
+  function classifyWhatsAppError(text) {
+    const t = (text || "").toLowerCase();
+    if (t.includes("invalid")) return "NOT_ON_WHATSAPP: Invalid phone number format";
+    if (t.includes("not") || t.includes("doesn't") || t.includes("no account"))
+      return "NOT_ON_WHATSAPP: This number is not registered on WhatsApp";
+    return `NOT_ON_WHATSAPP: ${text || "Unknown WhatsApp error"}`;
   }
 
   // ── Type message into compose box and press Enter ────────────

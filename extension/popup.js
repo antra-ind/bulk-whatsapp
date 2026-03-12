@@ -395,10 +395,17 @@ $("#btn-send-bulk").addEventListener("click", async () => {
       appendLog(log, `✓ Sent to ${contact.name || contact.phone}`, "success");
       await addHistory(contact.phone, contact.name || "", personalised, "sent", bulkFileData ? bulkFileData.name : null);
     } catch (err) {
-      failed++;
-      appendLog(log, `✗ Failed: ${contact.phone} — ${err.message}`, "error");
-      showErrorToast(err.message);
-      await addHistory(contact.phone, contact.name || "", personalised, "failed", bulkFileData ? bulkFileData.name : null);
+      const msg = err.message || "";
+      if (msg.includes("NOT_ON_WHATSAPP")) {
+        failed++;
+        appendLog(log, `⊘ Skipped: ${contact.phone} — not on WhatsApp`, "skip");
+        await addHistory(contact.phone, contact.name || "", personalised, "skipped", bulkFileData ? bulkFileData.name : null);
+      } else {
+        failed++;
+        appendLog(log, `✗ Failed: ${contact.phone} — ${msg}`, "error");
+        showErrorToast(msg);
+        await addHistory(contact.phone, contact.name || "", personalised, "failed", bulkFileData ? bulkFileData.name : null);
+      }
     }
 
     updateProgress(i + 1, contacts.length, sent, failed);

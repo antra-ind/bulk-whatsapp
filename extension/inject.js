@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const INJECT_VERSION = "1.2.2";
+  const INJECT_VERSION = "1.2.3";
   if (window.__bulkWAInjectVersion === INJECT_VERSION) return;
   window.__bulkWAInjectVersion = INJECT_VERSION;
 
