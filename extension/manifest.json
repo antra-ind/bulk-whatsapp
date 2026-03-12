@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Bulk WhatsApp Sender",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Send bulk WhatsApp messages to unsaved numbers — free & unlimited. Works on Chrome & Edge.",
   "permissions": ["storage", "tabs", "activeTab", "scripting"],
   "host_permissions": ["https://web.whatsapp.com/*"],

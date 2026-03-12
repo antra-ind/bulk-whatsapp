@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const INJECT_VERSION = "1.2.1";
+  const INJECT_VERSION = "1.2.2";
   if (window.__bulkWAInjectVersion === INJECT_VERSION) return;
   window.__bulkWAInjectVersion = INJECT_VERSION;
 
@@ -303,8 +303,8 @@
     try {
       const el =
         (selector && document.querySelector(selector)) ||
-        document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-        document.querySelector('footer div[contenteditable="true"]');
+        document.querySelector('div[contenteditable="true"][data-lexical-editor="true"]') ||
+        document.querySelector('div[contenteditable="true"][data-tab="10"]');
 
       if (!el) {
         document.dispatchEvent(new CustomEvent("__bulkWA_typeTextResult", {

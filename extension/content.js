@@ -6,7 +6,7 @@
   "use strict";
 
   // Version must match manifest — allows re-injection after extension update
-  const SCRIPT_VERSION = "1.2.1";
+  const SCRIPT_VERSION = "1.2.2";
 
   // If same version already running, skip. If older version, let it re-register.
   if (window.__bulkWASenderVersion === SCRIPT_VERSION) return;
@@ -436,22 +436,21 @@
   // ── (removed — waitForAttachmentPreview is now handled by sendFileViaAttachButton) ──
 
   // ── Type caption in the attachment preview ───────────────────
-  // Scan confirmed: caption goes in the SAME compose box (data-tab="10").
-  // No separate caption input is created.
-  // WhatsApp uses Lexical editor — we try execCommand first, then fall back
-  // to inject.js (MAIN world) which dispatches proper InputEvents.
+  // Caption scan confirmed: preview creates a NEW editable with:
+  //   data-lexical-editor="true", aria-label="Type a message", data-tab="undefined"
+  // This is DIFFERENT from the regular compose box (data-tab="10", aria-label="Type to [name]").
   async function typeCaption(text) {
-    // Re-query the element fresh (React may have recreated it during preview)
-    let captionInput =
-      document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-      document.querySelector('footer div[contenteditable="true"]');
+    // The caption field has data-lexical-editor="true" — unique to the preview
+    let captionInput = document.querySelector(
+      'div[contenteditable="true"][data-lexical-editor="true"]'
+    );
 
     if (!captionInput) {
-      // Wait and retry — the preview may still be initializing
-      await sleep(1500);
-      captionInput =
-        document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-        document.querySelector('footer div[contenteditable="true"]');
+      // Wait and retry — the preview Lexical editor may still be initializing
+      await sleep(2000);
+      captionInput = document.querySelector(
+        'div[contenteditable="true"][data-lexical-editor="true"]'
+      );
     }
 
     if (!captionInput) return false;
@@ -480,7 +479,7 @@
     // Fallback: use inject.js (MAIN world) which dispatches proper InputEvents
     const result = await callInject(
       "__bulkWA_typeText",
-      { text },
+      { text, selector: 'div[contenteditable="true"][data-lexical-editor="true"]' },
       "__bulkWA_typeTextResult",
       5000
     );
