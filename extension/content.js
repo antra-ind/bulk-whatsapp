@@ -161,6 +161,18 @@
       const check = setInterval(() => {
         attempts++;
 
+        // Look for the compose box FIRST (chat is ready — most common path)
+        const composeBox =
+          document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+          document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
+          document.querySelector('footer div[contenteditable="true"]');
+
+        if (composeBox) {
+          clearInterval(check);
+          resolve();
+          return;
+        }
+
         // Check for error popups (invalid number, not on WhatsApp)
         const okBtn = document.querySelector('[data-testid="popup-controls-ok"]');
         const popupContents = document.querySelector('[data-testid="popup-contents"]');
@@ -172,38 +184,11 @@
           return;
         }
 
-        // Check for inline error banners / alerts visible on screen
-        // WhatsApp may show "Phone number shared via url is invalid" or similar
-        const alertEl =
-          document.querySelector('[data-testid="alert-notification"]') ||
-          document.querySelector('[role="alert"]');
-        if (alertEl) {
-          const alertText = alertEl.textContent || "";
-          if (/invalid|not on whatsapp|doesn.t have|no account/i.test(alertText)) {
-            clearInterval(check);
-            reject(new Error(`NOT_ON_WHATSAPP: ${alertText.trim()}`));
-            return;
-          }
-        }
-
         // Check for "Continue to chat" button — shown for numbers not in contacts
-        // but still on WhatsApp. This is actually OK, click it to proceed.
+        // but still on WhatsApp. Click it to proceed.
         const continueBtn = document.querySelector('a[title="Continue to chat"], [data-testid="continue-to-chat"]');
         if (continueBtn) {
           continueBtn.click();
-          // Don't resolve yet — wait for the compose box to appear
-        }
-
-        // Look for the compose box (chat is ready)
-        const composeBox =
-          document.querySelector('[data-testid="conversation-compose-box-input"]') ||
-          document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
-          document.querySelector('footer div[contenteditable="true"]');
-
-        if (composeBox) {
-          clearInterval(check);
-          resolve();
-          return;
         }
 
         if (attempts >= maxAttempts) {
