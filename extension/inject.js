@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  const INJECT_VERSION = "1.2.0";
+  const INJECT_VERSION = "1.2.1";
   if (window.__bulkWAInjectVersion === INJECT_VERSION) return;
   window.__bulkWAInjectVersion = INJECT_VERSION;
 
@@ -294,6 +294,80 @@
 
     return true;
   }
+
+  // ── Type text into the compose box (for captions in preview) ──
+  // WhatsApp uses Lexical editor which listens for InputEvent, not execCommand.
+  // Running this from MAIN world ensures React/Lexical sees the events properly.
+  document.addEventListener("__bulkWA_typeText", async (e) => {
+    const { text, selector } = e.detail;
+    try {
+      const el =
+        (selector && document.querySelector(selector)) ||
+        document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
+        document.querySelector('footer div[contenteditable="true"]');
+
+      if (!el) {
+        document.dispatchEvent(new CustomEvent("__bulkWA_typeTextResult", {
+          detail: { success: false, error: "compose box not found" },
+        }));
+        return;
+      }
+
+      // Click the element to activate Lexical's focus handling
+      el.click();
+      await sleep(200);
+      el.focus();
+      await sleep(200);
+
+      // Select all and delete existing content using keyboard events
+      // Lexical handles Ctrl+A / Meta+A for select-all
+      el.dispatchEvent(new KeyboardEvent("keydown", {
+        key: "a", code: "KeyA", keyCode: 65,
+        ctrlKey: true, metaKey: true, bubbles: true,
+      }));
+      await sleep(100);
+
+      // Try execCommand first (works in some contexts)
+      document.execCommand("selectAll", false, null);
+      document.execCommand("delete", false, null);
+      await sleep(100);
+
+      // Type the text using execCommand (Lexical does support this in many cases)
+      const inserted = document.execCommand("insertText", false, text);
+
+      if (!inserted || el.textContent.trim() !== text.trim()) {
+        // Fallback: dispatch InputEvent which Lexical listens for
+        el.textContent = "";
+        el.dispatchEvent(new InputEvent("beforeinput", {
+          inputType: "insertText",
+          data: text,
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+        }));
+        el.dispatchEvent(new InputEvent("input", {
+          inputType: "insertText",
+          data: text,
+          bubbles: true,
+          composed: true,
+        }));
+      }
+
+      // Also dispatch a regular input event for good measure
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+
+      await sleep(200);
+      const typed = el.textContent.trim().length > 0;
+
+      document.dispatchEvent(new CustomEvent("__bulkWA_typeTextResult", {
+        detail: { success: typed, textContent: el.textContent.substring(0, 100) },
+      }));
+    } catch (err) {
+      document.dispatchEvent(new CustomEvent("__bulkWA_typeTextResult", {
+        detail: { success: false, error: err.message },
+      }));
+    }
+  });
 
   // ── Click the send button ────────────────────────────────────
   function doClickSend() {

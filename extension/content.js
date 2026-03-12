@@ -6,7 +6,7 @@
   "use strict";
 
   // Version must match manifest — allows re-injection after extension update
-  const SCRIPT_VERSION = "1.2.0";
+  const SCRIPT_VERSION = "1.2.1";
 
   // If same version already running, skip. If older version, let it re-register.
   if (window.__bulkWASenderVersion === SCRIPT_VERSION) return;
@@ -87,7 +87,7 @@
         );
       }
 
-      await sleep(1000);
+      await sleep(2000);
 
       // Type caption — the preview overlay should be visible now with a caption field
       let captionTyped = false;
@@ -438,27 +438,64 @@
   // ── Type caption in the attachment preview ───────────────────
   // Scan confirmed: caption goes in the SAME compose box (data-tab="10").
   // No separate caption input is created.
+  // WhatsApp uses Lexical editor — we try execCommand first, then fall back
+  // to inject.js (MAIN world) which dispatches proper InputEvents.
   async function typeCaption(text) {
-    const captionInput =
+    // Re-query the element fresh (React may have recreated it during preview)
+    let captionInput =
       document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
       document.querySelector('footer div[contenteditable="true"]');
 
-    if (captionInput) {
-      captionInput.focus();
-      await sleep(300);
+    if (!captionInput) {
+      // Wait and retry — the preview may still be initializing
+      await sleep(1500);
+      captionInput =
+        document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
+        document.querySelector('footer div[contenteditable="true"]');
+    }
 
-      // Clear any existing content first
-      document.execCommand("selectAll", false, null);
-      document.execCommand("delete", false, null);
-      await sleep(100);
+    if (!captionInput) return false;
 
-      // Type the caption text
-      document.execCommand("insertText", false, text);
-      captionInput.dispatchEvent(new Event("input", { bubbles: true }));
-      await sleep(300);
+    // Click the element to activate Lexical's internal focus handler
+    captionInput.click();
+    await sleep(300);
+    captionInput.focus();
+    await sleep(300);
+
+    // Clear any existing content first
+    document.execCommand("selectAll", false, null);
+    document.execCommand("delete", false, null);
+    await sleep(100);
+
+    // Type the caption text
+    document.execCommand("insertText", false, text);
+    captionInput.dispatchEvent(new Event("input", { bubbles: true }));
+    await sleep(500);
+
+    // Verify the text was actually typed (Lexical may have ignored execCommand)
+    if (captionInput.textContent.trim().length > 0) {
       return true;
     }
-    return false;
+
+    // Fallback: use inject.js (MAIN world) which dispatches proper InputEvents
+    const result = await callInject(
+      "__bulkWA_typeText",
+      { text },
+      "__bulkWA_typeTextResult",
+      5000
+    );
+
+    if (result.success) return true;
+
+    // Last resort: set textContent directly and fire events
+    captionInput.textContent = text;
+    captionInput.dispatchEvent(new InputEvent("input", {
+      inputType: "insertText",
+      data: text,
+      bubbles: true,
+    }));
+    await sleep(300);
+    return captionInput.textContent.trim().length > 0;
   }
 
   // ── Click send button (for media/attachment context) ─────────
