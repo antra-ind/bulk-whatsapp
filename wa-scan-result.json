@@ -1,0 +1,1811 @@
+{
+  "scannerVersion": 3,
+  "scannedAt": "2026-03-12T02:28:28.655Z",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+  "url": "https://web.whatsapp.com/",
+  "pageTitle": "(27) WhatsApp",
+  "steps": {
+    "normalChat": {
+      "label": "normal-chat",
+      "timestamp": "2026-03-12T02:28:28.659Z",
+      "buttons": [
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Chats",
+          "title": null,
+          "icon": "chat-filled-refreshed",
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "chat-filled-refreshed27",
+          "rect": {
+            "x": 12,
+            "y": 12,
+            "width": 40,
+            "height": 40,
+            "top": 12,
+            "right": 52,
+            "bottom": 52,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Updates in Status",
+          "title": null,
+          "icon": "status-refreshed",
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "status-refreshed",
+          "rect": {
+            "x": 12,
+            "y": 56,
+            "width": 40,
+            "height": 40,
+            "top": 56,
+            "right": 52,
+            "bottom": 96,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Channels",
+          "title": null,
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "wds-ic-channels",
+          "rect": {
+            "x": 12,
+            "y": 100,
+            "width": 40,
+            "height": 40,
+            "top": 100,
+            "right": 52,
+            "bottom": 140,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Communities",
+          "title": null,
+          "icon": "community-refreshed-32",
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "community-refreshed-32",
+          "rect": {
+            "x": 12,
+            "y": 144,
+            "width": 40,
+            "height": 40,
+            "top": 144,
+            "right": 52,
+            "bottom": 184,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Meta AI",
+          "title": null,
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "",
+          "rect": {
+            "x": 12,
+            "y": 206,
+            "width": 40,
+            "height": 40,
+            "top": 206,
+            "right": 52,
+            "bottom": 246,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Media",
+          "title": null,
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "ic-filter",
+          "rect": {
+            "x": 12,
+            "y": 774,
+            "width": 40,
+            "height": 42,
+            "top": 774,
+            "right": 52,
+            "bottom": 816,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Settings",
+          "title": null,
+          "icon": "settings-refreshed",
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "settings-refreshed",
+          "rect": {
+            "x": 12,
+            "y": 818,
+            "width": 40,
+            "height": 40,
+            "top": 818,
+            "right": 52,
+            "bottom": 858,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Profile",
+          "title": null,
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd xtnn1bt x9v5kkp xmw7ebm xrdum7p xt8t1vi x1x",
+          "visible": true,
+          "display": "block",
+          "text": "",
+          "rect": {
+            "x": 12,
+            "y": 862,
+            "width": 40,
+            "height": 40,
+            "top": 862,
+            "right": 52,
+            "bottom": 902,
+            "left": 12
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "New chat",
+          "title": null,
+          "icon": "new-chat-outline",
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x178xt8z x1lun4ml xso031l xpilrb4 x1n2onr6",
+          "visible": true,
+          "display": "block",
+          "text": "new-chat-outline",
+          "rect": {
+            "x": 401.1953125,
+            "y": 12,
+            "width": 40,
+            "height": 40,
+            "top": 12,
+            "right": 441.1953125,
+            "bottom": 52,
+            "left": 401.1953125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Menu",
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x178xt8z x1lun4ml xso031l xpilrb4 x1n2onr6",
+          "visible": true,
+          "display": "block",
+          "text": "ic-more-vert",
+          "rect": {
+            "x": 449.1953125,
+            "y": 12,
+            "width": 40,
+            "height": 40,
+            "top": 12,
+            "right": 489.1953125,
+            "bottom": 52,
+            "left": 449.1953125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "icon": "search-refreshed-thin",
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd x1fmog5m xu25z0z x140muxe xo1y3bh xtnn1bt x9v5kkp xm",
+          "visible": true,
+          "display": "block",
+          "text": "search-refreshed-thin",
+          "rect": {
+            "x": 99,
+            "y": 74,
+            "width": 0,
+            "height": 0,
+            "top": 74,
+            "right": 99,
+            "bottom": 74,
+            "left": 99
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "All",
+          "rect": {
+            "x": 65,
+            "y": 64,
+            "width": 42.984375,
+            "height": 32,
+            "top": 64,
+            "right": 107.984375,
+            "bottom": 96,
+            "left": 65
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Unread27",
+          "rect": {
+            "x": 115.984375,
+            "y": 64,
+            "width": 82.59375,
+            "height": 32,
+            "top": 64,
+            "right": 198.578125,
+            "bottom": 96,
+            "left": 115.984375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Favourites",
+          "rect": {
+            "x": 206.578125,
+            "y": 64,
+            "width": 93.109375,
+            "height": 32,
+            "top": 64,
+            "right": 299.6875,
+            "bottom": 96,
+            "left": 206.578125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Groups10",
+          "rect": {
+            "x": 307.6875,
+            "y": 64,
+            "width": 82.9609375,
+            "height": 32,
+            "top": 64,
+            "right": 390.6484375,
+            "bottom": 96,
+            "left": 307.6875
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Communities2",
+          "rect": {
+            "x": 398.6484375,
+            "y": 64,
+            "width": 122.25,
+            "height": 32,
+            "top": 64,
+            "right": 520.8984375,
+            "bottom": 96,
+            "left": 398.6484375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": "tab",
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "All",
+          "rect": {
+            "x": 85,
+            "y": 116,
+            "width": 42.984375,
+            "height": 32,
+            "top": 116,
+            "right": 127.984375,
+            "bottom": 148,
+            "left": 85
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": "tab",
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Unread27",
+          "rect": {
+            "x": 135.984375,
+            "y": 116,
+            "width": 89.4296875,
+            "height": 32,
+            "top": 116,
+            "right": 225.4140625,
+            "bottom": 148,
+            "left": 135.984375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": "tab",
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Favourites",
+          "rect": {
+            "x": 233.4140625,
+            "y": 116,
+            "width": 93.109375,
+            "height": 32,
+            "top": 116,
+            "right": 326.5234375,
+            "bottom": 148,
+            "left": 233.4140625
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": "tab",
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Groups10",
+          "rect": {
+            "x": 334.5234375,
+            "y": 116,
+            "width": 89.796875,
+            "height": 32,
+            "top": 116,
+            "right": 424.3203125,
+            "bottom": 148,
+            "left": 334.5234375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": "tab",
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20",
+          "visible": true,
+          "display": "inline-block",
+          "text": "ic-arrow-drop-down",
+          "rect": {
+            "x": 432.3203125,
+            "y": 116,
+            "width": 36,
+            "height": 32,
+            "top": 116,
+            "right": 468.3203125,
+            "bottom": 148,
+            "left": 432.3203125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Close",
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x178xt8z x1lun4ml xso031l xpilrb4 x1n2onr6",
+          "visible": true,
+          "display": "block",
+          "text": "ic-close",
+          "rect": {
+            "x": 449.1953125,
+            "y": 166,
+            "width": 40,
+            "height": 40,
+            "top": 166,
+            "right": 489.1953125,
+            "bottom": 206,
+            "left": 449.1953125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "xjb2p0i x1qlqyl8 x972fbf x10w94by x1qhh985 x14e42zd xexx8yu xyri2b x18d9i69 x1c1uobl x11g6tue x1a2a7pz x1ypdohk x1ph7ams",
+          "visible": true,
+          "display": "inline-block",
+          "text": "Turn on",
+          "rect": {
+            "x": 339.7578125,
+            "y": 175.6875,
+            "width": 48.5,
+            "height": 17,
+            "top": 175.6875,
+            "right": 388.2578125,
+            "bottom": 192.6875,
+            "left": 339.7578125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": "Archived ",
+          "title": null,
+          "icon": "archive-refreshed",
+          "role": null,
+          "classes": "xjb2p0i xk390pu x1heor9g x1ypdohk xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd x1fmog5m xu25z0z x140muxe xo1y3bh xexx8yu x",
+          "visible": true,
+          "display": "block",
+          "text": "archive-refreshedArchived89",
+          "rect": {
+            "x": 65,
+            "y": 234,
+            "width": 434.1953125,
+            "height": 49,
+            "top": 234,
+            "right": 499.1953125,
+            "bottom": 283,
+            "left": 65
+          }
+        },
+        {
+          "tag": "DIV",
+          "ariaLabel": "View status",
+          "title": null,
+          "role": "button",
+          "classes": "x1n2onr6 x1c9tyrk xeusxvb x1pahc9y x1ertn4p",
+          "visible": true,
+          "display": "block",
+          "text": "",
+          "rect": {
+            "x": 88,
+            "y": 799,
+            "width": 49,
+            "height": 49,
+            "top": 799,
+            "right": 137,
+            "bottom": 848,
+            "left": 88
+          }
+        },
+        {
+          "tag": "A",
+          "ariaLabel": null,
+          "title": null,
+          "role": "button",
+          "classes": "x1xlr1w8 xt0b8zv xbvygy2 x17f7hit xp30eni xhmieyt xtnn1bt x9v5kkp xmw7ebm xrdum7p",
+          "visible": true,
+          "display": "inline",
+          "text": "end-to-end encrypted",
+          "rect": {
+            "x": 308.7890625,
+            "y": 31025.5,
+            "width": 117.09375,
+            "height": 14.5,
+            "top": 31025.5,
+            "right": 425.8828125,
+            "bottom": 31040,
+            "left": 308.7890625
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "html-button xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x178xt8z x1lun4ml xso031l xpilrb4 x1n2onr6 x1ejq31n x18oe1",
+          "visible": true,
+          "display": "block",
+          "text": "Download",
+          "rect": {
+            "x": 762.8515625,
+            "y": 509.09375,
+            "width": 95.484375,
+            "height": 32,
+            "top": 509.09375,
+            "right": 858.3359375,
+            "bottom": 541.09375,
+            "left": 762.8515625
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a xtnn1bt x9v5kkp xmw7ebm xrdum7p x-default-marker",
+          "visible": true,
+          "display": "block",
+          "text": "ic-descriptionSend document",
+          "rect": {
+            "x": 618.59375,
+            "y": 581.09375,
+            "width": 128,
+            "height": 147.8125,
+            "top": 581.09375,
+            "right": 746.59375,
+            "bottom": 728.90625,
+            "left": 618.59375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a xtnn1bt x9v5kkp xmw7ebm xrdum7p x-default-marker",
+          "visible": true,
+          "display": "block",
+          "text": "ic-person-addAdd contact",
+          "rect": {
+            "x": 746.59375,
+            "y": 581.09375,
+            "width": 128,
+            "height": 147.8125,
+            "top": 581.09375,
+            "right": 874.59375,
+            "bottom": 728.90625,
+            "left": 746.59375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "ariaLabel": null,
+          "title": null,
+          "role": null,
+          "classes": "x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a xtnn1bt x9v5kkp xmw7ebm xrdum7p x-default-marker",
+          "visible": true,
+          "display": "block",
+          "text": "Ask Meta AI",
+          "rect": {
+            "x": 874.59375,
+            "y": 581.09375,
+            "width": 128,
+            "height": 147.8125,
+            "top": 581.09375,
+            "right": 1002.59375,
+            "bottom": 728.90625,
+            "left": 874.59375
+          }
+        }
+      ],
+      "icons": [
+        {
+          "icon": "chat-filled-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "closestButton": "Chats",
+          "visible": true
+        },
+        {
+          "icon": "status-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "closestButton": "Updates in Status",
+          "visible": true
+        },
+        {
+          "icon": "community-refreshed-32",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "closestButton": "Communities",
+          "visible": true
+        },
+        {
+          "icon": "settings-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "closestButton": "Settings",
+          "visible": true
+        },
+        {
+          "icon": "wa-wordmark-refreshed",
+          "tag": "SPAN",
+          "parentTag": "SPAN",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "new-chat-outline",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "closestButton": "New chat",
+          "visible": true
+        },
+        {
+          "icon": "search-refreshed-thin",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "archive-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "closestButton": "Archived ",
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-community-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "status-dblcheck",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-community-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "status-dblcheck",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "message-fail",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-contact-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "recalled",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "status-dblcheck",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-community-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-contact-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "document-refreshed-thin",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "message-fail",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "message-fail",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-contact-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "status-dblcheck",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "default-group-refreshed",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        },
+        {
+          "icon": "lock-outline",
+          "tag": "SPAN",
+          "parentTag": "DIV",
+          "parentRole": null,
+          "parentAriaLabel": null,
+          "visible": true
+        }
+      ],
+      "testIds": [],
+      "editables": [
+        {
+          "tag": "DIV",
+          "dataTab": "3",
+          "role": "textbox",
+          "ariaLabel": "Search input textbox",
+          "placeholder": "Search or start a new chat",
+          "classes": "x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v",
+          "visible": true,
+          "display": "block",
+          "text": "",
+          "rect": {
+            "x": 131,
+            "y": 72.9765625,
+            "width": 358.1953125,
+            "height": 22.046875,
+            "top": 72.9765625,
+            "right": 489.1953125,
+            "bottom": 95.0234375,
+            "left": 131
+          },
+          "outerHTML": "<div aria-autocomplete=\"list\" aria-label=\"Search input textbox\" aria-owns=\"emoji-suggestion\" class=\"x1hx0egp x6ikm8r x1odjw0f x6prxxf x1k6rcq7 x1whj5v\" contenteditable=\"true\" role=\"textbox\" spellcheck=\"true\" tabindex=\"3\" aria-placeholder=\"Search or start a new chat\" data-tab=\"3\" style=\"min-height: 1",
+          "ancestors": [
+            {
+              "tag": "DIV",
+              "class": "x1n2onr6 xh8yej3 lexical-rich-text-input"
+            },
+            {
+              "tag": "DIV",
+              "class": "x9f619 x78zum5 x6s0dn4 x4wrhlh x1l0ey4t x14ug900 xjdcl3y x1ekkm8c x1143rjc xum4a"
+            },
+            {
+              "tag": "DIV",
+              "class": "x1n2onr6 x9f619 x98rzlu x6ikm8r x10wlt62"
+            },
+            {
+              "tag": "DIV",
+              "class": "x1n2onr6 x11uqc5h x9f619 x78zum5 x1okw0bk xl2dz39 xexx8yu x18d9i69 x1280gxy x73u"
+            },
+            {
+              "tag": "DIV",
+              "class": "_ak9t"
+            },
+            {
+              "tag": "DIV",
+              "class": "_ak9p",
+              "id": "side"
+            },
+            {
+              "tag": "DIV",
+              "class": "_aigw _as6h x9f619 x1n2onr6 x5yr21d x17dzmu4 x1i1dayz x2ipvbc xjdofhw x78zum5 xd"
+            },
+            {
+              "tag": "DIV",
+              "class": "two _aigs _as6h x1n2onr6 x13vifvy x1o0tod x78zum5 xh8yej3 x5yr21d x6ikm8r x10wlt"
+            },
+            {
+              "tag": "DIV",
+              "class": "x78zum5 xdt5ytf x5yr21d"
+            },
+            {
+              "tag": "DIV",
+              "class": "_aiwn app-wrapper-web font-fix os-win x1646n1n xoeyzqq"
+            }
+          ]
+        }
+      ],
+      "fileInputs": [
+        {
+          "accept": "*",
+          "multiple": true,
+          "visible": false,
+          "display": "none",
+          "classes": "",
+          "parentHTML": "<button class=\"x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a xtnn1bt x9v5kkp xmw7ebm xrdum7p x-default-marker\" data-tab=\"8\" tabindex=\"0\"><div class=\"xjp8j0k x13oubkp x4wrhlh xzn9hfk x6nvzda x4i4b9w xhl9efl xj65ea0 x98l61r xviac27 x1ua1l7f xlese2p x78zum5 x6s0dn4 xl56j7k\"><span aria-hidden=\"true\" class=\"",
+          "grandparentHTML": "<div class=\"x78zum5\"><button class=\"x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a xtnn1bt x9v5kkp xmw7ebm xrdum7p x-default-marker\" data-tab=\"8\" tabindex=\"0\"><div class=\"xjp8j0k x13oubkp x4wrhlh xzn9hfk x6nvzda x4i4b9w xhl9efl xj65ea0 x98l61r xviac27 x1ua1l7f xlese2p x78zum5 x6s0dn4 xl56j7k\"><span aria-"
+        }
+      ],
+      "allInputs": [
+        {
+          "type": "file",
+          "accept": "*",
+          "name": "",
+          "id": "",
+          "classes": "",
+          "visible": false
+        }
+      ],
+      "ariaLabels": [
+        {
+          "ariaLabel": "Chats",
+          "tag": "BUTTON",
+          "role": null,
+          "icon": "chat-filled-refreshed",
+          "visible": true
+        },
+        {
+          "ariaLabel": "27 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Updates in Status",
+          "tag": "BUTTON",
+          "role": null,
+          "icon": "status-refreshed",
+          "visible": true
+        },
+        {
+          "ariaLabel": "Channels",
+          "tag": "BUTTON",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Communities",
+          "tag": "BUTTON",
+          "role": null,
+          "icon": "community-refreshed-32",
+          "visible": true
+        },
+        {
+          "ariaLabel": "Meta AI",
+          "tag": "BUTTON",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Media",
+          "tag": "BUTTON",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Settings",
+          "tag": "BUTTON",
+          "role": null,
+          "icon": "settings-refreshed",
+          "visible": true
+        },
+        {
+          "ariaLabel": "Profile",
+          "tag": "BUTTON",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "WhatsApp",
+          "tag": "SPAN",
+          "role": null,
+          "icon": "wa-wordmark-refreshed",
+          "visible": true
+        },
+        {
+          "ariaLabel": "New chat",
+          "tag": "BUTTON",
+          "role": null,
+          "icon": "new-chat-outline",
+          "visible": true
+        },
+        {
+          "ariaLabel": "Menu",
+          "tag": "BUTTON",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Search input textbox",
+          "tag": "DIV",
+          "role": "textbox",
+          "visible": true
+        },
+        {
+          "ariaLabel": "chat-list-filters",
+          "tag": "DIV",
+          "role": "tablist",
+          "visible": true
+        },
+        {
+          "ariaLabel": "Close",
+          "tag": "BUTTON",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Archived ",
+          "tag": "BUTTON",
+          "role": null,
+          "icon": "archive-refreshed",
+          "visible": true
+        },
+        {
+          "ariaLabel": "89 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Chat list",
+          "tag": "DIV",
+          "role": "grid",
+          "icon": "default-group-refreshed",
+          "visible": true
+        },
+        {
+          "ariaLabel": "Pinned chat",
+          "tag": "DIV",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Pinned chat",
+          "tag": "DIV",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Pinned chat",
+          "tag": "DIV",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Starred chat",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Starred chat",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "View status",
+          "tag": "DIV",
+          "role": "button",
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "4 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "1 unread message",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Maybe vikas gupta",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "2 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "2 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "2 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 7 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Maybe Anand Kishore Prasad",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "40 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "Maybe vedhashree muktha",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "7 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 7 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "3 unread messages",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "1 unread message",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        },
+        {
+          "ariaLabel": "New messages will disappear from this chat 7 days after they're sent, except when kept.",
+          "tag": "SPAN",
+          "role": null,
+          "visible": true
+        }
+      ],
+      "overlays": [],
+      "dataAttrs": [
+        {
+          "tag": "HEADER",
+          "attrs": {
+            "data-tab": "2"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "chat-filled-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "status-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "community-refreshed-32"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "settings-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "wa-wordmark-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": "WhatsApp",
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "2"
+          },
+          "visible": true,
+          "ariaLabel": "New chat",
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "new-chat-outline"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "2"
+          },
+          "visible": true,
+          "ariaLabel": "Menu",
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "search-refreshed-thin"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "DIV",
+          "attrs": {
+            "data-tab": "3",
+            "data-lexical-editor": "true"
+          },
+          "visible": true,
+          "ariaLabel": "Search input textbox",
+          "role": "textbox"
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "3"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": "tab"
+        },
+        {
+          "tag": "DIV",
+          "attrs": {
+            "data-tab": "3"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "4"
+          },
+          "visible": true,
+          "ariaLabel": "Archived ",
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "archive-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "DIV",
+          "attrs": {
+            "data-tab": "4"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-community-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "status-dblcheck"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-community-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "status-dblcheck"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "message-fail"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-contact-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "recalled"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "status-dblcheck"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-community-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-contact-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "document-refreshed-thin"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "message-fail"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "message-fail"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-contact-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "status-dblcheck"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "default-group-refreshed"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "SPAN",
+          "attrs": {
+            "data-icon": "lock-outline"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "A",
+          "attrs": {
+            "data-tab": "4"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": "button"
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "8"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "8"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "8"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "attrs": {
+            "data-tab": "8"
+          },
+          "visible": true,
+          "ariaLabel": null,
+          "role": null
+        }
+      ],
+      "footerHTML": "NOT FOUND",
+      "uniqueIcons": [
+        "archive-refreshed",
+        "chat-filled-refreshed",
+        "community-refreshed-32",
+        "default-community-refreshed",
+        "default-contact-refreshed",
+        "default-group-refreshed",
+        "document-refreshed-thin",
+        "lock-outline",
+        "message-fail",
+        "new-chat-outline",
+        "recalled",
+        "search-refreshed-thin",
+        "settings-refreshed",
+        "status-dblcheck",
+        "status-refreshed",
+        "wa-wordmark-refreshed"
+      ],
+      "uniqueTestIds": [],
+      "uniqueAriaLabels": [
+        "1 unread message",
+        "2 unread messages",
+        "27 unread messages",
+        "3 unread messages",
+        "4 unread messages",
+        "40 unread messages",
+        "7 unread messages",
+        "89 unread messages",
+        "Archived ",
+        "Channels",
+        "Chat list",
+        "Chats",
+        "Close",
+        "Communities",
+        "Maybe Anand Kishore Prasad",
+        "Maybe vedhashree muktha",
+        "Maybe vikas gupta",
+        "Media",
+        "Menu",
+        "Meta AI",
+        "New chat",
+        "New messages will disappear from this chat 7 days after they're sent, except when kept.",
+        "New messages will disappear from this chat 90 days after they're sent, except when kept.",
+        "Pinned chat",
+        "Profile",
+        "Search input textbox",
+        "Settings",
+        "Starred chat",
+        "Updates in Status",
+        "View status",
+        "WhatsApp",
+        "chat-list-filters"
+      ],
+      "sendRelated": {
+        "sendIcons": [],
+        "attachIcons": [],
+        "sendButtons": [],
+        "attachButtons": [],
+        "sendTestIds": [],
+        "mediaTestIds": []
+      },
+      "summary": {
+        "buttons": 30,
+        "icons": 33,
+        "uniqueIcons": 16,
+        "testIds": 0,
+        "uniqueTestIds": 0,
+        "editables": 1,
+        "fileInputs": 1,
+        "allInputs": 1,
+        "overlays": 0,
+        "ariaLabels": 54
+      }
+    }
+  },
+  "methodResults": {},
+  "error": "Attach button not found! Make sure a chat is open."
+}
