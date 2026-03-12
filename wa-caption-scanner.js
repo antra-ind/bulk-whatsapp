@@ -346,17 +346,41 @@
   if (closeBtn) closeBtn.click();
   
   // ── Output results ──
-  console.log('[CaptionScanner] Done! Results:');
-  console.log(JSON.stringify(results, null, 2));
-  
-  // Also copy to clipboard
-  try {
-    await navigator.clipboard.writeText(JSON.stringify(results, null, 2));
-    console.log('[CaptionScanner] Results copied to clipboard!');
-  } catch(e) {
-    console.log('[CaptionScanner] Could not copy to clipboard. Use copy() on the object below:');
-  }
-  
+  const jsonStr = JSON.stringify(results, null, 2);
   window.__captionScanResult = results;
-  console.log('[CaptionScanner] Results also stored in window.__captionScanResult');
+
+  // Method 1: Download as file (most reliable)
+  try {
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'wa-caption-scan-result.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    console.log('[CaptionScanner] ✅ Results downloaded as wa-caption-scan-result.json');
+  } catch(e) {
+    console.error('[CaptionScanner] Download failed:', e);
+  }
+
+  // Method 2: copy() function (Chrome DevTools built-in)
+  try {
+    copy(results);
+    console.log('[CaptionScanner] ✅ Results also copied to clipboard via copy()');
+  } catch(e) {
+    // copy() only works in DevTools console, not in page context
+  }
+
+  // Method 3: Log a small summary to console
+  console.log('[CaptionScanner] Done! Summary:');
+  console.log('  Baseline editables:', results.baseline.count);
+  console.log('  Preview editables:', results.preview?.editableCount);
+  console.log('  New editables in preview:', results.newEditablesInPreview?.length);
+  console.log('  Caption-related elements:', results.previewCaptionRelated?.length);
+  console.log('  Lexical editors:', results.lexicalEditors?.length);
+  console.log('  Element at tab10 center is tab10?', results.elementAtTab10Center?.isSameAsTab10);
+  console.log('[CaptionScanner] Full results stored in window.__captionScanResult');
+  console.log('[CaptionScanner] File should have been downloaded. If not, run: copy(window.__captionScanResult)');
 })();
