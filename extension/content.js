@@ -92,8 +92,9 @@
       await sleep(1000);
 
       // Type caption
+      let captionTyped = false;
       if (message) {
-        await typeCaption(message);
+        captionTyped = await typeCaption(message);
         await sleep(800);
       }
 
@@ -107,6 +108,16 @@
         );
       }
       await sleep(2000);
+
+      // If caption wasn't typed, send text as a separate message
+      if (message && !captionTyped) {
+        try {
+          await typeAndSendMessage(message);
+        } catch (e) {
+          // Image was sent at least — don't fail the whole operation
+        }
+        await sleep(1500);
+      }
     } else {
       // Step 2b: Type text message and send
       try {
@@ -384,7 +395,9 @@
       document.execCommand("insertText", false, text);
       captionInput.dispatchEvent(new Event("input", { bubbles: true }));
       await sleep(300);
+      return true;
     }
+    return false;
   }
 
   function waitForCaptionInput() {
@@ -392,45 +405,45 @@
       let attempts = 0;
       const maxAttempts = 20; // 10 seconds
 
+      // Snapshot the editables that exist BEFORE the attachment preview
+      // so we can detect the NEW one that appears for the caption.
+      const existingEditables = new Set(
+        document.querySelectorAll('div[contenteditable="true"]')
+      );
+
       const check = setInterval(() => {
         attempts++;
 
-        // Find the caption input — look for a contenteditable that is NOT the main
-        // compose box and NOT the search bar.
-
-        // Method 1: Look near the send button (wds-ic-send-filled)
-        const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
-        if (wdsSend) {
-          // The caption input is typically in the same container as the send button
-          const container = wdsSend.closest('div[class]')?.parentElement?.parentElement;
-          if (container) {
-            const editable = container.querySelector('div[contenteditable="true"]');
-            if (editable) {
-              clearInterval(check);
-              resolve(editable);
-              return;
-            }
-          }
-        }
-
-        // Method 2: Legacy media editor containers
-        const mediaEditor = document.querySelector('[data-testid="media-editor"]') ||
-          document.querySelector('[data-testid="media-editor-container"]') ||
-          document.querySelector('[data-testid="media-caption-input-container"]');
-
-        if (mediaEditor) {
-          const editable = mediaEditor.querySelector('div[contenteditable="true"]');
-          if (editable) {
+        // Strategy 1: Find a NEW contenteditable that wasn't there before
+        const allEditable = document.querySelectorAll('div[contenteditable="true"]');
+        for (const el of allEditable) {
+          if (!existingEditables.has(el)) {
             clearInterval(check);
-            resolve(editable);
+            resolve(el);
             return;
           }
         }
 
-        // Method 3: Find contenteditable that is NOT the main compose box 
-        // and NOT inside the search/side panel
-        if (attempts > 5) {
-          const allEditable = document.querySelectorAll('div[contenteditable="true"]');
+        // Strategy 2 (after a few attempts): Look near the send button
+        if (attempts > 3) {
+          const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
+          if (wdsSend) {
+            // Walk up ancestors to find a container with a contenteditable
+            let parent = wdsSend.parentElement;
+            for (let i = 0; i < 10 && parent; i++) {
+              const editable = parent.querySelector('div[contenteditable="true"]');
+              if (editable) {
+                clearInterval(check);
+                resolve(editable);
+                return;
+              }
+              parent = parent.parentElement;
+            }
+          }
+        }
+
+        // Strategy 3 (fallback): Any contenteditable that is NOT the main compose box or search
+        if (attempts > 8) {
           const mainCompose = document.querySelector('[data-testid="conversation-compose-box-input"]') ||
             document.querySelector('div[contenteditable="true"][data-tab="10"]');
           const searchBox = document.querySelector('[data-testid="chat-list-search"]') ||
@@ -440,7 +453,6 @@
             if (el !== mainCompose && el !== searchBox &&
                 !el.closest('[data-testid="side"]') &&
                 !el.closest('header')) {
-              // Found a contenteditable that's not compose or search
               clearInterval(check);
               resolve(el);
               return;
