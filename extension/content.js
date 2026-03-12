@@ -299,7 +299,15 @@
     attachBtn.click();
     await sleep(1500);
 
-    // Wait for file input to appear (WhatsApp opens file picker directly, no submenu)
+    // WhatsApp shows a menu: Photos & Videos, Document, Camera, Contact, etc.
+    // We need to click the "Photos & Videos" (image) menu item first.
+    const photoMenuItem = await findPhotoMenuItem();
+    if (photoMenuItem) {
+      photoMenuItem.click();
+      await sleep(1000);
+    }
+
+    // Wait for file input to appear
     let fileInputReady = false;
     for (let i = 0; i < 15; i++) {
       if (document.querySelectorAll('input[type="file"]').length > 0) {
@@ -320,6 +328,54 @@
 
     await sleep(1500);
     return result.success;
+  }
+
+  // ── Find the "Photos & Videos" item in the attachment menu ───
+  function findPhotoMenuItem() {
+    return new Promise((resolve) => {
+      let attempts = 0;
+      const maxAttempts = 10;
+      const check = setInterval(() => {
+        attempts++;
+
+        // Strategy 1: data-testid containing image/photo/media
+        let el = document.querySelector('[data-testid*="image"], [data-testid*="photo"], [data-testid*="media"]');
+        if (el) { clearInterval(check); resolve(el); return; }
+
+        // Strategy 2: aria-label containing Photos/Image
+        el = document.querySelector('[aria-label*="photo" i], [aria-label*="image" i], [aria-label*="Photos" i]');
+        if (el) { clearInterval(check); resolve(el); return; }
+
+        // Strategy 3: icon with image/photo/gallery/camera-roll name
+        const icons = document.querySelectorAll('[data-icon]');
+        for (const ic of icons) {
+          if (/image|photo|gallery|camera-roll|media|picture/i.test(ic.dataset.icon)) {
+            el = ic.closest('button') || ic.closest('[role="button"]') || ic.closest('li') || ic.parentElement;
+            if (el) { clearInterval(check); resolve(el); return; }
+          }
+        }
+
+        // Strategy 4: File input with accept=image/* (click its container)
+        const inp = document.querySelector('input[type="file"][accept*="image"]');
+        if (inp) {
+          el = inp.closest('button') || inp.closest('[role="button"]') || inp.closest('li') || inp.parentElement;
+          if (el) { clearInterval(check); resolve(el); return; }
+        }
+
+        // Strategy 5: Menu item containing "Photos" or "Image" text
+        const all = document.querySelectorAll('button, [role="button"], li, [data-animate-dropdown-item]');
+        for (const item of all) {
+          if (/photos|image|photo/i.test(item.textContent?.trim() || '')) {
+            clearInterval(check); resolve(item); return;
+          }
+        }
+
+        if (attempts >= maxAttempts) {
+          clearInterval(check);
+          resolve(null); // Menu item not found — proceed without it
+        }
+      }, 300);
+    });
   }
 
   // ── Wait for image preview overlay to appear ──────────────────
