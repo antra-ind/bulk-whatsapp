@@ -6,7 +6,7 @@
   "use strict";
 
   // Version must match manifest — allows re-injection after extension update
-  const SCRIPT_VERSION = "1.1.1";
+  const SCRIPT_VERSION = "1.1.2";
 
   // If same version already running, skip. If older version, let it re-register.
   if (window.__bulkWASenderVersion === SCRIPT_VERSION) return;
@@ -77,7 +77,7 @@
     await sleep(1500);
 
     if (attachment) {
-      // Step 2a: Attach file
+      // Step 2a: Attach file — this waits for the preview overlay to appear
       try {
         await sendFileViaAttachButton(attachment);
       } catch (err) {
@@ -87,11 +87,9 @@
         );
       }
 
-      // Wait for preview
-      await waitForAttachmentPreview();
       await sleep(1000);
 
-      // Type caption
+      // Type caption — the preview overlay should be visible now with a caption field
       let captionTyped = false;
       if (message) {
         captionTyped = await typeCaption(message);
@@ -221,27 +219,15 @@
     await clickSendButton();
   }
 
-  // ── Send file via attach button (primary) or fallbacks ──────
+  // ── Send file via paste (primary) or fallbacks ───────────────
   async function sendFileViaAttachButton(attachment) {
     const response = await fetch(attachment.dataUrl);
     const blob = await response.blob();
     const file = new File([blob], attachment.name, { type: attachment.type });
-
-    // Method 1 (Primary): Attach button → file input (matches actual WhatsApp Web flow)
-    const attached = await tryAttachButtonMethod(file);
-    if (attached && await waitForSendButton(5000)) return;
-
-    // Method 2 (Fallback): Drag and drop
     const dataUrl = await fileToDataUrl(file);
-    await callInject(
-      "__bulkWA_attachFile",
-      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "drop" },
-      "__bulkWA_attachResult"
-    );
-    await sleep(2000);
-    if (await waitForSendButton(3000)) return;
 
-    // Method 3 (Fallback): Clipboard paste
+    // Method 1 (Primary): Clipboard paste into compose box
+    // This triggers WhatsApp's preview overlay with caption field — same as Ctrl+V
     const composeBox =
       document.querySelector('[data-testid="conversation-compose-box-input"]') ||
       document.querySelector('div[contenteditable="true"][data-tab="10"]') ||
@@ -255,9 +241,22 @@
       "__bulkWA_attachResult"
     );
     await sleep(2000);
-    if (await waitForSendButton(3000)) return;
+    if (await waitForPreviewOverlay(5000)) return;
 
-    throw new Error("Could not attach file — all methods failed (attach button, drop, paste)");
+    // Method 2 (Fallback): Drag and drop
+    await callInject(
+      "__bulkWA_attachFile",
+      { fileData: dataUrl, fileName: file.name, fileType: file.type, method: "drop" },
+      "__bulkWA_attachResult"
+    );
+    await sleep(2000);
+    if (await waitForPreviewOverlay(5000)) return;
+
+    // Method 3 (Fallback): Attach button + file input
+    const attached = await tryAttachButtonMethod(file);
+    if (attached && await waitForPreviewOverlay(5000)) return;
+
+    throw new Error("Could not attach file — all methods failed (paste, drop, attach button)");
   }
 
   // ── Bridge: send command to inject.js (main world) and wait for result ──
@@ -323,23 +322,37 @@
     return result.success;
   }
 
-  // ── Wait for the send button to appear (attachment preview is ready) ──
-  function waitForSendButton(timeoutMs) {
+  // ── Wait for image preview overlay to appear ──────────────────
+  // When an image is pasted/dropped, WhatsApp shows a preview with a caption field.
+  // We detect this by looking for a NEW contenteditable that wasn't there before.
+  function waitForPreviewOverlay(timeoutMs) {
     return new Promise((resolve) => {
+      // Snapshot current editables so we can detect the new caption field
+      const existingEditables = new Set(
+        document.querySelectorAll('div[contenteditable="true"]')
+      );
       let elapsed = 0;
       const interval = 300;
       const check = setInterval(() => {
         elapsed += interval;
-        // WhatsApp Web's send button uses data-icon="wds-ic-send-filled"
-        const sendBtn =
-          document.querySelector('span[data-icon="wds-ic-send-filled"]') ||
-          document.querySelector('[data-testid="send"]') ||
-          document.querySelector('span[data-icon="send"]');
-        if (sendBtn) {
+
+        // Look for a NEW contenteditable (the caption input)
+        const allEditable = document.querySelectorAll('div[contenteditable="true"]');
+        for (const el of allEditable) {
+          if (!existingEditables.has(el)) {
+            clearInterval(check);
+            resolve(true);
+            return;
+          }
+        }
+
+        // Also check if the number of editables increased
+        if (allEditable.length > existingEditables.size) {
           clearInterval(check);
           resolve(true);
           return;
         }
+
         if (elapsed >= timeoutMs) {
           clearInterval(check);
           resolve(false);
@@ -348,34 +361,7 @@
     });
   }
 
-  // ── Wait for attachment preview (send button appears) ───────
-  function waitForAttachmentPreview() {
-    return new Promise((resolve) => {
-      let attempts = 0;
-      const maxAttempts = 20;
-
-      const check = setInterval(() => {
-        attempts++;
-
-        // The send button appearing means the preview is ready
-        const sendBtn =
-          document.querySelector('span[data-icon="wds-ic-send-filled"]') ||
-          document.querySelector('[data-testid="send"]') ||
-          document.querySelector('span[data-icon="send"]');
-
-        if (sendBtn) {
-          clearInterval(check);
-          resolve();
-          return;
-        }
-
-        if (attempts >= maxAttempts) {
-          clearInterval(check);
-          resolve();
-        }
-      }, 500);
-    });
-  }
+  // ── (removed — waitForAttachmentPreview is now handled by sendFileViaAttachButton) ──
 
   // ── Type caption in the attachment preview ───────────────────
   async function typeCaption(text) {
@@ -400,69 +386,42 @@
     return false;
   }
 
+  // ── Find the caption input in the preview overlay ───────────
   function waitForCaptionInput() {
     return new Promise((resolve) => {
       let attempts = 0;
-      const maxAttempts = 20; // 10 seconds
+      const maxAttempts = 15; // 7.5 seconds
 
-      // Snapshot the editables that exist BEFORE the attachment preview
-      // so we can detect the NEW one that appears for the caption.
-      const existingEditables = new Set(
-        document.querySelectorAll('div[contenteditable="true"]')
-      );
+      // The preview overlay is already visible at this point.
+      // The caption input is a contenteditable that is NOT the main compose box or search.
+      const mainCompose = document.querySelector('[data-testid="conversation-compose-box-input"]') ||
+        document.querySelector('div[contenteditable="true"][data-tab="10"]');
+      const searchBox = document.querySelector('[data-testid="chat-list-search"]') ||
+        document.querySelector('div[contenteditable="true"][data-tab="3"]');
 
       const check = setInterval(() => {
         attempts++;
 
-        // Strategy 1: Find a NEW contenteditable that wasn't there before
         const allEditable = document.querySelectorAll('div[contenteditable="true"]');
+
         for (const el of allEditable) {
-          if (!existingEditables.has(el)) {
+          if (el !== mainCompose && el !== searchBox &&
+              !el.closest('[data-testid="side"]') &&
+              !el.closest('header')) {
+            // This is the caption input
             clearInterval(check);
             resolve(el);
             return;
           }
         }
 
-        // Strategy 2 (after a few attempts): Look near the send button
-        if (attempts > 3) {
-          const wdsSend = document.querySelector('span[data-icon="wds-ic-send-filled"]');
-          if (wdsSend) {
-            // Walk up ancestors to find a container with a contenteditable
-            let parent = wdsSend.parentElement;
-            for (let i = 0; i < 10 && parent; i++) {
-              const editable = parent.querySelector('div[contenteditable="true"]');
-              if (editable) {
-                clearInterval(check);
-                resolve(editable);
-                return;
-              }
-              parent = parent.parentElement;
-            }
-          }
-        }
-
-        // Strategy 3 (fallback): Any contenteditable that is NOT the main compose box or search
-        if (attempts > 8) {
-          const mainCompose = document.querySelector('[data-testid="conversation-compose-box-input"]') ||
-            document.querySelector('div[contenteditable="true"][data-tab="10"]');
-          const searchBox = document.querySelector('[data-testid="chat-list-search"]') ||
-            document.querySelector('div[contenteditable="true"][data-tab="3"]');
-
-          for (const el of allEditable) {
-            if (el !== mainCompose && el !== searchBox &&
-                !el.closest('[data-testid="side"]') &&
-                !el.closest('header')) {
-              clearInterval(check);
-              resolve(el);
-              return;
-            }
-          }
-        }
-
         if (attempts >= maxAttempts) {
           clearInterval(check);
           resolve(null);
+        }
+      }, 500);
+    });
+  }
         }
       }, 500);
     });
