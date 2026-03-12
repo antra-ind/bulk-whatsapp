@@ -422,10 +422,6 @@
       }, 500);
     });
   }
-        }
-      }, 500);
-    });
-  }
 
   // ── Click send button (for media/attachment context) ─────────
   async function clickMediaSendButton() {
